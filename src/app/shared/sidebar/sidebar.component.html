@@ -1,0 +1,38 @@
+<nav id="navbar" class="navbar navbar-default">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-2">
+      <a [routerLink]="['details']" class="navbar-brand"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Back</a>
+    </div>
+
+    <div class="col-md-4 col-md-offset-2">
+      <ul id="navItems" class="nav navbar-nav">
+        <li class="nav-item"><button pButton type="button" class="raised-button" label="Save"></button></li>
+        <li class="nav-item"><button pButton type="button" class="ui-button-secondary raised-button" label="Cancel"></button></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<aside id="sidebar">
+  <div class="sidenav-outer">
+    <div class="menu-body">
+      <ul class="nav nav-pills nav-stacked sidenav">
+        <li>
+          <a [routerLink]="['']"><span>&nbsp; Basic</span></a>
+        </li>
+
+        <li>
+          <a [routerLink]="['']"><span>&nbsp; Skills</span></a>
+        </li>
+
+        <li>
+          <a [routerLink]="['']"><span>&nbsp; Experiance</span></a>
+        </li>
+
+        <li>
+          <a [routerLink]="['']"><span>&nbsp; Education</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</aside>
