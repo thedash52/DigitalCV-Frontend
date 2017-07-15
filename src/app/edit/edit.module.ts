@@ -6,14 +6,26 @@ import { ButtonModule } from 'primeng/primeng';
 
 import { EditComponent } from './edit.component';
 import { SidebarComponent } from '../shared/index';
+import { BasicModule } from './basic/index';
+import { SkillsModule } from './skills/index';
+import { ExperianceModule } from './experiance/index';
+import { EducationModule } from './education/index';
+import { OtherModule } from './other/index';
+import { EditService } from './edit.service';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    ButtonModule
+    ButtonModule,
+    BasicModule,
+    SkillsModule,
+    ExperianceModule,
+    EducationModule,
+    OtherModule
   ],
   declarations: [EditComponent, SidebarComponent],
-  exports: [EditComponent, SidebarComponent]
+  exports: [EditComponent, SidebarComponent],
+  providers: [EditService]
 })
 export class EditModule { }

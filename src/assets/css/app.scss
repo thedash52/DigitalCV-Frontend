@@ -1,97 +1,41 @@
 body {
-    background: #ecf0f1;
+  background: #ECF0F1;
+  a:hover,
+  a:focus {
+    text-decoration: none;
+  }
+  .card {
+    .card-header {
+      .card-title {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size: 1rem;
+      }
+    }
+  }
+  .carousel {
+    .carousel-control {
+      cursor: pointer;
+    }
+    .carousel-inner {
+      .fa-chevron-left:before {
+        position: absolute;
+        top: 47%;
+        left: 30px;
+      }
+      .fa-chevron-right:before {
+        position: absolute;
+        top: 47%;
+        right: 30px;
+      }
+    }
+  }
 }
 
 .main-container {
-    margin-left: 235px;
-    margin-top: 0;
-    padding: 10px;
-    overflow: visible;
-    background: #ECF0F1;
-}
-
-#sidebar {
-	width: 235px;
-	position: fixed;
-	top: 51px;
-	bottom: 0;
-	color: #FFF;
-	background: #2c3e50;
-	a {
-		cursor: pointer;
-	}
-	.sidenav-outer {
-		position: absolute;
-		top:0;
-		bottom:0;
-		left:0;
-		right: 0;
-		overflow: hidden;
-		.menu-body {
-			border-top: 1px solid rgba(255,255,255,.2);
-			.nav {
-				li {
-					border-bottom: 1px solid rgba(255,255,255,.2);
-					border-left: 3px solid transparent;
-					list-style-type: none;
-					.website-name {
-						padding: 15px;
-						display: block;
-						text-align: center;
-						font-size: 20px;
-						color: rgba(255,255,255,0.6);
-					}
-					.logo {
-						padding: 15px;
-						display: block;
-						text-align: center;
-						margin-left: -5px;
-						p {
-							margin-top: 15px;
-							margin-bottom: 5px;
-						}
-					}
-					a {
-						transition: all .2s ease-in-out;
-						display: block;
-						color: #FFF;
-						&:focus {
-							text-decoration: none;
-						}
-						i {
-							display: inline-block;
-						    width: 50px;
-						    text-align: center;
-						    font-size: 20px;
-						    transition: all .3s ease;
-						    line-height: 50px;
-						    vertical-align: middle;
-						}
-					}
-					& .submenu {
-						height: 0;
-						display: none;
-						transition: height .5s ease;
-					}
-					&.expand {
-						ul.submenu {
-							height: auto !important;
-							display: block !important;
-							margin-left: 9px;
-							li {
-								border-bottom: none;
-								padding: 5px 15px 15px;
-								a {
-									display: block;
-								}
-							}
-						}
-					}
-					&:first-child {
-						border-bottom: none;
-					}
-				}
-			}
-		}
-	}
+  margin-left: 235px;
+  margin-top: 0;
+  padding: 10px;
+  overflow: visible;
+  background: #ECF0F1;
 }

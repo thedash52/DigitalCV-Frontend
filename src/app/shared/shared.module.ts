@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/primeng';
+import { CvService } from './cv.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ButtonModule } from 'primeng/primeng';
     CommonModule,
     RouterModule,
     FormsModule
-  ]
+  ],
+  providers: [CvService]
 })
 export class SharedModule { }
