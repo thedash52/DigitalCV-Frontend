@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { BasicComponent } from './basic.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
-import { MdCardModule } from '@angular/material';
+import { MdCardModule, MdButtonModule } from '@angular/material';
+
+import { ButtonModule, InputTextModule, InputTextareaModule, DropdownModule, DataListModule } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
 import { CvService } from '../../shared/index';
@@ -13,7 +15,13 @@ import { CvService } from '../../shared/index';
     CommonModule,
     RouterModule,
     FormsModule,
-    MdCardModule
+    MdCardModule,
+    ButtonModule,
+    InputTextModule,
+    InputTextareaModule,
+    DropdownModule,
+    MdButtonModule,
+    DataListModule
   ],
   providers: [EditService, CvService],
   declarations: [BasicComponent],

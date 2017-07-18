@@ -3,37 +3,125 @@
     <div class="col-ld-12">
       <md-card class="card">
         <md-card-header>
-          <md-card-title>Basic Information</md-card-title>
+          <md-card-title>
+            <h4><b>Basic Information</b></h4>
+          </md-card-title>
         </md-card-header>
 
         <md-card-content>
           <form>
             <div class="row">
-              <div class="col-md-12 outline">
-                test
+              <div class="col-md-1 col-md-offset-1">
+                <p class="left-align">Avatar Image</p>
+              </div>
+
+              <div class="col-md-3 overlay" ng-click="">
+                <img src="http://placehold.it/350x350" alt="image" class="img-circle image">
+
+                <div class="image-overlay">
+                  <p class="overlay-text">Upload<br/>Avatar Image</p>
+                </div>
+              </div>
+
+              <div class="col-md-1 vr"></div>
+
+              <div class="col-md-1">
+                <p class="left-align">Profile Image</p>
+              </div>
+
+              <div class="col-md-3 overlay" ng-click="">
+                <img src="http://placehold.it/350x350" alt="image" class="img-circle image">
+
+                <div class="image-overlay">
+                  <p class="overlay-text">Upload<br/>Profile Image</p>
+                </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-12 outline">
-                test
+              <div class="col-md-3 border-right">
+                <div class="row no-border">
+                  <div class="col-md-4">
+                    <h5>Name:</h5>
+                  </div>
+
+                  <div class="col-md-8">
+                    <input name="nameInput" type="text" pInputText />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <h5>Address:</h5>
+                  </div>
+
+                  <div class="col-md-8">
+                    <input name="addressInput_1" type="text" pInputText />
+                    <input name="addressInput_2" type="text" pInputText class="address-input" />
+                    <input name="addressInput_3" type="text" pInputText />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <h5>City:</h5>
+                  </div>
+
+                  <div class="col-md-8">
+                    <input name="cityInput" type="text" pInputText />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="col-md-2">
+                  <h5>Phone:</h5>
+                </div>
+
+                <div class="col-md-10">
+                  <div class="row no-border">
+                    <div class="col-md-4">
+                      <p-dropdown name="phoneTypeInput" [options]="phoneTypes" [(ngModel)]="selectedPhoneTypes"></p-dropdown>
+                    </div>
+
+                    <div class="col-md-6">
+                      <input name="phoneInput" type="text" pInputText [(ngModel)]="newNumber" />
+                    </div>
+
+                    <div class="col-md-2">
+                      <button name="addNumberButton" pButton type="button" class="raised-button" (click)="AddNumber()" icon="fa-plus"></button>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <p-dataList name="numberList" [value]="phoneNum">
+                      <ng-template let-number pTemplate="item">
+                        <div class="col-md-4">
+                          {{number.type}}:
+                        </div>
+
+                        <div class="col-md-8">
+                          {{number.number}}
+                        </div>
+                      </ng-template>
+                    </p-dataList>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-5 border-left">
+                <div class="col-md-3">
+                  <h3>Summary:</h3>
+                </div>
+
+                <div class="col-md-9">
+                  <textarea name="summaryInput" pInputTextarea class="summary-input"></textarea>
+                </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-12 outline">
-                test
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12 outline">
-                test
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12 outline">
+              <div class="col-md-12">
                 test
               </div>
             </div>

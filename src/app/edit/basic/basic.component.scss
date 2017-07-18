@@ -1,9 +1,75 @@
 .row {
-  border-top: 1px gray solid;
+  border-top: 1px lightgray solid;
   padding-top: 0.75em;
   padding-bottom: 0.75em;
 }
 
+.no-border {
+  border: 0;
+}
+
 .card {
-    padding-bottom: 0;
+  padding-bottom: 0;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.image-overlay {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.overlay-text {
+  text-align: center;
+  font-size: 2em;
+}
+
+.raised-button {
+  box-shadow: 0 0 1px 0 grey;
+}
+
+.overlay:hover .image {
+  opacity: 0.3;
+}
+
+.overlay:hover .image-overlay {
+  opacity: 1;
+}
+
+.vr {
+  border-right: 1px lightgray solid;
+  height: 22.5em;
+}
+
+.summary-input {
+  width: 100%;
+  height: 16.25em;
+}
+
+.border-right {
+  border-right: 1px lightgray solid
+}
+
+.border-left {
+  border-left: 1px lightgray solid;
+}
+
+.address-input {
+  margin: 0.5em 0;
+}
+
+.left-align {
+  text-align: left;
 }
