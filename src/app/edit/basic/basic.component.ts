@@ -16,17 +16,18 @@ export class BasicComponent implements OnInit {
 
   phoneTypes: SelectItem[];
   phoneNum: any[];
-  selectedPhoneTypes: SelectItem;
+  selectedPhoneType: any;
 
   newNumber: number;
 
   ngOnInit() {
     this.phoneTypes = [];
     this.phoneNum = [];
+    this.selectedPhoneType = null;
 
-    this.phoneTypes.push({ label: 'Mobile', value: 'm' });
-    this.phoneTypes.push({ label: 'Home', value: 'h' });
-    this.phoneTypes.push({ label: 'Work', value: 'w' });
+    this.phoneTypes.push({ label: 'Mobile', value: { short: 'm', long: 'Mobile'} });
+    this.phoneTypes.push({ label: 'Home', value: { short: 'h', long: 'Home'} });
+    this.phoneTypes.push({ label: 'Work', value: { short: 'w', long: 'Work'} });
 
     if (!this.editService.inUse) {
 
@@ -34,6 +35,15 @@ export class BasicComponent implements OnInit {
   }
 
   AddNumber() {
-    this.phoneNum.push({ type: this.selectedPhoneTypes.label, number: this.newNumber});
+    console.log(this.selectedPhoneType);
+    this.phoneNum.push({ type: this.selectedPhoneType, number: this.newNumber});
+  }
+
+  UploadAvatar() {
+
+  }
+
+  UploadProfile() {
+
   }
 }

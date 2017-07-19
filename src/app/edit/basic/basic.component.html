@@ -15,7 +15,7 @@
                 <p class="left-align">Avatar Image</p>
               </div>
 
-              <div class="col-md-3 overlay" ng-click="">
+              <div class="col-md-3 overlay" ng-click="UploadAvatar()">
                 <img src="http://placehold.it/350x350" alt="image" class="img-circle image">
 
                 <div class="image-overlay">
@@ -29,7 +29,7 @@
                 <p class="left-align">Profile Image</p>
               </div>
 
-              <div class="col-md-3 overlay" ng-click="">
+              <div class="col-md-3 overlay" ng-click="UploadProfile()">
                 <img src="http://placehold.it/350x350" alt="image" class="img-circle image">
 
                 <div class="image-overlay">
@@ -81,7 +81,7 @@
                 <div class="col-md-10">
                   <div class="row no-border">
                     <div class="col-md-4">
-                      <p-dropdown name="phoneTypeInput" [options]="phoneTypes" [(ngModel)]="selectedPhoneTypes"></p-dropdown>
+                      <p-dropdown name="phoneTypeInput" [options]="phoneTypes" [(ngModel)]="selectedPhoneType" placeholder="Select Type"></p-dropdown>
                     </div>
 
                     <div class="col-md-6">
@@ -97,7 +97,7 @@
                     <p-dataList name="numberList" [value]="phoneNum">
                       <ng-template let-number pTemplate="item">
                         <div class="col-md-4">
-                          {{number.type}}:
+                          {{number.type.long}}:
                         </div>
 
                         <div class="col-md-8">
@@ -111,11 +111,11 @@
 
               <div class="col-md-5 border-left">
                 <div class="col-md-3">
-                  <h3>Summary:</h3>
+                  <h5>Summary:</h5>
                 </div>
 
                 <div class="col-md-9">
-                  <textarea name="summaryInput" pInputTextarea class="summary-input"></textarea>
+                  <textarea name="summaryInput" pInputTextarea rows="11" class="summary-input"></textarea>
                 </div>
               </div>
             </div>

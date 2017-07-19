@@ -1,16 +1,152 @@
 <div class="animate">
   <div class="container-fluid">
-    <div class="col-ld-12">
+    <div class="col-lg-12">
       <md-card>
         <md-card-header>
-          <md-card-title>Other Details</md-card-title>
+          <md-card-title>
+            <h4><b>Other Details</b></h4>
+          </md-card-title>
         </md-card-header>
 
         <md-card-content>
           <form>
             <div class="row">
-              <div class="">
+              <div class="col-md-8 border-right">
+                <h5>Personal Achiements</h5>
 
+                <div class="col-md-6 border-right border-top">
+                  <div class="row no-border">
+                    <div class="col-md-4">
+                      <h5>Name:</h5>
+                    </div>
+
+                    <div class="col-md-8">
+                      <input name="nameInput" type="text" pInputText [(ngModel)]="achievementName" />
+                    </div>
+                  </div>
+
+                  <div class="row no-border">
+                    <div class="col-md-4">
+                      <h5>Where:</h5>
+                    </div>
+
+                    <div class="col-md-8">
+                      <input name="whereInput" type="text" pInputText [(ngModel)]="achievementWhere" />
+                    </div>
+                  </div>
+
+                  <div class="row no-border">
+                    <div class="col-md-4">
+                      <h5>What/Why:</h5>
+                    </div>
+
+                    <div class="col-md-8">
+                      <textarea name="whatWhyInput" pInputTextarea rows="5" cols="40" [(ngModel)]="achievementWhatWhy"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <button name="achievementButton" pButton type="button" class="raised-button right-align-button" (click)="AddAchievement()"
+                      label="Add Acheivement"></button>
+                  </div>
+                </div>
+
+                <div class="col-md-6 border-top achievement-list">
+                  <p-dataList [value]="achievements" [paginator]="true" [alwaysShowPaginator]="false" [rows]="3">
+                    <ng-template let-achievement pTemplate="item">
+                      <div class="row no-border achievement-details">
+                        <div class="col-md-6">
+                          <p class="text-center">
+                            {{achievement.name}}
+                          </p>
+                        </div>
+
+                        <div class="col-md-6">
+                          <p class="text-center">
+                            {{achievement.where}}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="row no-border achievement-details">
+                        <div class="col-md-12">
+                          <p class="text-center">
+                            {{achievement.whatWhy}}
+                          </p>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </p-dataList>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="row no-border no-top-padding padding-left">
+                  <div class="row no-border padding-left">
+                    <h5>Interests and Hobbies</h5>
+                  </div>
+
+                  <div class="row padding-left">
+                    <div class="col-md-4">
+                      <button pButton type="button" class="raised-button extend-input" (click)="AddImage()" label="Add Image"></button>
+                    </div>
+
+                    <div class="col-md-1 no-padding-right no-padding-left">
+                      <img src="{{interestImage}}" height="30" width="30" *ngIf="interestImage">
+                    </div>
+
+                    <div class="col-md-5 no-padding-right">
+                      <input name="interestHobbyInput" pInputText class="extend-input" [(ngModel)]="interestName" placeholder="Interest/Hobby Name"
+                      />
+                    </div>
+
+                    <div class="col-md-1">
+                      <button pButton type="button" class="raised-button" (click)="AddInterestHobby()" icon="fa-plus"></button>
+                    </div>
+                  </div>
+
+                  <div class="row padding-left">
+                    <p-dataList [value]="interestsHobbies">
+                      <ng-template let-interest pTemplate="item">
+                        <div class="row no-border">
+                          <div class="col-md-2">
+                            <img src="{{interest.img}}" height="30" width="30" *ngIf="interest.img">
+                          </div>
+
+                          <div class="col-md-10">
+                            <p>{{interest.name}}
+                          </div>
+                        </div>
+                      </ng-template>
+                    </p-dataList>
+                  </div>
+                </div>
+
+                <div class="row padding-left">
+                  <h5>Other Options</h5>
+
+                  <div class="col-md-12 border-top text-center">
+                    <md-checkbox>Show Referees?</md-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                File Uploading
+              </div>
+
+              <div class="col-md-8 border-left">
+                <p-dataGrid [value]="uploadedFiles">
+                  <ng-template let-file pTemplate="item">
+                    <div class="panel-padding">
+                      <p-panel [header]="file.name" class="panel-text-align">
+                        <img src="{{file.thumbnail}}" width="60" height="60">
+                      </p-panel>
+                    </div>
+                  </ng-template>
+                </p-dataGrid>
               </div>
             </div>
           </form>
