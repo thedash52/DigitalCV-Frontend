@@ -12,6 +12,7 @@ import { ExperianceModule } from './experiance/index';
 import { EducationModule } from './education/index';
 import { OtherModule } from './other/index';
 import { EditService } from './edit.service';
+import { CvService } from '../shared/index';
 
 @NgModule({
   imports: [
@@ -26,6 +27,6 @@ import { EditService } from './edit.service';
   ],
   declarations: [EditComponent, SidebarComponent],
   exports: [EditComponent, SidebarComponent],
-  providers: [EditService]
+  providers: [EditService, CvService]
 })
 export class EditModule { }

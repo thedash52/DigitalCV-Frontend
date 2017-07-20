@@ -5,6 +5,9 @@ import { SelectItem } from 'primeng/primeng';
 import { EditService } from '../edit.service';
 import { CvService } from '../../shared/index';
 
+import { PhoneNumberModel } from '../../shared/models/phoneNumberModel';
+import { PhoneTypeModel } from '../../shared/models/phoneTypeModel';
+
 @Component({
   selector: 'app-basic',
   templateUrl: './basic.component.html',
@@ -14,16 +17,16 @@ export class BasicComponent implements OnInit {
 
   constructor(private editService: EditService, private cvService: CvService) { }
 
-  phoneTypes: SelectItem[];
-  phoneNum: any[];
+  phoneTypes: PhoneTypeModel[] = [];
+  phoneNum: PhoneNumberModel[] = [];
   selectedPhoneType: any;
 
   newNumber: number;
 
   ngOnInit() {
-    this.phoneTypes = [];
-    this.phoneNum = [];
-    this.selectedPhoneType = null;
+    this.editService.getPhoneNumbers().subscribe(phoneNumbers => {
+      this.phoneNum = phoneNumbers;
+    });
 
     this.phoneTypes.push({ label: 'Mobile', value: { short: 'm', long: 'Mobile'} });
     this.phoneTypes.push({ label: 'Home', value: { short: 'h', long: 'Home'} });
@@ -35,15 +38,14 @@ export class BasicComponent implements OnInit {
   }
 
   AddNumber() {
-    console.log(this.selectedPhoneType);
-    this.phoneNum.push({ type: this.selectedPhoneType, number: this.newNumber});
+    this.editService.addPhoneNumber({ type: this.selectedPhoneType, number: this.newNumber});
   }
 
   UploadAvatar() {
-
+    console.log("Uploading Avatar");
   }
 
   UploadProfile() {
-
+    console.log("Uploading Profile");    
   }
 }

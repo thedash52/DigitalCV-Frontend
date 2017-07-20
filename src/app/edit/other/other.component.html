@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="col-md-6 border-top achievement-list">
-                  <p-dataList [value]="achievements" [paginator]="true" [alwaysShowPaginator]="false" [rows]="3">
+                  <p-dataList [value]="achievements">
                     <ng-template let-achievement pTemplate="item">
                       <div class="row no-border achievement-details">
                         <div class="col-md-6">
@@ -126,7 +126,7 @@
                   <h5>Other Options</h5>
 
                   <div class="col-md-12 border-top text-center">
-                    <md-checkbox>Show Referees?</md-checkbox>
+                    <md-checkbox name="showReferees" [(ngModel)]="editService.showReferees">Show Referees?</md-checkbox>
                   </div>
                 </div>
               </div>

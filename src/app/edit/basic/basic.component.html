@@ -15,7 +15,7 @@
                 <p class="left-align">Avatar Image</p>
               </div>
 
-              <div class="col-md-3 overlay" ng-click="UploadAvatar()">
+              <div class="col-md-3 overlay" (click)="UploadAvatar()">
                 <img src="http://placehold.it/350x350" alt="image" class="img-circle image">
 
                 <div class="image-overlay">
@@ -29,7 +29,7 @@
                 <p class="left-align">Profile Image</p>
               </div>
 
-              <div class="col-md-3 overlay" ng-click="UploadProfile()">
+              <div class="col-md-3 overlay" (click)="UploadProfile()">
                 <img src="http://placehold.it/350x350" alt="image" class="img-circle image">
 
                 <div class="image-overlay">
@@ -46,7 +46,7 @@
                   </div>
 
                   <div class="col-md-8">
-                    <input name="nameInput" type="text" pInputText />
+                    <input name="nameInput" type="text" pInputText [(ngModel)]="editService.name" />
                   </div>
                 </div>
 
@@ -56,9 +56,9 @@
                   </div>
 
                   <div class="col-md-8">
-                    <input name="addressInput_1" type="text" pInputText />
-                    <input name="addressInput_2" type="text" pInputText class="address-input" />
-                    <input name="addressInput_3" type="text" pInputText />
+                    <input name="addressInput_1" type="text" pInputText [(ngModel)]="editService.address1" />
+                    <input name="addressInput_2" type="text" pInputText class="address-input" [(ngModel)]="editService.address2" />
+                    <input name="addressInput_3" type="text" pInputText [(ngModel)]="editService.address3" />
                   </div>
                 </div>
 
@@ -68,7 +68,7 @@
                   </div>
 
                   <div class="col-md-8">
-                    <input name="cityInput" type="text" pInputText />
+                    <input name="cityInput" type="text" pInputText [(ngModel)]="editService.city" />
                   </div>
                 </div>
               </div>
@@ -85,7 +85,7 @@
                     </div>
 
                     <div class="col-md-6">
-                      <input name="phoneInput" type="text" pInputText [(ngModel)]="newNumber" />
+                      <input name="phoneInput" type="tel" pInputText [(ngModel)]="newNumber" />
                     </div>
 
                     <div class="col-md-2">
@@ -96,12 +96,14 @@
                   <div class="row">
                     <p-dataList name="numberList" [value]="phoneNum">
                       <ng-template let-number pTemplate="item">
-                        <div class="col-md-4">
-                          {{number.type.long}}:
-                        </div>
+                        <div class="row no-border">
+                          <div class="col-md-4">
+                            {{number.type.long}}:
+                          </div>
 
-                        <div class="col-md-8">
-                          {{number.number}}
+                          <div class="col-md-8">
+                            {{number.number}}
+                          </div>
                         </div>
                       </ng-template>
                     </p-dataList>
@@ -115,7 +117,7 @@
                 </div>
 
                 <div class="col-md-9">
-                  <textarea name="summaryInput" pInputTextarea rows="11" class="summary-input"></textarea>
+                  <textarea name="summaryInput" pInputTextarea rows="11" class="summary-input" [(ngModel)]="editService.summary"></textarea>
                 </div>
               </div>
             </div>
