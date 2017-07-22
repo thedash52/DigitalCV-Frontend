@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { MdCardModule } from '@angular/material';
 
+import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+
 import { EditService } from '../edit.service';
 import { CvService } from '../../shared/index';
 
@@ -13,9 +15,14 @@ import { CvService } from '../../shared/index';
     CommonModule,
     RouterModule,
     FormsModule,
-    MdCardModule
+    MdCardModule,
+    DataTableModule,
+    SharedModule,
+    DialogModule,
+    ButtonModule,
+    ConfirmDialogModule
   ],
-  providers: [EditService, CvService],
+  providers: [EditService, CvService, ConfirmationService],
   declarations: [EducationComponent],
   exports: [EducationComponent]
 })

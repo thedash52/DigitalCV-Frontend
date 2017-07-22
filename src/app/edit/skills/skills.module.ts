@@ -4,6 +4,7 @@ import { SkillsComponent } from './skills.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { MdCardModule } from '@angular/material';
+import { DataListModule } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
 import { CvService } from '../../shared/index';
@@ -13,7 +14,8 @@ import { CvService } from '../../shared/index';
     CommonModule,
     RouterModule,
     FormsModule,
-    MdCardModule
+    MdCardModule,
+    DataListModule
   ],
   providers: [EditService, CvService],
   declarations: [SkillsComponent],

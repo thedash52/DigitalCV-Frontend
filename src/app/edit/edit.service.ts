@@ -6,6 +6,7 @@ import { AchievementModel } from '../shared/models/achievementModel';
 import { InterestHobbiesModel } from '../shared/models/interestHobbiesModel';
 import { UploadFileModel } from '../shared/models/uploadFileModel';
 import { PhoneNumberModel } from '../shared/models/phoneNumberModel';
+import { EducationModel } from '../shared/models/educationModel';
 
 @Injectable()
 export class EditService {
@@ -33,6 +34,20 @@ export class EditService {
     newList.push(newPhoneNum);
 
     this.phoneNum.next(newList);
+  }
+
+  //Education Page Data
+  educationList: BehaviorSubject<EducationModel[]> = new BehaviorSubject([]);
+
+  getEducationList() {
+    return this.educationList.asObservable();
+  }
+
+  deleteEducationRecord(row) {
+    let newList: EducationModel[] = this.educationList.getValue();
+    newList.splice(row, 1);
+
+    this.educationList.next(newList);
   }
 
   // Other Page Data

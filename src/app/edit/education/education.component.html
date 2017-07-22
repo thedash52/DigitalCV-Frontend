@@ -1,18 +1,109 @@
 <div class="animate">
   <div class="container-fluid">
-    <div class="col-ld-12">
+    <div class="col-lg-12">
       <md-card>
         <md-card-header>
-          <md-card-title>Education</md-card-title>
+          <md-card-title>
+            <h4><b>Education</b></h4>
+          </md-card-title>
         </md-card-header>
 
         <md-card-content>
           <form>
             <div class="row">
-              <div class="">
+              <div class="col-md-12">
+                <p-dataTable [value]="educationList" selectionMode="single" [(selection)]="selectedCourse" (onRowSelect)="courseSelected($event)"
+                  (onRowUnselect)="courseUnselected($event)" sortField="year" rowGroupMode="subheader" groupField="year" [metaKeySelection]="false">
+                  <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['year']}}</ng-template>
 
+                  <p-column field="img" header="Image" styleClass="text-center">
+                    <ng-template let-img let-education="rowData" pTemplate="body">
+                      <img src="{{education[img.field]}}" height="60" width="60">
+                    </ng-template>
+                  </p-column>
+
+                  <p-column field="course" header="Course" styleClass="text-center"></p-column>
+
+                  <p-column field="school" header="School" styleClass="text-center"></p-column>
+
+                  <p-column field="src" header="Course Link" styleClass="text-center"></p-column>
+
+                  <p-column header="Actions" styleClass="text-column">
+                    <ng-template let-education="rowData" let-row="rowIndex" pTemplate="body">
+                      <button type="button" pButton (click)="editCourseDetails(row, education)" icon="fa-pencil"></button>
+                      <button type="button" pButton (click)="deleteCourse(row)" icon="fa-trash-o"></button>
+                    </ng-template>
+                  </p-column>
+                </p-dataTable>
               </div>
             </div>
+
+            <p-confirmDialog header="Delete Record" icon="fa fa-question-circle"></p-confirmDialog>
+
+            <p-dialog [(visible)]="showPapers" modal="true" [draggable]="false" [closable]="false">
+              <p-header>
+                Course Papers for {{selectedCourse.course}}
+              </p-header>
+
+              <p-dataTable [value]="selectedCourse.papers">
+                <p-column field="code" header="Paper Code" styleClass="text-center"></p-column>
+                <p-column field="name" header="Paper Name" styleClass="text-center"></p-column>
+                <p-column field="details" header="Paper Details" styleClass="text-center"></p-column>
+                <p-column field="grade" header="Overall Paper Grade" styleClass="text-center"></p-column>
+              </p-dataTable>
+
+              <p-footer>
+                <button type="button" pButton label="Close" (click)="closePapersDialog()"></button>
+              </p-footer>
+            </p-dialog>
+
+            <p-dialog [(visible)]="editDetails" modal="true" [draggable]="false" [closable]="false">
+              <p-header>
+                Edit {{selectedCourse.course}} Details
+              </p-header>
+
+              <div class="container-fluid">
+                <div class="row no-border">
+                  <div class="col-md-4 col-md-offset-4 overlay" (click)="uploadImage()">
+                    <img src="{{selectedCourse.img}}" width="60" height="60" class="image">
+
+                    <div class="image-overlay">
+                      <p class="overlay-text">Upload<br/>Course Image</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  test
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <p-dataTable [value]="selectedCourse.papers" [editable]="true">
+                      <p-column field="code" header="Paper Code" styleClass="text-center" [editable]="true"></p-column>
+                      <p-column field="name" header="Paper Name" styleClass="text-center" [editable]="true"></p-column>
+                      <p-column field="details" header="Paper Details" styleClass="text-center" [editable]="true"></p-column>
+                      <p-column field="grade" header="Overall Paper Grade" styleClass="text-center" [editable]="true"></p-column>
+
+                      <p-column header="Actions" styleClass="text-center">
+                        <ng-template let-row="rowIndex" pTemplate="body">
+                          <button type="button" pButton (click)="deletePaper(row)" icon="fa-trash-o"></button>
+                        </ng-template>
+                      </p-column>
+
+                      <p-footer>
+                        <button type="button" pButton label="Add Paper" (click)="addPaper()"></button>
+                      </p-footer>
+                    </p-dataTable>
+                  </div>
+                </div>
+              </div>
+
+              <p-footer>
+                <button type="button" pButton label="Done" (click)="saveAndCloseEditDialog()"></button>
+                <button type="button" pButton label="Cancel" (click)="closeEditDialog()"></button>
+              </p-footer>
+            </p-dialog>
           </form>
         </md-card-content>
       </md-card>
