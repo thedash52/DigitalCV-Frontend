@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { ConfirmationService } from 'primeng/primeng';
 import { EditService } from '../edit.service';
@@ -22,26 +23,24 @@ export class EducationComponent implements OnInit {
 
   editDetails: boolean = false;
   showPapers: boolean = false;
+  addCourse: boolean = false;
 
   ngOnInit() {
     this.editService.getEducationList().subscribe(educationList => {
-      this.educationList = educationList;
+      this.educationList = [...educationList];
     });
-
-    var coursePapers: CoursePaperModel[] = [];
-    coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
-    coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
-    coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
-    coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
-
-    this.educationList.push({ img: "http://placehold.it/60x60", course: "Test Course 1", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2016, papers: coursePapers });
-    this.educationList.push({ img: "http://placehold.it/60x60", course: "Test Course 2", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2016, papers: coursePapers });
-    this.educationList.push({ img: "http://placehold.it/60x60", course: "Test Course 3", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2015, papers: coursePapers });
-    this.educationList.push({ img: "http://placehold.it/60x60", course: "Test Course 4", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2016, papers: coursePapers });
 
     if (!this.editService.inUse) {
 
     }
+  }
+
+  newCourse() {
+    this.selectedCourse = new EducationModel();
+    this.selectedCourse.img = "http://placehold.it/60x60";
+    this.selectedCourse.papers = [];
+
+    this.addCourse = true;
   }
 
   courseSelected($event) {
@@ -53,14 +52,29 @@ export class EducationComponent implements OnInit {
     this.showPapers = false;
   }
 
-  editCourseDetails(row: number, course: EducationModel) {
+  editCourseDetails(course: EducationModel) {
     this.selectedCourse = course;
+
+    let row = this.educationList.indexOf(course);
+
     this.selectedRow = row;
     this.editDetails = true;
   }
 
+  addAndCloseAddDialog() {
+    this.editService.addEducationRecord(this.selectedCourse);
+
+    this.selectedCourse = new EducationModel();
+    this.addCourse = false;
+  }
+
+  closeAddDialog() {
+    this.selectedCourse = new EducationModel();
+    this.addCourse = false;
+  }
+
   saveAndCloseEditDialog() {
-    this.educationList.splice(this.selectedRow, 1, this.selectedCourse);
+    this.editService.editEducationRecord(this.selectedRow, this.selectedCourse);
 
     this.selectedCourse = new EducationModel();
     this.selectedRow = null;
@@ -73,32 +87,31 @@ export class EducationComponent implements OnInit {
     this.editDetails = false;
   }
 
-  deleteCourse(row) {
+  deleteCourse(course: EducationModel) {
     this.confirmationService.confirm({
       message: 'Are you sure you would like to delete this record?',
       accept: () => {
-        this.editService.deleteEducationRecord(row);
-
-        console.log(this.educationList);
-        // this.educationList.splice(row, 1);
+        this.editService.deleteEducationRecord(course);
       }
     });
   }
 
   addPaper() {
-    this.selectedCourse.papers.push({code: "", name: "", details: "", grade: ""});
+    let newPapers: CoursePaperModel[] = this.selectedCourse.papers;
+    newPapers.push({ code: "", name: "", details: "", grade: "" });
+
+    this.selectedCourse.papers = [...newPapers];
   }
 
   deletePaper(row) {
     let newPaperList: CoursePaperModel[] = this.selectedCourse.papers;
     newPaperList.splice(row, 1);
 
-    this.selectedCourse.papers = newPaperList;
-
-    console.log(this.selectedCourse.papers);
+    this.selectedCourse.papers = [];
+    this.selectedCourse.papers = [...newPaperList];
   }
 
   uploadImage() {
-    
+
   }
 }

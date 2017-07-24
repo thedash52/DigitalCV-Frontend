@@ -7,11 +7,23 @@ import { InterestHobbiesModel } from '../shared/models/interestHobbiesModel';
 import { UploadFileModel } from '../shared/models/uploadFileModel';
 import { PhoneNumberModel } from '../shared/models/phoneNumberModel';
 import { EducationModel } from '../shared/models/educationModel';
+import { CoursePaperModel } from '../shared/models/coursePaperModel';
 
 @Injectable()
 export class EditService {
 
-  constructor() { }
+  constructor() { 
+    var coursePapers: CoursePaperModel[] = [];
+      coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
+      coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
+      coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
+      coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
+
+      this.addEducationRecord({ img: "http://placehold.it/60x60", course: "Test Course 1", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2016, papers: coursePapers });
+      this.addEducationRecord({ img: "http://placehold.it/60x60", course: "Test Course 2", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2016, papers: coursePapers });
+      this.addEducationRecord({ img: "http://placehold.it/60x60", course: "Test Course 3", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2015, papers: coursePapers });
+      this.addEducationRecord({ img: "http://placehold.it/60x60", course: "Test Course 4", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2016, papers: coursePapers });
+   }
 
   inUse: Boolean = false;
   // Basic Page Data
@@ -43,8 +55,26 @@ export class EditService {
     return this.educationList.asObservable();
   }
 
-  deleteEducationRecord(row) {
+  addEducationRecord(course: EducationModel) {
     let newList: EducationModel[] = this.educationList.getValue();
+
+    newList.push(course);
+
+    this.educationList.next(newList);
+  }
+
+  editEducationRecord(row: number, course: EducationModel) {
+    let newList: EducationModel[] = this.educationList.getValue();
+
+    newList.splice(row, 1, course);
+
+    this.educationList.next(newList);
+  }
+
+  deleteEducationRecord(course: EducationModel) {
+    let newList: EducationModel[] = this.educationList.getValue();
+    let row = newList.indexOf(course);
+
     newList.splice(row, 1);
 
     this.educationList.next(newList);

@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { MdCardModule } from '@angular/material';
 
-import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
 import { CvService } from '../../shared/index';
@@ -20,7 +20,8 @@ import { CvService } from '../../shared/index';
     SharedModule,
     DialogModule,
     ButtonModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    InputTextModule
   ],
   providers: [EditService, CvService, ConfirmationService],
   declarations: [EducationComponent],

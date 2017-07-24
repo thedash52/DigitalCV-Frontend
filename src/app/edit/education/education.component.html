@@ -6,6 +6,10 @@
           <md-card-title>
             <h4><b>Education</b></h4>
           </md-card-title>
+
+          <div class="col-md-3 col-md-offset-9">
+            <button type="button" pButton class="raised-button" (click)="newCourse()" label="Add Course"></button>
+          </div>
         </md-card-header>
 
         <md-card-content>
@@ -13,7 +17,7 @@
             <div class="row">
               <div class="col-md-12">
                 <p-dataTable [value]="educationList" selectionMode="single" [(selection)]="selectedCourse" (onRowSelect)="courseSelected($event)"
-                  (onRowUnselect)="courseUnselected($event)" sortField="year" rowGroupMode="subheader" groupField="year" [metaKeySelection]="false">
+                  (onRowUnselect)="courseUnselected($event)" sortField="year" sortOrder="-1" rowGroupMode="subheader" groupField="year" [metaKeySelection]="false">
                   <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['year']}}</ng-template>
 
                   <p-column field="img" header="Image" styleClass="text-center">
@@ -29,9 +33,9 @@
                   <p-column field="src" header="Course Link" styleClass="text-center"></p-column>
 
                   <p-column header="Actions" styleClass="text-column">
-                    <ng-template let-education="rowData" let-row="rowIndex" pTemplate="body">
-                      <button type="button" pButton (click)="editCourseDetails(row, education)" icon="fa-pencil"></button>
-                      <button type="button" pButton (click)="deleteCourse(row)" icon="fa-trash-o"></button>
+                    <ng-template let-education="rowData" pTemplate="body">
+                      <button type="button" pButton (click)="editCourseDetails(education)" icon="fa-pencil"></button>
+                      <button type="button" pButton (click)="deleteCourse(education)" icon="fa-trash-o"></button>
                     </ng-template>
                   </p-column>
                 </p-dataTable>
@@ -57,6 +61,7 @@
               </p-footer>
             </p-dialog>
 
+            <!-- Edit Course -->
             <p-dialog [(visible)]="editDetails" modal="true" [draggable]="false" [closable]="false">
               <p-header>
                 Edit {{selectedCourse.course}} Details
@@ -64,8 +69,8 @@
 
               <div class="container-fluid">
                 <div class="row no-border">
-                  <div class="col-md-4 col-md-offset-4 overlay" (click)="uploadImage()">
-                    <img src="{{selectedCourse.img}}" width="60" height="60" class="image">
+                  <div class="col-md-2 col-md-offset-5 overlay" (click)="uploadImage()">
+                    <img src="{{selectedCourse.img}}" class="image">
 
                     <div class="image-overlay">
                       <p class="overlay-text">Upload<br/>Course Image</p>
@@ -73,13 +78,57 @@
                   </div>
                 </div>
 
-                <div class="row">
-                  test
-                </div>
+                <form>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row no-border">
+                        <div class="col-md-3 col-md-offset-2">
+                          <h5>Course Name:</h5>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-1">
+                          <input name="courseNameInput" type="text" pInputText [(ngModel)]="selectedCourse.course">
+                        </div>
+                      </div>
+
+                      <div class="row no-border">
+                        <div class="col-md-3 col-md-offset-2">
+                          <h5>Insitute/Collage:</h5>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-1">
+                          <input name="schoolInput" type="text" pInputText [(ngModel)]="selectedCourse.school">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row no-border">
+                        <div class="col-md-3 col-md-offset-2">
+                          <h5>Year Completed:</h5>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-1">
+                          <input name="yearInput" type="text" pInputText [(ngModel)]="selectedCourse.year">
+                        </div>
+                      </div>
+
+                      <div class="row no-border">
+                        <div class="col-md-3 col-md-offset-2">
+                          <h5>Related Link:</h5>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-1">
+                          <input name="linkInput" type="text" pInputText [(ngModel)]="selectedCourse.src">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
 
                 <div class="row">
                   <div class="col-md-12">
-                    <p-dataTable [value]="selectedCourse.papers" [editable]="true">
+                    <p-dataTable [value]="selectedCourse.papers" [editable]="true" scrollable="true" scrollHeight="10.1em">
                       <p-column field="code" header="Paper Code" styleClass="text-center" [editable]="true"></p-column>
                       <p-column field="name" header="Paper Name" styleClass="text-center" [editable]="true"></p-column>
                       <p-column field="details" header="Paper Details" styleClass="text-center" [editable]="true"></p-column>
@@ -102,6 +151,99 @@
               <p-footer>
                 <button type="button" pButton label="Done" (click)="saveAndCloseEditDialog()"></button>
                 <button type="button" pButton label="Cancel" (click)="closeEditDialog()"></button>
+              </p-footer>
+            </p-dialog>
+
+            <!-- Add Course -->
+            <p-dialog [(visible)]="addCourse" modal="true" [draggable]="false" [closable]="false">
+              <p-header>
+                Add Course
+              </p-header>
+
+              <div class="container-fluid">
+                <div class="row no-border">
+                  <div class="col-md-2 col-md-offset-5 overlay" (click)="uploadImage()">
+                    <img src="{{selectedCourse.img}}" alt="No Image" class="image">
+
+                    <div class="image-overlay">
+                      <p class="overlay-text">Upload<br/>Course Image</p>
+                    </div>
+                  </div>
+                </div>
+
+                <form>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row no-border">
+                        <div class="col-md-3 col-md-offset-2">
+                          <h5>Course Name:</h5>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-1">
+                          <input name="courseNameInput" type="text" pInputText [(ngModel)]="selectedCourse.course">
+                        </div>
+                      </div>
+
+                      <div class="row no-border">
+                        <div class="col-md-3 col-md-offset-2">
+                          <h5>Insitute/Collage:</h5>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-1">
+                          <input name="schoolInput" type="text" pInputText [(ngModel)]="selectedCourse.school">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row no-border">
+                        <div class="col-md-3 col-md-offset-2">
+                          <h5>Year Completed:</h5>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-1">
+                          <input name="yearInput" type="text" pInputText [(ngModel)]="selectedCourse.year">
+                        </div>
+                      </div>
+
+                      <div class="row no-border">
+                        <div class="col-md-3 col-md-offset-2">
+                          <h5>Related Link:</h5>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-1">
+                          <input name="linkInput" type="text" pInputText [(ngModel)]="selectedCourse.src">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <p-dataTable [value]="selectedCourse.papers" [editable]="true" scrollable="true" scrollHeight="10.1em">
+                      <p-column field="code" header="Paper Code" styleClass="text-center" [editable]="true"></p-column>
+                      <p-column field="name" header="Paper Name" styleClass="text-center" [editable]="true"></p-column>
+                      <p-column field="details" header="Paper Details" styleClass="text-center" [editable]="true"></p-column>
+                      <p-column field="grade" header="Overall Paper Grade" styleClass="text-center" [editable]="true"></p-column>
+
+                      <p-column header="Actions" styleClass="text-center">
+                        <ng-template let-row="rowIndex" pTemplate="body">
+                          <button type="button" pButton (click)="deletePaper(row)" icon="fa-trash-o"></button>
+                        </ng-template>
+                      </p-column>
+
+                      <p-footer>
+                        <button type="button" pButton label="Add Paper" (click)="addPaper()"></button>
+                      </p-footer>
+                    </p-dataTable>
+                  </div>
+                </div>
+              </div>
+
+              <p-footer>
+                <button type="button" pButton label="Done" (click)="addAndCloseAddDialog()"></button>
+                <button type="button" pButton label="Cancel" (click)="closeAddDialog()"></button>
               </p-footer>
             </p-dialog>
           </form>
