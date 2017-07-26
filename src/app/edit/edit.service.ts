@@ -8,6 +8,7 @@ import { UploadFileModel } from '../shared/models/uploadFileModel';
 import { PhoneNumberModel } from '../shared/models/phoneNumberModel';
 import { EducationModel } from '../shared/models/educationModel';
 import { CoursePaperModel } from '../shared/models/coursePaperModel';
+import { ExperienceModel } from '../shared/models/experienceModel';
 
 @Injectable()
 export class EditService {
@@ -23,9 +24,15 @@ export class EditService {
       this.addEducationRecord({ img: "http://placehold.it/60x60", course: "Test Course 2", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2016, papers: coursePapers });
       this.addEducationRecord({ img: "http://placehold.it/60x60", course: "Test Course 3", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2015, papers: coursePapers });
       this.addEducationRecord({ img: "http://placehold.it/60x60", course: "Test Course 4", school: "Test School", src: "http://www.ucol.ac.nz/", year: 2016, papers: coursePapers });
+
+      this.addExperience({img: "http://placehold.it/60x60", title: "Test Title 1", location: "Palmerston North", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent imperdiet, mi quis feugiat iaculis, nibh mauris euismod quam, sit amet euismod mi risus at felis. Donec dictum, neque et pretium rhoncus, velit sem fringilla nulla, ut rutrum felis lectus ac felis. Duis et orci risus. Mauris eget turpis pretium, semper lorem eu, mollis orci. Quisque lobortis non elit et fermentum. Ut sollicitudin ullamcorper ligula id vulputate. In hac habitasse platea dictumst. Sed eget auctor nisi. In dolor dolor, tincidunt eu neque ac, suscipit rutrum dui. Phasellus pharetra tempus porta. Vivamus sed justo varius, aliquet justo et, porttitor lorem. In id feugiat felis. Nulla facilisi.", startDate: "2000-06-15", endDate: ""});
+      this.addExperience({img: "http://placehold.it/60x60", title: "Test Title 1", location: "Palmerston North", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent imperdiet, mi quis feugiat iaculis, nibh mauris euismod quam, sit amet euismod mi risus at felis. Donec dictum, neque et pretium rhoncus, velit sem fringilla nulla, ut rutrum felis lectus ac felis. Duis et orci risus. Mauris eget turpis pretium, semper lorem eu, mollis orci. Quisque lobortis non elit et fermentum. Ut sollicitudin ullamcorper ligula id vulputate. In hac habitasse platea dictumst. Sed eget auctor nisi. In dolor dolor, tincidunt eu neque ac, suscipit rutrum dui. Phasellus pharetra tempus porta. Vivamus sed justo varius, aliquet justo et, porttitor lorem. In id feugiat felis. Nulla facilisi.", startDate: "2000-06-15", endDate: "2000-06-25"});
+      this.addExperience({img: "http://placehold.it/60x60", title: "Test Title 1", location: "Palmerston North", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent imperdiet, mi quis feugiat iaculis, nibh mauris euismod quam, sit amet euismod mi risus at felis. Donec dictum, neque et pretium rhoncus, velit sem fringilla nulla, ut rutrum felis lectus ac felis. Duis et orci risus. Mauris eget turpis pretium, semper lorem eu, mollis orci. Quisque lobortis non elit et fermentum. Ut sollicitudin ullamcorper ligula id vulputate. In hac habitasse platea dictumst. Sed eget auctor nisi. In dolor dolor, tincidunt eu neque ac, suscipit rutrum dui. Phasellus pharetra tempus porta. Vivamus sed justo varius, aliquet justo et, porttitor lorem. In id feugiat felis. Nulla facilisi.", startDate: "2000-06-15", endDate: "2000-06-25"});
+      this.addExperience({img: "http://placehold.it/60x60", title: "Test Title 1", location: "Palmerston North", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent imperdiet, mi quis feugiat iaculis, nibh mauris euismod quam, sit amet euismod mi risus at felis. Donec dictum, neque et pretium rhoncus, velit sem fringilla nulla, ut rutrum felis lectus ac felis. Duis et orci risus. Mauris eget turpis pretium, semper lorem eu, mollis orci. Quisque lobortis non elit et fermentum. Ut sollicitudin ullamcorper ligula id vulputate. In hac habitasse platea dictumst. Sed eget auctor nisi. In dolor dolor, tincidunt eu neque ac, suscipit rutrum dui. Phasellus pharetra tempus porta. Vivamus sed justo varius, aliquet justo et, porttitor lorem. In id feugiat felis. Nulla facilisi.", startDate: "2000-06-15", endDate: "2000-06-25"});
    }
 
   inUse: Boolean = false;
+  
   // Basic Page Data
   phoneNum: BehaviorSubject<PhoneNumberModel[]> = new BehaviorSubject([]);
 
@@ -46,6 +53,36 @@ export class EditService {
     newList.push(newPhoneNum);
 
     this.phoneNum.next(newList);
+  }
+
+  //Experience Page Data
+  experienceList: BehaviorSubject<ExperienceModel[]> = new BehaviorSubject([]);
+
+  getExperienceList() {
+    return this.experienceList.asObservable();
+  }
+
+  addExperience(experience: ExperienceModel) {
+    let newList: ExperienceModel[] = this.experienceList.getValue();
+    newList.push(experience);
+
+    this.experienceList.next(newList);
+  }
+
+  editExperience(row: number, experience: ExperienceModel) {
+    let newList: ExperienceModel[] = this.experienceList.getValue();
+    newList.splice(row, 1, experience);
+
+    this.experienceList.next(newList);
+  }
+
+  deleteExperience(experience: ExperienceModel) {
+    let newList: ExperienceModel[] = this.experienceList.getValue();
+    let row = newList.indexOf(experience);
+
+    newList.splice(row, 1);
+
+    this.experienceList.next(newList);
   }
 
   //Education Page Data

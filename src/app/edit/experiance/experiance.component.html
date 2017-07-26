@@ -1,16 +1,49 @@
+<p-confirmDialog header="Delete Record" icon="fa fa-question-circle"></p-confirmDialog>
+
 <div class="animate">
   <div class="container-fluid">
-    <div class="col-ld-12">
+    <div class="col-lg-12">
       <md-card>
         <md-card-header>
-          <md-card-title>Experience</md-card-title>
+          <md-card-title>
+            <h4><b>Experience</b></h4>
+          </md-card-title>
+
+          <div class="col-md-3 col-md-offset-9">
+            <button type="button" pButton class="raised-button" (click)="newExperience()" label="Add Experience"></button>
+          </div>
         </md-card-header>
 
         <md-card-content>
           <form>
             <div class="row">
-              <div class="">
+              <div class="col-md-12">
+                <p-dataTable [value]="experienceList" [responsive]="false">
+                  <p-column field="img" header="Image" styleClass="text-center" [style]="{width: '7%'}">
+                    <ng-template let-img let-experience="rowData" pTemplate="body">
+                      <img src="{{experience[img.field]}}" height="60" width="60">
+                    </ng-template>
+                  </p-column>
 
+                  <p-column field="title" header="Job Title" styleClass="text-center" [style]="{width: '15%'}"></p-column>
+
+                  <p-column field="location" header="Location" styleClass="text-center" [style]="{width: '15%'}"></p-column>
+
+                  <p-column field="description" header="Job Description" styleClass="text-center"></p-column>
+
+                  <p-column header="Job Period" styleClass="text-center" [style]="{width: '15%'}">
+                    <ng-template let-experience="rowData" pTemplate="body">
+                      <span>{{experience.startDate}} - {{experience.endDate?experience.endDate:"Current"}}</span>
+                    </ng-template>
+                  </p-column>
+
+                  <p-column header="Actions" styleClass="text-center" [style]="{width: '7%'}">
+                    <ng-template let-experience="rowData" pTemplate="body">
+                      <button type="button" pButton (click)="editExperienceDetails(experience)" icon="fa-pencil"></button>
+                      <button type="button" pButton (click)="deleteExperience(experience)" icon="fa-trash-o"></button>
+                    </ng-template>
+                  </p-column>
+                </p-dataTable>
               </div>
             </div>
           </form>
@@ -19,3 +52,187 @@
     </div>
   </div>
 </div>
+
+<!-- Edit Course -->
+ <p-dialog [(visible)]="editExperience" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Edit {{selectedExperience.title}} Details
+  </p-header>
+
+  <div class="container-fluid">
+    <div class="row no-border">
+      <div class="col-md-2 col-md-offset-5 overlay" (click)="uploadImage()">
+        <img src="{{selectedExperience.img}}" alt="No Image" class="image">
+
+        <div class="image-overlay">
+          <p class="overlay-text">Upload<br/>Job Image</p>
+        </div>
+      </div>
+    </div>
+
+    <form>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row no-border">
+            <div class="col-md-4">
+              <h5>Job Title:</h5>
+            </div>
+
+            <div class="col-md-4 col-md-offset-1">
+              <input name="experienceTitleInput" type="text" pInputText [(ngModel)]="selectedExperience.title">
+            </div>
+          </div>
+
+          <div class="row no-border">
+            <div class="col-md-4">
+              <h5>Location:</h5>
+            </div>
+
+            <div class="col-md-4 col-md-offset-1">
+              <input name="locationInput" type="text" pInputText [(ngModel)]="selectedExperience.location">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="row no-border">
+            <div class="col-md-5">
+              <h5>Date Started:</h5>
+            </div>
+
+            <div class="col-md-7">
+              <p-calendar appendTo="body" [(ngModel)]="selectedStartDate" name="startDatePicker" dateFormat="MM yy" [showIcon]="true"></p-calendar>
+            </div>
+          </div>
+
+          <div class="row no-border">
+            <div class="col-md-5">
+              <h5>Date Finished:</h5>
+            </div>
+
+            <div class="col-md-7" *ngIf="!currentJob">
+              <p-calendar appendTo="body" [(ngModel)]="selectedEndDate" name="endDatePicker" dateFormat="MM yy" [showIcon]="true"></p-calendar>
+            </div>
+
+            <div class="col-md-7" *ngIf="currentJob">
+              <input name="current" type="text" pInputText [disabled]="true" placeholder="Current"/>
+            </div>
+
+            <div class="row no-border">
+              <div class="col-md-4 col-md-offset-5">
+                <md-checkbox name="currentSwitch" [(ngModel)]="currentJob">Current</md-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <h5>Job Description:</h5>
+        </div>
+
+        <div class="col-md-10">
+          <textarea name="descriptionInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedExperience.description"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="saveAndCloseEditDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeEditDialog()"></button>
+  </p-footer>
+</p-dialog> 
+
+<!-- Add Experience -->
+<p-dialog [(visible)]="addExperience" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Add Experience
+  </p-header>
+
+  <div class="container-fluid">
+    <div class="row no-border">
+      <div class="col-md-2 col-md-offset-5 overlay" (click)="uploadImage()">
+        <img src="{{selectedExperience.img}}" alt="No Image" class="image">
+
+        <div class="image-overlay">
+          <p class="overlay-text">Upload<br/>Job Image</p>
+        </div>
+      </div>
+    </div>
+
+    <form>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row no-border">
+            <div class="col-md-3">
+              <h5>Job Title:</h5>
+            </div>
+
+            <div class="col-md-4 col-md-offset-1">
+              <input name="experienceTitleInput" type="text" pInputText [(ngModel)]="selectedExperience.title">
+            </div>
+          </div>
+
+          <div class="row no-border">
+            <div class="col-md-3">
+              <h5>Location:</h5>
+            </div>
+
+            <div class="col-md-4 col-md-offset-1">
+              <input name="locationInput" type="text" pInputText [(ngModel)]="selectedExperience.location">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="row no-border">
+            <div class="col-md-5">
+              <h5>Date Started:</h5>
+            </div>
+
+            <div class="col-md-7">
+              <p-calendar appendTo="body" class="datePicker-color" [(ngModel)]="selectedStartDate" name="startDatePicker" dateFormat="MM yy" [showIcon]="true"></p-calendar>
+            </div>
+          </div>
+
+          <div class="row no-border">
+            <div class="col-md-5">
+              <h5>Date Finished:</h5>
+            </div>
+
+            <div class="col-md-7" *ngIf="!currentJob">
+              <p-calendar appendTo="body" [(ngModel)]="selectedEndDate" name="endDatePicker" dateFormat="MM yy" [showIcon]="true"></p-calendar>
+            </div>
+
+            <div class="col-md-7" *ngIf="currentJob">
+              <input name="current" type="text" pInputText [disabled]="true" placeholder="Current"/>
+            </div>
+
+            <div class="row no-border">
+              <div class="col-md-4 col-md-offset-5">
+                <md-checkbox name="currentSwitch" [(ngModel)]="currentJob">Current</md-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <h5>Job Description:</h5>
+        </div>
+
+        <div class="col-md-10">
+          <textarea name="descriptionInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedExperience.description"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="addAndCloseAddDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeAddDialog()"></button>
+  </p-footer>
+</p-dialog>
