@@ -1,24 +1,37 @@
+<p-confirmDialog header="Delete Record" icon="fa fa-question-circle"></p-confirmDialog>
+
 <div class="animate">
   <div class="container-fluid">
     <div class="col-lg-12">
       <md-card>
         <md-card-header>
-          <md-card-title>
-            <h4><b>Skills</b></h4>
-          </md-card-title>
+          <div class="col-md-3">
+            <md-card-title>
+              <h4><b>Skills</b></h4>
+            </md-card-title>
+          </div>
+
+          <div class="col-md-2 col-md-offset-7">
+            <button type="button" pButton class="raised-button" (click)="newSkill()" label="Add Skill"></button>
+          </div>
         </md-card-header>
 
         <md-card-content>
           <form>
             <div class="row">
               <div class="col-md-12">
-                <p-dataList [value]="skills">
-                  <ng-template let-skill pTemplate="item">
-                    <div class="row">
-                      
-                    </div>
-                  </ng-template>
-                </p-dataList>
+                <p-dataTable [value]="skills" sortField="category" sortOrder="1" rowGroupMode="subheader" groupField="category">
+                  <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData.category}}</ng-template>
+
+                  <p-column field="detail" header="Details" styleClass="text-center"></p-column>
+
+                  <p-column header="Actions" styleClass="text-center" [style]="{width: '7%'}">
+                    <ng-template let-skill="rowData" pTemplate="body">
+                      <button type="button" pButton (click)="editSkillDetails(skill)" icon="fa-pencil"></button>
+                      <button type="button" pButton (click)="deleteSkill(skill)" icon="fa-trash-o"></button>
+                    </ng-template>
+                  </p-column>
+                </p-dataTable>
               </div>
             </div>
           </form>
@@ -27,3 +40,75 @@
     </div>
   </div>
 </div>
+
+<!-- Edit Skill -->
+<p-dialog [(visible)]="editDetails" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Edit Skill Details
+  </p-header>
+
+  <div class="container-fluid">
+    <form>
+      <div class="row">
+        <div class="col-md-2">
+          <h5>Skill Description:</h5>
+        </div>
+
+        <div class="col-md-10">
+          <textarea name="editDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedSkill.detail"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2 col-md-offset-6">
+          <h5>Skill Category:</h5>
+        </div>
+
+        <div class="col-md-4">
+          <p-dropdown appendTo="body" name="editCategoryDropdown" [style]="{width: '100%'}" [options]="options" [(ngModel)]="selectedSkill.category" placeholder="No Category Selected"></p-dropdown>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="saveAndCloseEditDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeEditDialog()"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Add Skill -->
+<p-dialog [(visible)]="addSkill" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Add Skill
+  </p-header>
+
+  <div class="container-fluid">
+    <form>
+      <div class="row">
+        <div class="col-md-2">
+          <h5>Job Description:</h5>
+        </div>
+
+        <div class="col-md-10">
+          <textarea name="addDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedSkill.detail"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2 col-md-offset-6">
+          <h5>Skill Category:</h5>
+        </div>
+
+        <div class="col-md-4">
+          <p-dropdown appendTo="body" name="editCategoryDropdown" [style]="{width: '100%'}" [options]="options" [(ngModel)]="selectedSkill.category" placeholder="No Category Selected"></p-dropdown>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="addAndCloseAddDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeAddDialog()"></button>
+  </p-footer>
+</p-dialog>

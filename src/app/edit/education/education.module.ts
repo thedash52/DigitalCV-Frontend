@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EducationComponent } from './education.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 import { MdCardModule } from '@angular/material';
 
 import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule } from 'primeng/primeng';

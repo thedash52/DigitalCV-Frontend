@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkillsComponent } from './skills.component';
+import { TechnologyComponent } from './technology.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MdCardModule } from '@angular/material';
-import { DataTableModule, SharedModule, ButtonModule, DialogModule, ConfirmationService, ConfirmDialogModule, InputTextareaModule, DropdownModule } from 'primeng/primeng';
+
+import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
 
@@ -16,14 +17,13 @@ import { EditService } from '../edit.service';
     MdCardModule,
     DataTableModule,
     SharedModule,
+    DialogModule,
     ButtonModule,
     ConfirmDialogModule,
-    InputTextareaModule,
-    DialogModule,
-    DropdownModule
+    InputTextModule
   ],
   providers: [EditService, ConfirmationService],
-  declarations: [SkillsComponent],
-  exports: [SkillsComponent]
+  declarations: [TechnologyComponent],
+  exports: [TechnologyComponent]
 })
-export class SkillsModule { }
+export class TechnologyModule { }

@@ -8,6 +8,7 @@ import { EditComponent } from './edit.component';
 import { SidebarComponent } from '../shared/index';
 import { BasicModule } from './basic/index';
 import { SkillsModule } from './skills/index';
+import { TechnologyModule } from './technology/index';
 import { ExperianceModule } from './experiance/index';
 import { EducationModule } from './education/index';
 import { OtherModule } from './other/index';
@@ -21,6 +22,7 @@ import { CvService } from '../shared/index';
     ButtonModule,
     BasicModule,
     SkillsModule,
+    TechnologyModule,
     ExperianceModule,
     EducationModule,
     OtherModule

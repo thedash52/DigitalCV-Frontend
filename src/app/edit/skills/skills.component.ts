@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ConfirmationService } from 'primeng/primeng';
 import { EditService } from '../edit.service';
-import { CvService } from '../../shared/index';
+
+import { SkillModel } from '../../shared/models/skillModel';
+import { SelectItem } from 'primeng/primeng';
 
 @Component({
   selector: 'app-skills',
@@ -10,12 +13,93 @@ import { CvService } from '../../shared/index';
 })
 export class SkillsComponent implements OnInit {
 
-  constructor(private editService: EditService, private cvService: CvService) { }
+  constructor(private editService: EditService, private confirmationService: ConfirmationService) { }
+
+  skills: SkillModel[];
+  selectedSkill: SkillModel = new SkillModel();
+  selectedRow: number;
+
+  options: SelectItem[];
+
+  
+
+  editDetails: boolean = false;
+  addSkill: boolean = false;
 
   ngOnInit() {
-    if (!this.editService.inUse) {
-      
-    }
+    this.editService.getSkills().subscribe(skills => {
+      this.skills = [...skills];
+
+      let newOptions: SelectItem[] = [];
+      for (var i = 0; i < this.skills.length; i++) {
+        let e = this.skills[i].category;
+
+        let categoryExists: boolean = false;
+        newOptions.forEach(option => {
+          if (option.label == e && option.value == e) {
+            categoryExists = true;
+          }
+        });
+
+        if (!categoryExists) {
+          newOptions.push({ label: e, value: e });
+        }
+
+        console.log(newOptions);
+        this.options = [...newOptions];
+      }
+
+      this.options = [...newOptions];
+    });
   }
 
+  newSkill() {
+    this.selectedSkill = new SkillModel();
+
+    this.addSkill = true;
+  }
+
+  addAndCloseAddDialog() {
+    this.editService.addSkill(this.selectedSkill);
+
+    this.selectedSkill = new SkillModel();
+    this.addSkill = false;
+  }
+
+  closeAddDialog() {
+    this.selectedSkill = new SkillModel();
+    this.addSkill = false;
+  }
+
+  editSkillDetails(skill: SkillModel) {
+    this.selectedSkill = skill;
+
+    let row = this.skills.indexOf(skill);
+
+    this.selectedRow = row;
+    this.editDetails = true;
+  }
+
+  saveAndCloseEditDialog() {
+    this.editService.editSkill(this.selectedRow, this.selectedSkill);
+
+    this.selectedRow = null;
+    this.selectedSkill = new SkillModel();
+    this.editDetails = false;
+  }
+
+  closeEditDialog() {
+    this.selectedRow = null;
+    this.selectedSkill = new SkillModel();
+    this.editDetails = false;
+  }
+
+  deleteSkill(skill: SkillModel) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you would like to delete this record?',
+      accept: () => {
+        this.editService.deleteSkill(skill);
+      }
+    });
+  }
 }

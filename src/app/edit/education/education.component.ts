@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 
 import { ConfirmationService } from 'primeng/primeng';
 import { EditService } from '../edit.service';
