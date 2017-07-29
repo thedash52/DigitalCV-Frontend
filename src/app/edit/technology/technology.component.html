@@ -20,7 +20,42 @@
           <form>
             <div class="row">
               <div class="col-md-12">
+                <p-dataTable [value]="technologies" sortField="category" rowGroupMode="subheader" groupField="category">
+                  <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['category']}}</ng-template>
 
+                  <p-column field="img" header="Image" styleClass="text-center" [style]="{width: '7%'}">
+                    <ng-template let-img let-technology="rowData" pTemplate="body">
+                      <img src="{{technology[img.field]}}" height="60" width="60">
+                    </ng-template>
+                  </p-column>
+
+                  <p-column field="name" header="Technology Name" styleClass="text-center" [style]="{width: '13%'}"></p-column>
+
+                  <p-column field="detail" header="Technology Detail" styleClass="text-center"></p-column>
+                  
+                  <p-column field="src" header="Technology Link" styleClass="text-center" [style]="{width: '20%'}"></p-column>
+
+                  <p-column header="Actions" styleClass="text-center" [style]="{width: '7%'}">
+                    <ng-template let-technology="rowData" pTemplate="body">
+                      <button type="button" pButton (click)="editTechnology(technology)" icon="fa-pencil"></button>
+                      <button type="button" pButton (click)="deleteTechnology(technology)" icon="fa-trash-o"></button>
+                    </ng-template>
+                  </p-column>
+                </p-dataTable>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+                <h5>Repositories:</h5>
+              </div>
+
+              <div class="col-md-8">
+                Repository Connector
+              </div>
+
+              <div class="col-md-2">
+                <md-checkbox name="showRepositoryCheckBox" [(ngModel)]="editService.showRepository">Show Repositories</md-checkbox>
               </div>
             </div>
           </form>

@@ -26,8 +26,6 @@ export class ExperianceComponent implements OnInit {
   editExperience: boolean = false;
   addExperience: boolean = false;
 
-  currentJob: boolean = false;
-
   ngOnInit() {
     this.editService.getExperienceList().subscribe(experienceList => {
       this.experienceList = [...experienceList];
@@ -41,7 +39,7 @@ export class ExperianceComponent implements OnInit {
   newExperience() {
     this.selectedExperience = new ExperienceModel();
     this.selectedExperience.img = "http://placehold.it/60x60";
-    this.currentJob = false;
+    this.selectedExperience.current = false;
 
     this.addExperience = true;
   }
@@ -49,7 +47,7 @@ export class ExperianceComponent implements OnInit {
   addAndCloseAddDialog() {
     this.selectedExperience.startDate = this.selectedStartDate.toDateString();
 
-    if (this.selectedEndDate) {
+    if (!this.selectedExperience.current) {
       this.selectedExperience.endDate = this.selectedEndDate.toDateString();
     }
 
@@ -58,7 +56,6 @@ export class ExperianceComponent implements OnInit {
     this.selectedExperience = new ExperienceModel();
     this.selectedStartDate = new Date();
     this.selectedStartDate = new Date();
-    this.currentJob = false;
     this.addExperience = false;
   }
 
@@ -66,20 +63,12 @@ export class ExperianceComponent implements OnInit {
     this.selectedExperience = new ExperienceModel();
     this.selectedStartDate = new Date();
     this.selectedStartDate = new Date();
-    this.currentJob = false;
     this.addExperience = false;
   }
 
   editExperienceDetails(experience: ExperienceModel) {
     this.selectedExperience = experience;
     this.selectedStartDate = new Date(experience.startDate);
-
-    if (experience.endDate == "" || !experience.endDate) {
-      this.currentJob = true;
-    } else {
-      this.selectedEndDate = new Date(experience.endDate);
-      this.currentJob = false;
-    }
 
     let row = this.experienceList.indexOf(experience);
 
@@ -91,7 +80,7 @@ export class ExperianceComponent implements OnInit {
   saveAndCloseEditDialog() {
     this.selectedExperience.startDate = this.selectedStartDate.toDateString();
 
-    if (this.selectedEndDate && !this.currentJob) {
+    if (!this.selectedExperience.current) {
       this.selectedExperience.endDate = this.selectedEndDate.toDateString();
     }
 
@@ -101,7 +90,6 @@ export class ExperianceComponent implements OnInit {
     this.selectedRow = null;
     this.selectedStartDate = new Date();
     this.selectedStartDate = new Date();
-    this.currentJob = false;
     this.editExperience = false;
   }
 
@@ -110,7 +98,6 @@ export class ExperianceComponent implements OnInit {
     this.selectedRow = null;
     this.selectedStartDate = new Date();
     this.selectedStartDate = new Date();
-    this.currentJob = false;
     this.editExperience = false;
   }
 

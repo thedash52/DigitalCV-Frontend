@@ -5,4 +5,5 @@ export class ExperienceModel {
     description: string;
     startDate: string;
     endDate: string;
+    current: boolean;
 }

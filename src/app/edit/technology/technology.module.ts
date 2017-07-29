@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TechnologyComponent } from './technology.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MdCardModule } from '@angular/material';
+import { MdCardModule, MdCheckboxModule } from '@angular/material';
 
 import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule } from 'primeng/primeng';
 
@@ -20,7 +20,8 @@ import { EditService } from '../edit.service';
     DialogModule,
     ButtonModule,
     ConfirmDialogModule,
-    InputTextModule
+    InputTextModule,
+    MdCheckboxModule
   ],
   providers: [EditService, ConfirmationService],
   declarations: [TechnologyComponent],

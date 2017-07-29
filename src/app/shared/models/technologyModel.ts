@@ -3,4 +3,5 @@ export class TechnologyModel {
     name: string;
     detail: string;
     category: string;
+    src: string;
 }

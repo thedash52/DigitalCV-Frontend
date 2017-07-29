@@ -21,8 +21,6 @@ export class SkillsComponent implements OnInit {
 
   options: SelectItem[];
 
-  
-
   editDetails: boolean = false;
   addSkill: boolean = false;
 
@@ -44,9 +42,6 @@ export class SkillsComponent implements OnInit {
         if (!categoryExists) {
           newOptions.push({ label: e, value: e });
         }
-
-        console.log(newOptions);
-        this.options = [...newOptions];
       }
 
       this.options = [...newOptions];

@@ -112,17 +112,17 @@
               <h5>Date Finished:</h5>
             </div>
 
-            <div class="col-md-7" *ngIf="!currentJob">
+            <div class="col-md-7" *ngIf="!selectedExperience.current">
               <p-calendar appendTo="body" [(ngModel)]="selectedEndDate" name="endDatePicker" dateFormat="MM yy" [showIcon]="true"></p-calendar>
             </div>
 
-            <div class="col-md-7" *ngIf="currentJob">
+            <div class="col-md-7" *ngIf="selectedExperience.current">
               <input name="current" type="text" pInputText [disabled]="true" placeholder="Current"/>
             </div>
 
             <div class="row no-border">
               <div class="col-md-4 col-md-offset-5">
-                <md-checkbox name="currentSwitch" [(ngModel)]="currentJob">Current</md-checkbox>
+                <md-checkbox name="currentSwitch" [(ngModel)]="selectedExperience.current">Current</md-checkbox>
               </div>
             </div>
           </div>
