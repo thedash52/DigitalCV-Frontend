@@ -5,10 +5,9 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { MdCardModule, MdCheckboxModule } from '@angular/material';
 
-import { InputTextModule, InputTextareaModule, ButtonModule, DataListModule, DataGridModule, PanelModule } from 'primeng/primeng';
+import { InputTextModule, InputTextareaModule, ButtonModule, DataTableModule, DataGridModule, PanelModule, ConfirmDialogModule, ConfirmationService, DialogModule } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
-import { CvService } from '../../shared/index';
 
 @NgModule({
   imports: [
@@ -19,12 +18,14 @@ import { CvService } from '../../shared/index';
     InputTextModule,
     InputTextareaModule,
     ButtonModule,
-    DataListModule,
+    DataTableModule,
     MdCheckboxModule,
     DataGridModule,
-    PanelModule
+    PanelModule,
+    ConfirmDialogModule,
+    DialogModule
   ],
-  providers: [EditService, CvService],
+  providers: [EditService, ConfirmationService],
   declarations: [OtherComponent],
   exports: [OtherComponent]
 })

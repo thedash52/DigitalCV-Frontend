@@ -8,7 +8,6 @@ import { MdCardModule } from '@angular/material';
 import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
-import { CvService } from '../../shared/index';
 
 @NgModule({
   imports: [
@@ -23,7 +22,7 @@ import { CvService } from '../../shared/index';
     ConfirmDialogModule,
     InputTextModule
   ],
-  providers: [EditService, CvService, ConfirmationService],
+  providers: [EditService, ConfirmationService],
   declarations: [EducationComponent],
   exports: [EducationComponent]
 })

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
-import { CvService } from '../../shared/index';
+import { ConfirmationService } from 'primeng/primeng';
 
 import { PhoneNumberModel } from '../../shared/models/phoneNumberModel';
 import { PhoneTypeModel } from '../../shared/models/phoneTypeModel';
@@ -15,30 +15,66 @@ import { PhoneTypeModel } from '../../shared/models/phoneTypeModel';
 })
 export class BasicComponent implements OnInit {
 
-  constructor(private editService: EditService, private cvService: CvService) { }
+  constructor(private editService: EditService, private confirmationService: ConfirmationService) { }
 
   phoneTypes: PhoneTypeModel[] = [];
   phoneNum: PhoneNumberModel[] = [];
   selectedPhoneType: any;
 
+  selectedPhoneNum: PhoneNumberModel = new PhoneNumberModel();
+  selectedRow: number;
+
   newNumber: number;
+
+  editNumberDetails: boolean = false;
 
   ngOnInit() {
     this.editService.getPhoneNumbers().subscribe(phoneNumbers => {
-      this.phoneNum = phoneNumbers;
+      this.phoneNum = [...phoneNumbers];
     });
 
-    this.phoneTypes.push({ label: 'Mobile', value: { short: 'm', long: 'Mobile'} });
-    this.phoneTypes.push({ label: 'Home', value: { short: 'h', long: 'Home'} });
-    this.phoneTypes.push({ label: 'Work', value: { short: 'w', long: 'Work'} });
-
-    if (!this.editService.inUse) {
-
-    }
+    this.editService.getPhoneTypes().subscribe(phoneTypes => {
+      this.phoneTypes = [...phoneTypes];
+    });
   }
 
   AddNumber() {
-    this.editService.addPhoneNumber({ type: this.selectedPhoneType, number: this.newNumber});
+    this.editService.addPhoneNumber({ type: this.selectedPhoneType, number: this.newNumber });
+
+    this.selectedPhoneType = null;
+    this.newNumber = null;
+  }
+
+  editNumber(phoneNum: PhoneNumberModel) {
+    this.selectedPhoneNum = phoneNum;
+
+    let row = this.phoneNum.indexOf(phoneNum);
+
+    this.selectedRow = row;
+    this.editNumberDetails = true;
+  }
+
+  saveAndCloseEditDialog() {
+    this.editService.editPhoneNumber(this.selectedRow, this.selectedPhoneNum);
+
+    this.selectedPhoneNum = new PhoneNumberModel();
+    this.selectedRow = null;
+    this.editNumberDetails = false;
+  }
+
+  closeEditDialog() {
+    this.selectedPhoneNum = new PhoneNumberModel();
+    this.selectedRow = null;
+    this.editNumberDetails = false;
+  }
+
+  deleteNumber(phoneNumber: PhoneNumberModel) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the number ' + phoneNumber.number + '?',
+      accept: () => {
+        this.editService.deletePhoneNumber(phoneNumber)
+      }
+    });
   }
 
   UploadAvatar() {
@@ -46,6 +82,6 @@ export class BasicComponent implements OnInit {
   }
 
   UploadProfile() {
-    console.log("Uploading Profile");    
+    console.log("Uploading Profile");
   }
 }

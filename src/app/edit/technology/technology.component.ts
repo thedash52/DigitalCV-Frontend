@@ -22,7 +22,7 @@ export class TechnologyComponent implements OnInit {
   options: SelectItem[];
 
   editDetails: boolean = false;
-  addSkill: boolean = false;
+  addTechnology: boolean = false;
 
   ngOnInit() {
     this.editService.getTechnologies().subscribe(technologies => {
@@ -50,4 +50,58 @@ export class TechnologyComponent implements OnInit {
     });
   }
 
+  newTechnology() {
+    this.selectedTechnology = new TechnologyModel();
+    this.selectedTechnology.img = "http://placehold.it/60x60";
+
+    this.addTechnology = true;
+  }
+
+  addAndCloseAddDialog() {
+    this.editService.addTechnology(this.selectedTechnology);
+
+    this.selectedTechnology = new TechnologyModel();
+    this.addTechnology = false;
+  }
+
+  closeAddDialog() {
+    this.selectedTechnology = new TechnologyModel();
+    this.addTechnology = false;
+  }
+
+  editTechnology(technology: TechnologyModel) {
+    this.selectedTechnology = technology;
+
+    let row = this.technologies.indexOf(technology);
+
+    this.selectedRow = row;
+    this.editDetails = true;
+  }
+
+  saveAndCloseEditDialog() {
+    this.editService.editSkill(this.selectedRow, this.selectedTechnology);
+
+    this.selectedRow = null;
+    this.selectedTechnology = new TechnologyModel();
+    this.editDetails = false;
+  }
+
+  closeEditDialog() {
+    this.selectedRow = null;
+    this.selectedTechnology = new TechnologyModel();
+    this.editDetails = false;
+  }
+
+  deleteTechnology(technology: TechnologyModel) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you would like to delete this record?',
+      accept: () => {
+        this.editService.deleteSkill(technology);
+      }
+    });
+  }
+
+  uploadImage() {
+
+  }
 }

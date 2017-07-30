@@ -7,12 +7,12 @@
         <md-card-header>
           <div class="col-md-3">
             <md-card-title>
-              <h4><b>Technologies</b></h4>
+              <h4><b>Technology</b></h4>
             </md-card-title>
           </div>
 
           <div class="col-md-2 col-md-offset-7">
-            <button type="button" pButton class="raised-button" (click)="newTech()" label="Add Technology"></button>
+            <button type="button" pButton class="raised-button" (click)="newTechnology()" label="Add Technology"></button>
           </div>
         </md-card-header>
 
@@ -32,7 +32,7 @@
                   <p-column field="name" header="Technology Name" styleClass="text-center" [style]="{width: '13%'}"></p-column>
 
                   <p-column field="detail" header="Technology Detail" styleClass="text-center"></p-column>
-                  
+
                   <p-column field="src" header="Technology Link" styleClass="text-center" [style]="{width: '20%'}"></p-column>
 
                   <p-column header="Actions" styleClass="text-center" [style]="{width: '7%'}">
@@ -64,3 +64,149 @@
     </div>
   </div>
 </div>
+
+<!-- Edit Technology -->
+<p-dialog [(visible)]="editDetails" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Edit {{selectedTechnology.name}} Details
+  </p-header>
+
+  <div class="container-fluid">
+    <div class="row no-border">
+      <div class="col-md-2 col-md-offset-5 overlay" (click)="uploadImage()">
+        <img src="{{selectedTechnology.img}}" alt="No Image" class="image">
+
+        <div class="image-overlay">
+          <p class="overlay-text">Upload<br/>Technology Image</p>
+        </div>
+      </div>
+    </div>
+
+    <form>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row no-border">
+            <div class="col-md-5">
+              <h5>Technology Name:</h5>
+            </div>
+
+            <div class="col-md-7">
+              <input name="technologyNameInput" type="text" pInputText [(ngModel)]="selectedTechnology.name">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="row no-border">
+            <div class="col-md-4">
+              <h5>Related Link:</h5>
+            </div>
+
+            <div class="col-md-8">
+              <input name="srcInput" type="text" pInputText [(ngModel)]="selectedTechnology.src">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row no-border">
+        <div class="col-md-2 col-md-offset-3">
+          <h5>Category:</h5>
+        </div>
+
+        <div class="col-md-4">
+          <p-dropdown appendTo="body" name="addCategoryDropdown" [style]="{width: '100%'}" [options]="options" [(ngModel)]="selectedTechnology.category"
+            placeholder="No Category Selected"></p-dropdown>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <h5>Detail:</h5>
+        </div>
+
+        <div class="col-md-10">
+          <textarea name="addDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedTechnology.detail"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="saveAndCloseEditDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeEditDialog()"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Add Technology -->
+<p-dialog [(visible)]="addTechnology" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Add Technology
+  </p-header>
+
+  <div class="container-fluid">
+    <div class="row no-border">
+      <div class="col-md-2 col-md-offset-5 overlay" (click)="uploadImage()">
+        <img src="{{selectedTechnology.img}}" alt="No Image" class="image">
+
+        <div class="image-overlay">
+          <p class="overlay-text">Upload<br/>Technology Image</p>
+        </div>
+      </div>
+    </div>
+
+    <form>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row no-border">
+            <div class="col-md-5">
+              <h5>Technology Name:</h5>
+            </div>
+
+            <div class="col-md-7">
+              <input name="technologyNameInput" type="text" pInputText [(ngModel)]="selectedTechnology.name">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="row no-border">
+            <div class="col-md-4">
+              <h5>Related Link:</h5>
+            </div>
+
+            <div class="col-md-8">
+              <input name="srcInput" type="text" pInputText [(ngModel)]="selectedTechnology.src">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row no-border">
+        <div class="col-md-2 col-md-offset-3">
+          <h5>Category:</h5>
+        </div>
+
+        <div class="col-md-4">
+          <p-dropdown appendTo="body" name="addCategoryDropdown" [style]="{width: '100%'}" [options]="options" [(ngModel)]="selectedTechnology.category"
+            placeholder="No Category Selected"></p-dropdown>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <h5>Detail:</h5>
+        </div>
+
+        <div class="col-md-10">
+          <textarea name="addDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedTechnology.detail"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="addAndCloseAddDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeAddDialog()"></button>
+  </p-footer>
+</p-dialog>

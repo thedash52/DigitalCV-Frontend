@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { EditService } from '../edit.service';
-import { CvService } from '../../shared/index';
 import { ConfirmationService } from 'primeng/primeng';
 
 import { ExperienceModel } from '../../shared/models/experienceModel';
@@ -13,7 +12,7 @@ import { ExperienceModel } from '../../shared/models/experienceModel';
 })
 export class ExperianceComponent implements OnInit {
 
-  constructor(private editService: EditService, private cvService: CvService, private confirmationService: ConfirmationService) { }
+  constructor(private editService: EditService, private confirmationService: ConfirmationService) { }
 
   experienceList: ExperienceModel[] = [];
 
@@ -30,10 +29,6 @@ export class ExperianceComponent implements OnInit {
     this.editService.getExperienceList().subscribe(experienceList => {
       this.experienceList = [...experienceList];
     });
-
-    if (!this.editService.inUse) {
-
-    }
   }
 
   newExperience() {

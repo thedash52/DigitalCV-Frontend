@@ -6,6 +6,7 @@ import { AchievementModel } from '../shared/models/achievementModel';
 import { InterestHobbiesModel } from '../shared/models/interestHobbiesModel';
 import { UploadFileModel } from '../shared/models/uploadFileModel';
 import { PhoneNumberModel } from '../shared/models/phoneNumberModel';
+import { PhoneTypeModel } from '../shared/models/phoneTypeModel';
 import { EducationModel } from '../shared/models/educationModel';
 import { CoursePaperModel } from '../shared/models/coursePaperModel';
 import { ExperienceModel } from '../shared/models/experienceModel';
@@ -16,6 +17,13 @@ import { TechnologyModel } from "../shared/models/technologyModel";
 export class EditService {
 
   constructor() {
+    var phoneTypes: PhoneTypeModel[] = [];
+    phoneTypes.push({ label: 'Mobile', value: { short: 'm', long: 'Mobile' } });
+    phoneTypes.push({ label: 'Home', value: { short: 'h', long: 'Home' } });
+    phoneTypes.push({ label: 'Work', value: { short: 'w', long: 'Work' } });
+
+    this.phoneTypes.next(phoneTypes);
+
     var coursePapers: CoursePaperModel[] = [];
     coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
     coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
@@ -52,6 +60,7 @@ export class EditService {
 
   // Basic Page Data
   phoneNum: BehaviorSubject<PhoneNumberModel[]> = new BehaviorSubject([]);
+  phoneTypes: BehaviorSubject<PhoneTypeModel[]> = new BehaviorSubject([]);
 
   name: string;
   address1: string;
@@ -65,9 +74,29 @@ export class EditService {
     return this.phoneNum.asObservable();
   }
 
+  getPhoneTypes() {
+    return this.phoneTypes.asObservable();
+  }
+
   addPhoneNumber(newPhoneNum: PhoneNumberModel) {
     let newList: PhoneNumberModel[] = this.phoneNum.getValue();
     newList.push(newPhoneNum);
+
+    this.phoneNum.next(newList);
+  }
+
+  editPhoneNumber(row: number, phoneNum: PhoneNumberModel) {
+    let newList: PhoneNumberModel[] = this.phoneNum.getValue();
+    newList.splice(row, 1, phoneNum);
+
+    this.phoneNum.next(newList);
+  }
+
+  deletePhoneNumber(phoneNum: PhoneNumberModel) {
+    let newList: PhoneNumberModel[] = this.phoneNum.getValue();
+    let row = newList.indexOf(phoneNum);
+
+    newList.splice(row, 1);
 
     this.phoneNum.next(newList);
   }
@@ -224,9 +253,41 @@ export class EditService {
     this.achievements.next(newList);
   }
 
+  editAchievement(row: number, achievement: AchievementModel) {
+    let newList: AchievementModel[] = this.achievements.getValue();
+    newList.splice(row, 1, achievement);
+
+    this.achievements.next(newList);
+  }
+
+  deleteAchievement(achievement: AchievementModel) {
+    let newList: AchievementModel[] = this.achievements.getValue();
+    let row = newList.indexOf(achievement);
+
+    newList.splice(row, 1);
+
+    this.achievements.next(newList);
+  }
+
   addInterestsHobbies(newInterestHobby: InterestHobbiesModel) {
     let newList: InterestHobbiesModel[] = this.interestHobbies.getValue();
     newList.push(newInterestHobby);
+
+    this.interestHobbies.next(newList);
+  }
+
+  editInterestsHobbies(row: number, interestHobby: InterestHobbiesModel) {
+    let newList: InterestHobbiesModel[] = this.interestHobbies.getValue();
+    newList.splice(row, 1, interestHobby);
+
+    this.interestHobbies.next(newList);
+  }
+
+  deleteInterestHobby(interestHobby: InterestHobbiesModel) {
+    let newList: InterestHobbiesModel[] = this.interestHobbies.getValue();
+    let row = newList.indexOf(interestHobby);
+
+    newList.splice(row, 1);
 
     this.interestHobbies.next(newList);
   }

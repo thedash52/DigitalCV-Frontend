@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MdCardModule, MdCheckboxModule } from '@angular/material';
 
-import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule, InputTextareaModule, DropdownModule } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
 
@@ -21,7 +21,9 @@ import { EditService } from '../edit.service';
     ButtonModule,
     ConfirmDialogModule,
     InputTextModule,
-    MdCheckboxModule
+    MdCheckboxModule,
+    InputTextareaModule,
+    DropdownModule
   ],
   providers: [EditService, ConfirmationService],
   declarations: [TechnologyComponent],

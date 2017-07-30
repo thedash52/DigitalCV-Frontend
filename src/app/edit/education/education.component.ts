@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { ConfirmationService } from 'primeng/primeng';
 import { EditService } from '../edit.service';
-import { CvService } from '../../shared/index';
 
 import { EducationModel } from '../../shared/models/educationModel';
 import { CoursePaperModel } from '../../shared/models/coursePaperModel';
@@ -14,7 +13,7 @@ import { CoursePaperModel } from '../../shared/models/coursePaperModel';
 })
 export class EducationComponent implements OnInit {
 
-  constructor(private editService: EditService, private cvService: CvService, private confirmationService: ConfirmationService) { }
+  constructor(private editService: EditService, private confirmationService: ConfirmationService) { }
 
   educationList: EducationModel[] = [];
   selectedCourse: EducationModel = new EducationModel();
@@ -28,10 +27,6 @@ export class EducationComponent implements OnInit {
     this.editService.getEducationList().subscribe(educationList => {
       this.educationList = [...educationList];
     });
-
-    if (!this.editService.inUse) {
-
-    }
   }
 
   newCourse() {

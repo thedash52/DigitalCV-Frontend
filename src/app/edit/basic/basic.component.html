@@ -1,3 +1,5 @@
+<p-confirmDialog header="Delete Record" icon="fa fa-question-circle"></p-confirmDialog>
+
 <div class="animate">
   <div class="container-fluid">
     <div class="col-ld-12">
@@ -12,7 +14,7 @@
           <form>
             <div class="row">
               <div class="col-md-1 col-md-offset-1">
-                <p class="left-align">Avatar Image</p>
+                <p class="left-align">Avatar Image:</p>
               </div>
 
               <div class="col-md-3 overlay" (click)="UploadAvatar()">
@@ -26,7 +28,7 @@
               <div class="col-md-1 vr"></div>
 
               <div class="col-md-1">
-                <p class="left-align">Profile Image</p>
+                <p class="left-align">Profile Image:</p>
               </div>
 
               <div class="col-md-3 overlay" (click)="UploadProfile()">
@@ -39,7 +41,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-3 border-right">
+              <div class="col-md-3 border-right fix-padding">
                 <div class="row no-border">
                   <div class="col-md-4">
                     <h5>Name:</h5>
@@ -74,50 +76,48 @@
               </div>
 
               <div class="col-md-4">
-                <div class="col-md-2">
-                  <h5>Phone:</h5>
+                <div class="row no-border fix-padding">
+                  <div class="col-md-2">
+                    <h5>Phone:</h5>
+                  </div>
+
+                  <div class="col-md-3">
+                    <p-dropdown name="phoneTypeInput" [options]="phoneTypes" [(ngModel)]="selectedPhoneType" placeholder="Select Type"></p-dropdown>
+                  </div>
+
+                  <div class="col-md-5">
+                    <input name="phoneInput" type="tel" pInputText [(ngModel)]="newNumber" />
+                  </div>
+
+                  <div class="col-md-2">
+                    <button name="addNumberButton" pButton type="button" class="raised-button" (click)="AddNumber()" icon="fa-plus"></button>
+                  </div>
                 </div>
 
-                <div class="col-md-10">
-                  <div class="row no-border">
-                    <div class="col-md-4">
-                      <p-dropdown name="phoneTypeInput" [options]="phoneTypes" [(ngModel)]="selectedPhoneType" placeholder="Select Type"></p-dropdown>
-                    </div>
+                <div class="row fix-padding">
+                  <p-dataTable [value]="phoneNum" scrollable="true" scrollHeight="9.25em">
+                    <p-column field="type.long" header="Type" styleClass="text-center"></p-column>
+                    <p-column field="number" header="Number" styleClass="text-center"></p-column>
 
-                    <div class="col-md-6">
-                      <input name="phoneInput" type="tel" pInputText [(ngModel)]="newNumber" />
-                    </div>
-
-                    <div class="col-md-2">
-                      <button name="addNumberButton" pButton type="button" class="raised-button" (click)="AddNumber()" icon="fa-plus"></button>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <p-dataList name="numberList" [value]="phoneNum">
-                      <ng-template let-number pTemplate="item">
-                        <div class="row no-border">
-                          <div class="col-md-4">
-                            {{number.type.long}}:
-                          </div>
-
-                          <div class="col-md-8">
-                            {{number.number}}
-                          </div>
-                        </div>
+                    <p-column header="Actions" styleClass="text-center" [style]="{width: '20%'}">
+                      <ng-template let-row="rowData" pTemplate="body">
+                        <button type="button" pButton (click)="editNumber(row)" icon="fa-pencil"></button>
+                        <button type="button" pButton (click)="deleteNumber(row)" icon="fa-trash-o"></button>
                       </ng-template>
-                    </p-dataList>
-                  </div>
+                    </p-column>
+                  </p-dataTable>
                 </div>
               </div>
 
               <div class="col-md-5 border-left">
-                <div class="col-md-3">
-                  <h5>Summary:</h5>
-                </div>
+                <div class="row no-border fix-padding">
+                  <div class="col-md-3">
+                    <h5>Summary:</h5>
+                  </div>
 
-                <div class="col-md-9">
-                  <textarea name="summaryInput" pInputTextarea rows="11" class="summary-input" [(ngModel)]="editService.summary"></textarea>
+                  <div class="col-md-9">
+                    <textarea name="summaryInput" pInputTextarea rows="11" class="summary-input" [(ngModel)]="editService.summary"></textarea>
+                  </div>
                 </div>
               </div>
             </div>
@@ -133,3 +133,36 @@
     </div>
   </div>
 </div>
+
+<!-- Edit Phone Number -->
+<p-dialog [(visible)]="editNumberDetails" modal="true" [draggable]="false" [closable]="false" [width]="600">
+  <p-header>
+    Edit Phone Number
+  </p-header>
+
+  <div class="container-fluid">
+    <div class="row no-border">
+      <div class="col-md-1">
+        <h5>Type:</h5>
+      </div>
+
+      <div class="col-md-4">
+        <p-dropdown appendTo="body" name="phoneTypeInput" [options]="phoneTypes" [(ngModel)]="selectedPhoneNum.type" [style]="{width: '100%'}"
+          placeholder="Select Type"></p-dropdown>
+      </div>
+
+      <div class="col-md-2 col-md-offset-1">
+        <h5>Number:</h5>
+      </div>
+
+      <div class="col-md-4">
+        <input name="phoneInput" type="tel" pInputText [(ngModel)]="selectedPhoneNum.number" />
+      </div>
+    </div>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="saveAndCloseEditDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeEditDialog()"></button>
+  </p-footer>
+</p-dialog>

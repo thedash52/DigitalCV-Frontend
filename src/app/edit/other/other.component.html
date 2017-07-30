@@ -1,3 +1,5 @@
+<p-confirmDialog header="Delete Record" icon="fa fa-question-circle"></p-confirmDialog>
+
 <div class="animate">
   <div class="container-fluid">
     <div class="col-lg-12">
@@ -14,7 +16,7 @@
               <div class="col-md-8 border-right">
                 <h5>Personal Achiements</h5>
 
-                <div class="col-md-6 border-right border-top">
+                <div class="col-md-5 border-right border-top">
                   <div class="row no-border">
                     <div class="col-md-4">
                       <h5>Name:</h5>
@@ -41,7 +43,7 @@
                     </div>
 
                     <div class="col-md-8">
-                      <textarea name="whatWhyInput" pInputTextarea rows="5" cols="40" [(ngModel)]="achievementWhatWhy"></textarea>
+                      <textarea name="whatWhyInput" pInputTextarea rows="5" cols="30" [(ngModel)]="achievementWhatWhy"></textarea>
                     </div>
                   </div>
 
@@ -51,32 +53,19 @@
                   </div>
                 </div>
 
-                <div class="col-md-6 border-top achievement-list">
-                  <p-dataList [value]="achievements">
-                    <ng-template let-achievement pTemplate="item">
-                      <div class="row no-border achievement-details">
-                        <div class="col-md-6">
-                          <p class="text-center">
-                            {{achievement.name}}
-                          </p>
-                        </div>
+                <div class="col-md-7 border-top achievement-list">
+                  <p-dataTable [value]="achievements" scrollable="true" scrollHeight="18em">
+                    <p-column field="name" header="Name" styleClass="text-center"></p-column>
+                    <p-column field="where" header="Where" styleClass="text-center"></p-column>
+                    <p-column field="whatWhy" header="What/Why" styleClass="text-center"></p-column>
 
-                        <div class="col-md-6">
-                          <p class="text-center">
-                            {{achievement.where}}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div class="row no-border achievement-details">
-                        <div class="col-md-12">
-                          <p class="text-center">
-                            {{achievement.whatWhy}}
-                          </p>
-                        </div>
-                      </div>
-                    </ng-template>
-                  </p-dataList>
+                    <p-column header="Actions" styleClass="text-center" [style]="{width: '18%'}">
+                      <ng-template let-achievement="rowData" pTemplate="body">
+                        <button type="button" pButton (click)="editAchievement(achievement)" icon="fa-pencil"></button>
+                        <button type="button" pButton (click)="deleteAchievement(achievement)" icon="fa-trash-o"></button>
+                      </ng-template>
+                    </p-column>
+                  </p-dataTable>
                 </div>
               </div>
 
@@ -106,26 +95,29 @@
                   </div>
 
                   <div class="row padding-left">
-                    <p-dataList [value]="interestsHobbies">
-                      <ng-template let-interest pTemplate="item">
-                        <div class="row no-border">
-                          <div class="col-md-2">
-                            <img src="{{interest.img}}" height="30" width="30" *ngIf="interest.img">
-                          </div>
+                    <p-dataTable [value]="interestsHobbies" scrollable="true" scrollHeight="5.25em">
+                      <p-column field="img" header="Image" styleClass="text-center">
+                        <ng-template let-img let-interestHobby="rowData" pTemplate="body">
+                          <img src="{{interestHobby[img.field]}}" height="30" width="30" *ngIf="interestHobby[img.field]">
+                        </ng-template>
+                      </p-column>
 
-                          <div class="col-md-10">
-                            <p>{{interest.name}}
-                          </div>
-                        </div>
-                      </ng-template>
-                    </p-dataList>
+                      <p-column field="name" header="Name" styleClass="text-center"></p-column>
+
+                      <p-column header="Actions" styleClass="text-center" [style]="{width: '20%'}">
+                        <ng-template let-interestHobby="rowData" pTemplate="body">
+                          <button type="button" pButton (click)="editInterestHobby(interestHobby)" icon="fa-pencil"></button>
+                          <button type="button" pButton (click)="deleteInterestHobby(interestHobby)" icon="fa-trash-o"></button>
+                        </ng-template>
+                      </p-column>
+                    </p-dataTable>
                   </div>
                 </div>
 
                 <div class="row padding-left">
                   <h5>Other Options</h5>
 
-                  <div class="col-md-12 border-top text-center">
+                  <div class="col-md-12 border-top text-center referee-padding">
                     <md-checkbox name="showReferees" [(ngModel)]="editService.showReferees">Show Referees?</md-checkbox>
                   </div>
                 </div>
@@ -155,3 +147,111 @@
     </div>
   </div>
 </div>
+
+<!-- Edit Achievement -->
+<p-dialog [(visible)]="editAchievementDetails" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Edit Achievement Details for {{selectedAchievement.name}}
+  </p-header>
+
+  <div class="container-fluid">
+    <form>
+      <div class="row no-border">
+        <div class="col-md-6">
+          <div class="row no-border">
+            <div class="col-md-3 col-md-offset-2">
+              <h5>Achievement Name:</h5>
+            </div>
+
+            <div class="col-md-4 col-md-offset-1">
+              <input name="achievementNameInput" type="text" pInputText [(ngModel)]="selectedAchievement.name">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="row no-border">
+            <div class="col-md-3 col-md-offset-2">
+              <h5>Where:</h5>
+            </div>
+
+            <div class="col-md-4 col-md-offset-1">
+              <input name="achievementWhereInput" type="text" pInputText [(ngModel)]="selectedAchievement.where">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <h5>What/Why:</h5>
+        </div>
+
+        <div class="col-md-10">
+          <textarea name="achievementWhatWhyInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedAchievement.whatWhy"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="saveAndCloseAchievementDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeAchievementDialog()"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Edit Interest/Hobby -->
+<p-dialog [(visible)]="editInterestHobbyDetails" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Edit Interest/Hobby Details for {{selectedInterestHobby.name}}
+  </p-header>
+
+  <div class="container-fluid" *ngIf="selectedInterestHobby.img">
+    <div class="row no-border">
+      <div class="col-md-2 col-md-offset-5 overlay" (click)="uploadImage()">
+        <img src="{{selectedInterestHobby.img}}" class="image">
+
+        <div class="image-overlay">
+          <p class="overlay-text">Upload<br/>Interest/Hobby Image</p>
+        </div>
+      </div>
+    </div>
+
+    <form>
+      <div class="row">
+        <div class="col-md-2 col-md-offset-3">
+          <h5>Interest/Hobby Name:</h5>
+        </div>
+
+        <div class="col-md-4 col-md-offset-1">
+          <input name="interestHobbyNameInput" type="text" pInputText [(ngModel)]="selectedInterestHobby.name">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="container-fluid" *ngIf="!selectedInterestHobby.img">
+    <div class="row no-border">
+      <div class="col-md-2 col-md-offset-4">
+        <button type="button" pButton (click)="uploadImage()" label="Add Image"></button>
+      </div>
+    </div>
+
+    <form>
+      <div class="row">
+        <div class="col-md-2 col-md-offset-3">
+          <h5>Interest/Hobby Name:</h5>
+        </div>
+
+        <div class="col-md-4 col-md-offset-1">
+          <input name="interestHobbyNameInput" type="text" pInputText [(ngModel)]="selectedInterestHobby.name">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="saveAndCloseInterestDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeInterestDialog()"></button>
+  </p-footer>
+</p-dialog>

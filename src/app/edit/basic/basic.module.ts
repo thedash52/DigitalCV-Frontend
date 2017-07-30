@@ -5,10 +5,9 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { MdCardModule, MdButtonModule } from '@angular/material';
 
-import { ButtonModule, InputTextModule, InputTextareaModule, DropdownModule, DataListModule } from 'primeng/primeng';
+import { ButtonModule, InputTextModule, InputTextareaModule, DropdownModule, DataTableModule, SharedModule, ConfirmDialogModule, ConfirmationService, DialogModule } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
-import { CvService } from '../../shared/index';
 
 @NgModule({
   imports: [
@@ -21,9 +20,12 @@ import { CvService } from '../../shared/index';
     InputTextareaModule,
     DropdownModule,
     MdButtonModule,
-    DataListModule
+    DataTableModule,
+    SharedModule,
+    ConfirmDialogModule,
+    DialogModule
   ],
-  providers: [EditService, CvService],
+  providers: [EditService, ConfirmationService],
   declarations: [BasicComponent],
   exports: [BasicComponent]
 })
