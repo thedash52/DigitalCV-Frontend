@@ -4,6 +4,8 @@ import { ConfirmationService } from 'primeng/primeng';
 import { EditService } from '../edit.service';
 
 import { TechnologyModel } from '../../shared/models/technologyModel';
+import { TypeModel } from "../../shared/models/typeModel";
+import { RepositoryModel } from "../../shared/models/repositoryModel";
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
@@ -19,12 +21,22 @@ export class TechnologyComponent implements OnInit {
   selectedTechnology: TechnologyModel = new TechnologyModel();
   selectedRow: number;
 
+  repositories: RepositoryModel[];
+  selectedRepositoryType: TypeModel = new TypeModel();
+  selectedRepository: RepositoryModel = new RepositoryModel();
+  selectedRepositoryRow: number;
+
   options: SelectItem[];
+
+  newRepository: string;
 
   editDetails: boolean = false;
   addTechnology: boolean = false;
+  editRepositoryDetails: boolean = false;
 
   ngOnInit() {
+    this.selectedRepository.type = new TypeModel();
+
     this.editService.getTechnologies().subscribe(technologies => {
       this.technologies = [...technologies];
 
@@ -47,6 +59,53 @@ export class TechnologyComponent implements OnInit {
       }
 
       this.options = [...newOptions];
+    });
+
+    this.editService.getRepositories().subscribe(repositories => {
+      this.repositories = [...repositories];
+    });
+  }
+
+  addRepository() {
+    let repository: RepositoryModel = {type: this.selectedRepositoryType, link: this.newRepository};
+
+    this.editService.addRepository(repository);
+
+    this.selectedRepositoryType = new TypeModel();
+    this.newRepository = null;
+  }
+
+  editRepository(repository: RepositoryModel) {
+    this.selectedRepository = repository;
+
+    let row = this.repositories.indexOf(repository);
+
+    this.selectedRepositoryRow = row;
+    this.editRepositoryDetails = true;
+  }
+
+  saveAndCloseRepositoryDialog() {
+    this.editService.editRepository(this.selectedRepositoryRow, this.selectedRepository);
+
+    this.selectedRepository = new RepositoryModel();
+    this.selectedRepository.type = new TypeModel();
+    this.selectedRepositoryRow = null;
+    this.editRepositoryDetails = false;
+  }
+
+  closeRepositoryDialog() {
+    this.selectedRepository = new RepositoryModel();
+    this.selectedRepository.type = new TypeModel();
+    this.selectedRepositoryRow = null;
+    this.editRepositoryDetails = false;
+  }
+
+  deleteRepository(repository: RepositoryModel) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you would like to delete the repository link: ' + repository.type.short + ':' + repository.link,
+      accept: () => {
+        this.editService.deleteRepository(repository);
+      }
     });
   }
 

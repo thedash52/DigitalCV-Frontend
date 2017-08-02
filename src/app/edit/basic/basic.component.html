@@ -123,8 +123,39 @@
             </div>
 
             <div class="row">
-              <div class="col-md-12">
-                test
+              <div class="col-md-3">
+                <div class="row no-border">
+                  <div class="col-md-12">
+                    <p-dropdown name="socialdropdown" [options]="editService.socialTypes" [(ngModel)]="selectedSocialType" [style]="{width: '75%'}" placeholder="Pick a Social Service"></p-dropdown>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <input name="socialLink" type="text" pInputText [(ngModel)]="socialService" style="width:100%">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-7 col-md-offset-5">
+                    <button name="addSocialButton" pButton type="button" class="raised-button" (click)="AddSocial()" label="Add Social Service"
+                      icon="fa-plus"></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-9 border-left">
+                <p-dataTable [value]="social" scrollable="true" scrollHeight="9.25em">
+                  <p-column field="type.long" header="Type" styleClass="text-center"></p-column>
+                  <p-column field="link" header="Link" styleClass="text-center"></p-column>
+
+                  <p-column header="Actions" styleClass="text-center" [style]="{width: '10%'}">
+                    <ng-template let-row="rowData" pTemplate="body">
+                        <button type="button" pButton (click)="editSocialService(row)" icon="fa-pencil"></button>
+                        <button type="button" pButton (click)="deleteSocialService(row)" icon="fa-trash-o"></button>
+                      </ng-template>
+                  </p-column>
+                </p-dataTable>
               </div>
             </div>
           </form>
@@ -164,5 +195,41 @@
   <p-footer>
     <button type="button" pButton label="Done" (click)="saveAndCloseEditDialog()"></button>
     <button type="button" pButton label="Cancel" (click)="closeEditDialog()"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Edit Social Service -->
+<p-dialog [(visible)]="editSocial" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Edit Social Service: {{selectedSocial.link}}
+  </p-header>
+
+  <div class="container-fluid">
+    <form>
+      <div class="row">
+        <div class="col-md-2">
+          <h5>Social Serivce Link:</h5>
+        </div>
+
+        <div class="col-md-10">
+          <input name="addDetailInput" pInputText style="width:100%" [(ngModel)]="selectedSocial.link">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2 col-md-offset-6">
+          <h5>Social Service Type:</h5>
+        </div>
+
+        <div class="col-md-4">
+          <p-dropdown appendTo="body" name="editTypeDropdown" [style]="{width: '100%'}" [options]="editService.socialTypes" [(ngModel)]="selectedSocial.type" placeholder="No Type Selected"></p-dropdown>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="saveAndCloseSocialDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeSocialDialog()"></button>
   </p-footer>
 </p-dialog>

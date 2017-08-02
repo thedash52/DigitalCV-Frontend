@@ -12,6 +12,10 @@ import { CoursePaperModel } from '../shared/models/coursePaperModel';
 import { ExperienceModel } from '../shared/models/experienceModel';
 import { SkillModel } from "../shared/models/skillModel";
 import { TechnologyModel } from "../shared/models/technologyModel";
+import { RepositoryOptionModel } from "../shared/models/repositoryOptionModel";
+import { RepositoryModel } from "../shared/models/repositoryModel";
+import { SocialModel } from "../shared/models/socialModel";
+import { SocialTypeModel } from "../shared/models/socialTypeModel";
 
 @Injectable()
 export class EditService {
@@ -23,6 +27,11 @@ export class EditService {
     phoneTypes.push({ label: 'Work', value: { short: 'w', long: 'Work' } });
 
     this.phoneTypes.next(phoneTypes);
+
+    this.socialTypes = [];
+    this.socialTypes.push({label: "Facebook", value: {short: "fb", long: "Facebook"}});
+    this.socialTypes.push({label: "Twitter", value: {short: "tw", long: "Facebook"}});
+    this.socialTypes.push({label: "LinkedIn", value: {short: "in", long: "LinkedIn"}});
 
     var coursePapers: CoursePaperModel[] = [];
     coursePapers.push({ code: "D111", name: "Test Paper", details: "Test Paper", grade: "A+" });
@@ -47,6 +56,10 @@ export class EditService {
     this.addSkill({ detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent imperdiet, mi quis feugiat iaculis, nibh mauris euismod quam, sit amet euismod mi risus at felis. Donec dictum, neque et pretium rhoncus, velit sem fringilla nulla, ut rutrum felis lectus ac felis. Duis et orci risus. Mauris eget turpis pretium, semper lorem eu, mollis orci. Quisque lobortis non elit et fermentum. Ut sollicitudin ullamcorper ligula id vulputate. In hac habitasse platea dictumst. Sed eget auctor nisi. In dolor dolor, tincidunt eu neque ac, suscipit rutrum dui. Phasellus pharetra tempus porta. Vivamus sed justo varius, aliquet justo et, porttitor lorem. In id feugiat felis. Nulla facilisi.", category: "Category One" });
     this.addSkill({ detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent imperdiet, mi quis feugiat iaculis, nibh mauris euismod quam, sit amet euismod mi risus at felis. Donec dictum, neque et pretium rhoncus, velit sem fringilla nulla, ut rutrum felis lectus ac felis. Duis et orci risus. Mauris eget turpis pretium, semper lorem eu, mollis orci. Quisque lobortis non elit et fermentum. Ut sollicitudin ullamcorper ligula id vulputate. In hac habitasse platea dictumst. Sed eget auctor nisi. In dolor dolor, tincidunt eu neque ac, suscipit rutrum dui. Phasellus pharetra tempus porta. Vivamus sed justo varius, aliquet justo et, porttitor lorem. In id feugiat felis. Nulla facilisi.", category: "Category Two" });
 
+    this.repositoryOptions = [];
+    this.repositoryOptions.push({label: "Github", value: {short: "git", long: "GitHub"}});
+    this.repositoryOptions.push({label: "BitBucket", value: {short: "bit", long: "BitBucket"}});
+
     this.addTechnology({ img: "http://placehold.it/60x60", name: "Test 1", detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent imperdiet, mi quis feugiat iaculis, nibh mauris euismod quam, sit amet euismod mi risus at felis. Donec dictum, neque et pretium rhoncus, velit sem fringilla nulla, ut rutrum felis lectus ac felis. Duis et orci risus. Mauris eget turpis pretium, semper lorem eu, mollis orci. Quisque lobortis non elit et fermentum. Ut sollicitudin ullamcorper ligula id vulputate. In hac habitasse platea dictumst. Sed eget auctor nisi. In dolor dolor, tincidunt eu neque ac, suscipit rutrum dui. Phasellus pharetra tempus porta. Vivamus sed justo varius, aliquet justo et, porttitor lorem. In id feugiat felis. Nulla facilisi.", category: "Category One", src: "http://test.site.com" });
     this.addTechnology({ img: "http://placehold.it/60x60", name: "Test 2", detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent imperdiet, mi quis feugiat iaculis, nibh mauris euismod quam, sit amet euismod mi risus at felis. Donec dictum, neque et pretium rhoncus, velit sem fringilla nulla, ut rutrum felis lectus ac felis. Duis et orci risus. Mauris eget turpis pretium, semper lorem eu, mollis orci. Quisque lobortis non elit et fermentum. Ut sollicitudin ullamcorper ligula id vulputate. In hac habitasse platea dictumst. Sed eget auctor nisi. In dolor dolor, tincidunt eu neque ac, suscipit rutrum dui. Phasellus pharetra tempus porta. Vivamus sed justo varius, aliquet justo et, porttitor lorem. In id feugiat felis. Nulla facilisi.", category: "Category Two", src: "http://test.site.com" });
     this.addTechnology({ img: "http://placehold.it/60x60", name: "Test 3", detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent imperdiet, mi quis feugiat iaculis, nibh mauris euismod quam, sit amet euismod mi risus at felis. Donec dictum, neque et pretium rhoncus, velit sem fringilla nulla, ut rutrum felis lectus ac felis. Duis et orci risus. Mauris eget turpis pretium, semper lorem eu, mollis orci. Quisque lobortis non elit et fermentum. Ut sollicitudin ullamcorper ligula id vulputate. In hac habitasse platea dictumst. Sed eget auctor nisi. In dolor dolor, tincidunt eu neque ac, suscipit rutrum dui. Phasellus pharetra tempus porta. Vivamus sed justo varius, aliquet justo et, porttitor lorem. In id feugiat felis. Nulla facilisi.", category: "Category One", src: "http://test.site.com" });
@@ -69,6 +82,9 @@ export class EditService {
   city: string;
 
   summary: string;
+
+  social: BehaviorSubject<SocialModel[]> = new BehaviorSubject([]);
+  socialTypes: SocialTypeModel[];
 
   getPhoneNumbers() {
     return this.phoneNum.asObservable();
@@ -99,6 +115,33 @@ export class EditService {
     newList.splice(row, 1);
 
     this.phoneNum.next(newList);
+  }
+
+  getSocialServices() {
+    return this.social.asObservable();
+  }
+
+  addSocialService(socialService: SocialModel) {
+    let newList: SocialModel[] = this.social.getValue();
+    newList.push(socialService);
+
+    this.social.next(newList);
+  }
+
+  editSocialService(row: number, socialService: SocialModel) {
+    let newList: SocialModel[] = this.social.getValue();
+    newList.splice(row, 1, socialService);
+
+    this.social.next(newList);
+  }
+
+  deleteSocialService(socialService: SocialModel) {
+    let newList: SocialModel[] = this.social.getValue();
+    let row = newList.indexOf(socialService);
+
+    newList.splice(row, 1);
+
+    this.social.next(newList);
   }
 
   //Skill Page Data
@@ -133,7 +176,9 @@ export class EditService {
 
   //Technology Page Data
   technologies: BehaviorSubject<TechnologyModel[]> = new BehaviorSubject([]);
+  repositories: BehaviorSubject<RepositoryModel[]> = new BehaviorSubject([]);
 
+  repositoryOptions: RepositoryOptionModel[];
   showRepositories: boolean;
 
   getTechnologies() {
@@ -161,6 +206,33 @@ export class EditService {
     newList.splice(row, 1);
 
     this.technologies.next(newList);
+  }
+
+  getRepositories() {
+    return this.repositories.asObservable();
+  }
+
+  addRepository(repository: RepositoryModel) {
+    let newList: RepositoryModel[] = this.repositories.getValue();
+    newList.push(repository);
+
+    this.repositories.next(newList);
+  }
+
+  editRepository(row: number, repository: RepositoryModel) {
+    let newList: RepositoryModel[] = this.repositories.getValue();
+    newList.splice(row, 1, repository);
+
+    this.repositories.next(newList);
+  }
+
+  deleteRepository(repository: RepositoryModel) {
+    let newList: RepositoryModel[] = this.repositories.getValue();
+    let row = newList.indexOf(repository);
+
+    newList.splice(row, 1);
+
+    this.repositories.next(newList);
   }
 
   //Experience Page Data

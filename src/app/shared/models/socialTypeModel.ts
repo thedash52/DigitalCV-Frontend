@@ -1,6 +1,6 @@
 import { TypeModel } from "./typeModel";
 
-export class PhoneTypeModel {
+export class SocialTypeModel {
     label: string;
     value: TypeModel;
 }

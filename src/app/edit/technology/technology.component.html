@@ -19,6 +19,48 @@
         <md-card-content>
           <form>
             <div class="row">
+              <div class="col-md-2">
+                <h5>Repositories:</h5>
+              </div>
+
+              <div class="col-md-8 border-right">
+                <div class="row no-border">
+                  <div class="col-md-3">
+                    <p-dropdown name="repositoryAddDropdown" [options]="editService.repositoryOptions" [(ngModel)]="selectedRepositoryType" [style]="{width: '100%'}" placeholder="Repository Type"></p-dropdown>
+                  </div>
+
+                  <div class="col-md-6">
+                    <input name="repositoryInput" type="text" pInputText [(ngModel)]="newRepository" placeholder="Link example: http://github.com/test-user" style="width:100%">
+                  </div>
+
+                  <div class="col-md-3">
+                    <button type="button" pButton (click)="addRepository()" label="Add Repository" icon="fa-plus"></button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <p-dataTable [value]="repositories">
+                      <p-column field="type.long" header="Type" styleClass="text-center" [style]="{width: '30%'}"></p-column>
+                      <p-column field="link" header="Link" styleClass="text-center"></p-column>
+
+                      <p-column header="Actions" styleClass="text-center" [style]="{width: '15%'}">
+                        <ng-template let-repository="rowData" pTemplate="body">
+                          <button type="button" pButton (click)="editRepository(repository)" icon="fa-pencil"></button>
+                          <button type="button" pButton (click)="deleteRepository(repository)" icon="fa-trash-o"></button>
+                        </ng-template>
+                      </p-column>
+                    </p-dataTable>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-2 vertical-align">
+                <md-checkbox name="showRepositoryCheckBox" [(ngModel)]="editService.showRepository">Show Repositories</md-checkbox>
+              </div>
+            </div>
+
+            <div class="row">
               <div class="col-md-12">
                 <p-dataTable [value]="technologies" sortField="category" rowGroupMode="subheader" groupField="category">
                   <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['category']}}</ng-template>
@@ -44,26 +86,48 @@
                 </p-dataTable>
               </div>
             </div>
-
-            <div class="row">
-              <div class="col-md-2">
-                <h5>Repositories:</h5>
-              </div>
-
-              <div class="col-md-8">
-                Repository Connector
-              </div>
-
-              <div class="col-md-2">
-                <md-checkbox name="showRepositoryCheckBox" [(ngModel)]="editService.showRepository">Show Repositories</md-checkbox>
-              </div>
-            </div>
           </form>
         </md-card-content>
       </md-card>
     </div>
   </div>
 </div>
+
+<!-- Edit Repository -->
+<p-dialog [(visible)]="editRepositoryDetails" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Edit Repository: {{selectedRepository.link}}
+  </p-header>
+
+  <div class="container-fluid">
+    <form>
+      <div class="row">
+        <div class="col-md-2">
+          <h5>Repository Link:</h5>
+        </div>
+
+        <div class="col-md-10">
+          <input name="addDetailInput" pInputText style="width:100%" [(ngModel)]="selectedRepository.link">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2 col-md-offset-6">
+          <h5>Repository Type:</h5>
+        </div>
+
+        <div class="col-md-4">
+          <p-dropdown appendTo="body" name="editTypeDropdown" [style]="{width: '100%'}" [options]="editService.repositoryOptions" [(ngModel)]="selectedRepository.type" placeholder="No Type Selected"></p-dropdown>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="saveAndCloseRepositoryDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeRepositoryDialog()"></button>
+  </p-footer>
+</p-dialog>
 
 <!-- Edit Technology -->
 <p-dialog [(visible)]="editDetails" modal="true" [draggable]="false" [closable]="false" [width]="800">
