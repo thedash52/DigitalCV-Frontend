@@ -16,6 +16,8 @@ import { routes } from './app.routes';
 import { SanitizeHtml } from './safehtml.pipe';
 import { TestSiteComponent } from './test-site/test-site.component';
 
+import { UserService } from "./shared/index";
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -31,7 +33,7 @@ import { TestSiteComponent } from './test-site/test-site.component';
     SanitizeHtml,
     TestSiteComponent
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
