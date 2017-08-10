@@ -31,7 +31,7 @@ export class BasicComponent implements OnInit {
   newNumber: number;
 
   selectedSocialType: TypeModel;
-  
+
   socialService: string;
 
   social: SocialModel[] = [];
@@ -97,7 +97,7 @@ export class BasicComponent implements OnInit {
   }
 
   AddSocial() {
-    let socialService: SocialModel = {link: this.socialService, type: this.selectedSocialType};
+    let socialService: SocialModel = { link: this.socialService, type: this.selectedSocialType };
 
     this.editService.addSocialService(socialService);
 
@@ -116,7 +116,7 @@ export class BasicComponent implements OnInit {
 
   saveAndCloseSocialDialog() {
     this.editService.editSocialService(this.selectedSocialRow, this.selectedSocial);
-    
+
     this.selectedSocial = new SocialModel();
     this.selectedSocialRow = null;
     this.editSocial = false;

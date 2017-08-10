@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MdProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpModule } from "@angular/http";
 
 import { ProgressBarModule } from 'primeng/primeng';
 
@@ -17,10 +18,12 @@ import { SanitizeHtml } from './safehtml.pipe';
 import { TestSiteComponent } from './test-site/test-site.component';
 
 import { UserService } from "./shared/index";
+import { CvService } from "./shared/cv.service";
 
 @NgModule({
   imports: [
     BrowserModule,
+    HttpModule,
     BrowserAnimationsModule,
     MdProgressSpinnerModule,
     DetailsModule,
@@ -33,7 +36,7 @@ import { UserService } from "./shared/index";
     SanitizeHtml,
     TestSiteComponent
   ],
-  providers: [UserService],
+  providers: [UserService, CvService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
