@@ -1,7 +1,6 @@
+import { TypeModel } from "./typeModel";
+
 export class PhoneNumberModel {
-    type: {
-        short: string;
-        long: string;
-    };
+    type: TypeModel;
     number: number;
 }

@@ -4,5 +4,5 @@ export class EducationModel {
     course: string;
     school: string;
     lnk: string;
-    category: string;
+    year: string;
 }

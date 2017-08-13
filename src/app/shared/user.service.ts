@@ -12,6 +12,9 @@ import { ReceiveTechModel } from "./models/httpModels/receiveTechModel";
 import { ExperienceModel } from "./models/displayModels/experienceModel";
 import { ReceiveEducationModel } from "./models/httpModels/receiveEducationModel";
 import { ReceiveOtherModel } from "./models/httpModels/receiveOtherModel";
+import { ReceiveTypeModel } from "./models/httpModels/typeModel";
+import { RevieveSaveModel } from "./models/httpModels/recieveSaveModel";
+import { PostSaveModel } from "./models/httpModels/postSaveModel";
 
 @Injectable()
 export class UserService {
@@ -34,6 +37,10 @@ export class UserService {
 
   checkConnection(): Observable<ConnectionCheck> {
     return this.http.get(this.url + "check-connection").map((res: Response) => res.json());
+  }
+
+  getType(): Observable<ReceiveTypeModel[]> {
+    return this.http.get(this.url + "get-type").map((res: Response) => res.json());
   }
 
   getBasic(): Observable<ReceiveBasicModel> {
@@ -94,6 +101,12 @@ export class UserService {
     let headers = new Headers();
     this.createHeader(headers);
     return this.http.post(this.url + "verify-other", { other }, { headers: headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
+  }
+
+  SaveEdit(edit: PostSaveModel): Promise<RevieveSaveModel> {
+    let headers = new Headers();
+    this.createHeader(headers);
+    return this.http.post(this.url + "save-edit", { edit }, { headers: headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 
   private handleError(err: Response | any) {
