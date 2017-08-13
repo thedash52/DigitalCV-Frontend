@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { ButtonModule } from 'primeng/primeng';
+import { ButtonModule, GrowlModule } from 'primeng/primeng';
 import { CvService } from './cv.service';
 import { UserService } from './user.service';
 
@@ -11,7 +11,8 @@ import { UserService } from './user.service';
   imports: [
     CommonModule,
     RouterModule,
-    ButtonModule
+    ButtonModule,
+    GrowlModule
   ],
   declarations: [],
   exports: [

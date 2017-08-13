@@ -19,6 +19,7 @@ import { TestSiteComponent } from './test-site/test-site.component';
 
 import { UserService } from "./shared/index";
 import { CvService } from "./shared/cv.service";
+import { EditService } from "./edit/index";
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { CvService } from "./shared/cv.service";
     SanitizeHtml,
     TestSiteComponent
   ],
-  providers: [UserService, CvService],
+  providers: [UserService, CvService, EditModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

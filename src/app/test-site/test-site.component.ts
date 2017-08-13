@@ -165,7 +165,7 @@ export class TestSiteComponent implements OnInit {
 
         this.editService.skills.next(edit);
 
-        this.editService.showRepositories = this.cvService.basic.show_repositories || true;
+        this.editService.showRepositories = this.cvService.basic.show_repositories;
 
         let displayTech = this.cvService.technologies.getValue();
         let displayRepositories = this.cvService.repositories.getValue();
@@ -242,7 +242,7 @@ export class TestSiteComponent implements OnInit {
 
         this.editService.educationList.next(editEducation);
 
-        this.editService.showReferees = this.cvService.basic.show_referees || true;
+        this.editService.showReferees = this.cvService.basic.show_referees;
 
         let displayAchievements = this.cvService.achievements.getValue();
         let displayInterest = this.cvService.interest.getValue();

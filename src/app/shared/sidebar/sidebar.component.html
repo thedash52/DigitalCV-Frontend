@@ -1,7 +1,9 @@
+<p-growl [(value)]="msg"></p-growl>
+
 <nav id="navbar" class="navbar nav-fixed-top navbar-default">
   <div class="col-md-1 col-md-offset-2">
     <ul id="navItems" class="nav navbar-nav">
-      <li class="nav-item"><button pButton type="button" class="raised-button" label="Save"></button></li>
+      <li class="nav-item"><button pButton type="button" (click)="Save()" class="raised-button" label="Save"></button></li>
     </ul>
   </div>
 
@@ -11,7 +13,7 @@
 
   <div class="col-md-1 col-md-offset-3">
     <ul id="navItems" class="nav navbar-nav">
-      <li class="nav-item"><button pButton type="button" class="ui-button-secondary raised-button" label="Cancel"></button></li>
+      <li class="nav-item"><button pButton type="button" (click)="Cancel()" class="ui-button-secondary raised-button" label="Cancel"></button></li>
     </ul>
   </div>
 </nav>
