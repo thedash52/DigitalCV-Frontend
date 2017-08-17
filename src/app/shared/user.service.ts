@@ -23,15 +23,32 @@ export class UserService {
 
   private url: string = "http://localhost:3000/";
 
+  loginRoute: string;
+
   private createHeader(headers: Headers) {
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     headers.append('Content-Type', 'application/json');
-    // headers.append('Authorization', 'JWT ' + currentUser.token);
+  }
+
+  private addAuthentication(headers: Headers) {
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (currentUser) {
+      headers.append('Authorization', 'JWT ' + currentUser.token);
+    } else {
+      headers.append('Authorization', "");
+    }
+  }
+
+  login(username: string, password: string) {
+    let headers = new Headers();
+    this.createHeader(headers);
+    return this.http.post(this.url + "login", {username: username, password: password} , { headers}).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 
   checkLogin() {
     let headers = new Headers();
     this.createHeader(headers);
+    this.addAuthentication(headers);
     return this.http.get(this.url + "check-login", { headers: headers }).map((res: Response) => res.json());
   }
 

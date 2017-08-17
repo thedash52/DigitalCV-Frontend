@@ -46,25 +46,17 @@ export class SidebarComponent implements OnInit {
     saveData.interest = this.editService.interestHobbies.getValue();
 
     this.userService.SaveEdit(saveData).then((result) => {
-      let overallResult: boolean = true;
-
-      for (var i in result) {
-        if (!result[i]) {
-          overallResult = false;
-        }
-      }
-
-      if (overallResult) {
+      if (!result.err && !result.result) {
         this.msg = [];
         this.msg.push({severity: 'success', summary: 'Save Result', detail: 'Save Successful'});
+
+        setTimeout(() => {
+          this.router.navigate(['']);
+        }, 2000);
       } else {
         this.msg = [];
         this.msg.push({severity: 'error', summary: 'Save Result', detail: 'Save Failed'});
       }
-
-      setTimeout(() => {
-        this.router.navigate(['']);
-      }, 2000)
     });
   }
 

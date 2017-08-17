@@ -1,0 +1,21 @@
+<div class="login-page animate">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <h1>Login</h1>
+
+      <form role="form">
+        <div class="form-content">
+          <div class="form-group">
+              <input name="usernameInput" class="form-control input-underline input-lg" #username type="text" pInputText placeholder="Username" />
+          </div>
+
+          <div class="form-group">
+              <input name="passwordInput" class="form-control input-underline input-lg" #password type="password" pInputText placeholder="Password" (keyup.enter)="login(username.value, password.value)" />
+          </div>
+        </div>
+        <a class="btn rounded-btn" (click)="cancel()">Cancel</a>        
+        <a class="btn rounded-btn" (click)="login(username.value, password.value)">Login</a>
+      </form>
+    </div>
+  </div>
+</div>

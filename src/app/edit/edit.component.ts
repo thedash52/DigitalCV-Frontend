@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { UserService } from "../shared/index";
 
 @Component({
   selector: 'app-edit',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private userService: UserService) {
+    if (!this.userService.checkLogin()) {
+      this.router.navigate(['/login']);
+    }
+  }
 
   ngOnInit() {
   }

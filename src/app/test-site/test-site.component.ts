@@ -99,8 +99,18 @@ export class TestSiteComponent implements OnInit {
             setTimeout(() => {
               clearInterval(textInterval);
 
-              this.setupEdit().then(() => {
-                this.router.navigate([route]);
+              this.userService.checkLogin().subscribe(result => {
+                  this.setupEdit().then(() => {
+                    this.router.navigate([route]);
+                  });
+              }, (err) => {
+                if (err.status === 401) {
+                  this.setupEdit().then(() => {
+                    this.userService.loginRoute = route;
+                    
+                    this.router.navigate(['/login']);
+                  });
+                }
               });
             }, 2000)
           } else {
@@ -332,7 +342,6 @@ export class TestSiteComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.userService.checkConnection().subscribe(result => {
         if (!result.connection || !result.database) {
-          console.log(result.err);
           return reject(result.err);
         }
 

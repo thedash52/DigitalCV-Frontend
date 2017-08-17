@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { DetailsModule } from './details/index';
 import { EditModule } from './edit/index';
 import { SharedModule } from './shared/index';
+import { LoginModule } from "./login/index";
 
 import { routes } from './app.routes';
 import { SanitizeHtml } from './safehtml.pipe';
@@ -20,6 +21,7 @@ import { TestSiteComponent } from './test-site/test-site.component';
 import { UserService } from "./shared/index";
 import { CvService } from "./shared/cv.service";
 import { EditService } from "./edit/index";
+import { Page404Component } from './page404/page404.component';
 
 @NgModule({
   imports: [
@@ -30,12 +32,14 @@ import { EditService } from "./edit/index";
     DetailsModule,
     RouterModule.forRoot(routes),
     CommonModule,
-    EditModule
+    EditModule,
+    LoginModule
   ],
   declarations: [
     AppComponent,
     SanitizeHtml,
-    TestSiteComponent
+    TestSiteComponent,
+    Page404Component
   ],
   providers: [UserService, CvService, EditModule],
   bootstrap: [AppComponent]
