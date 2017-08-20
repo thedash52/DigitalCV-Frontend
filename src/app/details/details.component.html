@@ -1,63 +1,173 @@
-<div class="container">
-  <div class="animate">
-    <div class="row">
-      <nav id="navbar" class="navbar navbar-fixed-top navbar-default">
+<div [ngBusy]="busy"></div>
+<p-messages [(value)]="msgs"></p-messages>
+
+<div class="background">
+  <div class="container">
+    <div class="animate" *ngIf="showPage">
+      <nav id="navbar" class="navbar navbar-fixed-top navbar-default navbar-inverse">
         <div class="col-md-1 col-md-offset-1">
           <h3 class="header">Digital CV</h3>
         </div>
 
         <div class="col-md-5">
           <ul id="navItems" class="nav navbar-nav">
-            <li class="nav-item"><a (click)="scrollTo('basic')">Basic</a></li>
-            <li class="nav-item"><a (click)="scrollTo('skill')">Skills</a></li>
-            <li class="nav-item"><a (click)="scrollTo('tech')">Technologies</a></li>
-            <li class="nav-item"><a (click)="scrollTo('experience')">Experience</a></li>
-            <li class="nav-item"><a (click)="scrollTo('education')">Education</a></li>
-            <li class="nav-item"><a (click)="scrollTo('other')">Other</a></li>
+            <li class="nav-item"><a role=button (click)="scrollTo('basic')">Basic</a></li>
+            <li class="nav-item"><a role=button (click)="scrollTo('skill')">Skills</a></li>
+            <li class="nav-item"><a role=button (click)="scrollTo('tech')">Technologies</a></li>
+            <li class="nav-item"><a role=button (click)="scrollTo('experience')">Experience</a></li>
+            <li class="nav-item"><a role=button (click)="scrollTo('education')">Education</a></li>
+            <li class="nav-item"><a role=button (click)="scrollTo('other')">Other</a></li>
           </ul>
         </div>
 
         <div class="col-md-1 col-md-offset-3">
           <ul id="navItems" class="nav navbar-nav">
             <li class="dropdown nav-item" dropdown>
-              <a role="button" id="dropdownMenu" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" dropdown-toggle>Edit<span class="caret"></span></a>
+              <a role="button" id="dropdownMenu" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                dropdown-toggle>Edit<span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <li><a (click)="editRoute('/edit/basic')">Basic</a></li>
-                <li><a (click)="editRoute('/edit/skills')">Skills</a></li>
-                <li><a (click)="editRoute('/edit/technology')">Technologies</a></li>
-                <li><a (click)="editRoute('/edit/experience')">Experience</a></li>
-                <li><a (click)="editRoute('/edit/education')">Education</a></li>
-                <li><a (click)="editRoute('/edit/other')">Other</a></li>
+                <li><a role=button (click)="editRoute('/edit/basic')">Basic</a></li>
+                <li><a role=button (click)="editRoute('/edit/skills')">Skills</a></li>
+                <li><a role=button (click)="editRoute('/edit/technology')">Technologies</a></li>
+                <li><a role=button (click)="editRoute('/edit/experience')">Experience</a></li>
+                <li><a role=button (click)="editRoute('/edit/education')">Education</a></li>
+                <li><a role=button (click)="editRoute('/edit/other')">Other</a></li>
               </ul>
           </ul>
         </div>
       </nav>
-    </div>
 
-    <div id="content" class="row">
-      <div class="col-md-12">
-        <div id="basic" class="row">
+      <div id="content" class="row navBar-padding">
+        <div class="col-md-12">
+          <div id="basic">
+            <div class="row">
+              <div class="col-md-2 col-md-offset-3">
+                <img src="../../assets/images/circle-avatar.jpg" class="img-circle avatar-position" width="100%" height="100%" alt="avatar-img"
+                />
+              </div>
+            </div>
 
-        </div>
+            <div class="row">
+              <div class="col-md-4 col-md-offset-4">
+                <img src="../../assets/images/profile-circle.jpg" class="img-circle profile-img" width="100%" height="100%" alt="profile-img"
+                />
+              </div>
+            </div>
 
-        <div id="skill" class="row">
+            <div class="row">
+              <div class="col-md-12">
+                <md-card id="basic-card" class="card">
+                  <md-card-content>
+                    <div></div>
 
-        </div>
+                    <div class="row">
+                      <div class="col-md-4 col-md-offset-4">
+                        <h1>{{cvService.basic.name}}</h1>
+                      </div>
+                    </div>
 
-        <div id="tech" class="row">
+                    <hr>
 
-        </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="row">
+                          <div class="col-md-5">
+                            <h3 class="no-top-padding">Address:</h3>
+                          </div>
 
-        <div id="experience" class="row">
+                          <div class="col-md-7">
+                            <p>{{cvService.basic.address_1}}</p>
+                            <p>{{cvService.basic.address_2}}</p>
+                            <p>{{cvService.basic.address_3}}</p>
+                          </div>
+                        </div>
+                      </div>
 
-        </div>
+                      <div class="col-md-4 border-left">
+                        <div class="row" *ngFor="let phone of phoneData">
+                          <div class="col-md-4">
+                            <h3 class="no-top-padding">{{phone.type.long}}</h3>
+                          </div>
 
-        <div id="education" class="row">
+                          <div class="col-md-8">
+                            <p>{{phone.number}}</p>
+                          </div>
+                        </div>
+                      </div>
 
-        </div>
+                      <div class="col-md-4 border-left">
+                        <div class="row" *ngFor="let social of socialData">
+                          <div class="col-md-4">
+                            <h3 class="no-top-padding">{{social.type.long}}</h3>
+                          </div>
 
-        <div id="other" class="row">
+                          <div class="col-md-8">
+                            <p>{{social.link}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
+                    <hr>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <h3 class="no-top-padding">Summary:</h3>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-10 col-md-offset-1">
+                            <p>{{cvService.basic.summary}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </md-card-content>
+                </md-card>
+              </div>
+            </div>
+          </div>
+
+          <div id="skill" class="row">
+
+          </div>
+
+          <div id="tech">
+            <md-card>
+              <md-card-header>
+                <md-card-title>
+                  <h3>Technology</h3>
+                </md-card-title>
+              </md-card-header>
+
+              <md-card-content>
+            <div class="row">
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+
+            </div>
+              </md-card-content>
+            </md-card>
+          </div>
+
+          <div id="experience" class="row">
+
+          </div>
+
+          <div id="education" class="row">
+
+          </div>
+
+          <div id="other" class="row">
+
+          </div>
         </div>
       </div>
     </div>

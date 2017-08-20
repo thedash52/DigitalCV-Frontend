@@ -113,8 +113,10 @@ export class TestSiteComponent implements OnInit {
                 }
               });
             }, 2000)
+          } else if (typeof(route) == "boolean") {
+            this.status = "Data Validation Failed.";
           } else {
-            this.status = "Data Error. Reattempting setup."
+            this.status = "Error. Reattempting setup."
 
             setTimeout(() => {
               clearInterval(textInterval);

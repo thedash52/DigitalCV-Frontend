@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from "@angular/http";
 
 import { ProgressBarModule } from 'primeng/primeng';
+import { BusyModule } from "angular2-busy";
 
 import { AppComponent } from './app.component';
 import { DetailsModule } from './details/index';
@@ -33,7 +34,8 @@ import { Page404Component } from './page404/page404.component';
     RouterModule.forRoot(routes),
     CommonModule,
     EditModule,
-    LoginModule
+    LoginModule,
+    BusyModule
   ],
   declarations: [
     AppComponent,

@@ -1,8 +1,9 @@
 export class EducationModel {
     id: number;
+    user: number;
     img: string;
     course: string;
     school: string;
-    lnk: string;
+    link: string;
     year: string;
 }

@@ -1,3 +1,4 @@
+<div [ngBusy]="busy"></div>
 <md-progress-spinner class="center-screen" color="primary" mode="determinate" [value]="value"></md-progress-spinner>
 <div class="center-screen" [@visibilityChanged]="isVisible">Loading</div>
 <div class="below-gauge"><span [@valueChanged]="status">{{status}}</span></div>

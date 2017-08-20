@@ -13,11 +13,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private userService: UserService, private location: Location) { }
 
+  busy: Promise<any>;
+
   ngOnInit() {
   }
 
   login(username: string, password: string) {
-    this.userService.login(username, password).then(result => {
+    this.busy = this.userService.login(username, password).then(result => {
       localStorage.setItem('currentUser', JSON.stringify(result.token));
 
       var loginRoute;
