@@ -25,29 +25,33 @@ export class UserService {
 
   loginRoute: string;
 
-  private createHeader(headers: Headers) {
+  private createHeader(headers: Headers, authentication: boolean) {
     headers.append('Content-Type', 'application/json');
+
+    if (authentication) {
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+      if (currentUser) {
+        headers.append('Authorization', 'JWT ' + currentUser);
+      } else {
+        headers.append('Authorization', "");
+      }
+    }
   }
 
   private addAuthentication(headers: Headers) {
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    if (currentUser) {
-      headers.append('Authorization', 'JWT ' + currentUser.token);
-    } else {
-      headers.append('Authorization', "");
-    }
   }
 
   login(username: string, password: string) {
     let headers = new Headers();
-    this.createHeader(headers);
-    return this.http.post(this.url + "login", {username: username, password: password} , { headers}).toPromise().then((res: Response) => res.json()).catch(this.handleError);
+    this.createHeader(headers, false);
+    return this.http.post(this.url + "login", { username: username, password: password }, { headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 
   checkLogin() {
     let headers = new Headers();
-    this.createHeader(headers);
+    this.createHeader(headers, true);
     this.addAuthentication(headers);
     return this.http.get(this.url + "check-login", { headers: headers }).map((res: Response) => res.json());
   }
@@ -86,43 +90,43 @@ export class UserService {
 
   verifyBasic(basic: ReceiveBasicModel): Promise<{ basic: boolean, phone: boolean, social: boolean }> {
     let headers = new Headers();
-    this.createHeader(headers);
+    this.createHeader(headers, false);
     return this.http.post(this.url + "verify-basic", { basic }, { headers: headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 
   verifySkill(skill: SkillModel[]): Promise<boolean> {
     let headers = new Headers();
-    this.createHeader(headers);
+    this.createHeader(headers, false);
     return this.http.post(this.url + "verify-skill", { skill }, { headers: headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 
   verifyTech(tech: ReceiveTechModel): Promise<{ technology: boolean, repository: boolean }> {
     let headers = new Headers();
-    this.createHeader(headers);
+    this.createHeader(headers, false);
     return this.http.post(this.url + "verify-tech", { tech }, { headers: headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 
   verifyExperience(experience: ExperienceModel[]): Promise<boolean> {
     let headers = new Headers();
-    this.createHeader(headers);
+    this.createHeader(headers, false);
     return this.http.post(this.url + "verify-experience", { experience }, { headers: headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 
   verifyEducation(education: ReceiveEducationModel): Promise<{ education: boolean, paper: boolean }> {
     let headers = new Headers();
-    this.createHeader(headers);
+    this.createHeader(headers, false);
     return this.http.post(this.url + "verify-education", { education }, { headers: headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 
   verifyOther(other: ReceiveOtherModel): Promise<{ achievement: boolean, interest: boolean }> {
     let headers = new Headers();
-    this.createHeader(headers);
+    this.createHeader(headers, false);
     return this.http.post(this.url + "verify-other", { other }, { headers: headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 
   SaveEdit(edit: PostSaveModel): Promise<RevieveSaveModel> {
     let headers = new Headers();
-    this.createHeader(headers);
+    this.createHeader(headers, false);
     return this.http.post(this.url + "save-edit", { edit }, { headers: headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 

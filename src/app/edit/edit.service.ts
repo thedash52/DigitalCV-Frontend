@@ -53,6 +53,8 @@ export class EditService {
     // this.addTechnology({ img: "http://placehold.it/60x60", name: "Test 7", detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent imperdiet, mi quis feugiat iaculis, nibh mauris euismod quam, sit amet euismod mi risus at felis. Donec dictum, neque et pretium rhoncus, velit sem fringilla nulla, ut rutrum felis lectus ac felis. Duis et orci risus. Mauris eget turpis pretium, semper lorem eu, mollis orci. Quisque lobortis non elit et fermentum. Ut sollicitudin ullamcorper ligula id vulputate. In hac habitasse platea dictumst. Sed eget auctor nisi. In dolor dolor, tincidunt eu neque ac, suscipit rutrum dui. Phasellus pharetra tempus porta. Vivamus sed justo varius, aliquet justo et, porttitor lorem. In id feugiat felis. Nulla facilisi.", category: "Category Four", src: "http://test.site.com" });
   }
 
+  setUp: boolean = false;
+
   // Basic Page Data
   phoneNum: BehaviorSubject<PhoneNumberModel[]> = new BehaviorSubject([]);
   phoneTypes: BehaviorSubject<PhoneTypeModel[]> = new BehaviorSubject([]);
@@ -69,7 +71,7 @@ export class EditService {
   summary: string;
 
   social: BehaviorSubject<SocialModel[]> = new BehaviorSubject([]);
-  socialTypes: SocialTypeModel[];
+  socialTypes: BehaviorSubject<SocialTypeModel[]> = new BehaviorSubject([]);
 
   getPhoneNumbers() {
     return this.phoneNum.asObservable();
@@ -77,6 +79,10 @@ export class EditService {
 
   getPhoneTypes() {
     return this.phoneTypes.asObservable();
+  }
+
+  getSocialTypes() {
+    return this.socialTypes.asObservable();
   }
 
   addPhoneNumber(newPhoneNum: PhoneNumberModel) {
@@ -163,7 +169,7 @@ export class EditService {
   technologies: BehaviorSubject<TechnologyModel[]> = new BehaviorSubject([]);
   repositories: BehaviorSubject<RepositoryModel[]> = new BehaviorSubject([]);
 
-  repositoryOptions: RepositoryOptionModel[];
+  repositoryOptions: BehaviorSubject<RepositoryOptionModel[]> = new BehaviorSubject([]);
   showRepositories: boolean;
 
   getTechnologies() {
@@ -195,6 +201,10 @@ export class EditService {
 
   getRepositories() {
     return this.repositories.asObservable();
+  }
+
+  getRepoOptions() {
+    return this.repositoryOptions.asObservable();
   }
 
   addRepository(repository: RepositoryModel) {

@@ -29,6 +29,7 @@ export class SidebarComponent implements OnInit {
         this.msg.push({severity: 'success', summary: 'Save Result', detail: 'Save Successful'});
 
         setTimeout(() => {
+          this.editService.setUp = false;
           this.router.navigate(['']);
         }, 2000);
       } else {
@@ -68,6 +69,7 @@ export class SidebarComponent implements OnInit {
   }
 
   Cancel() {
+    this.editService.setUp = false;
     this.router.navigate(['']);
   }
 }

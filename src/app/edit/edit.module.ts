@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MdProgressSpinnerModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ButtonModule, GrowlModule } from 'primeng/primeng';
 
@@ -13,7 +15,8 @@ import { ExperianceModule } from './experiance/index';
 import { EducationModule } from './education/index';
 import { OtherModule } from './other/index';
 import { EditService } from './edit.service';
-import { UserService } from '../shared/index';
+import { UserService, CvService } from '../shared/index';
+import { SetupEditComponent } from './setup-edit/setup-edit.component';
 
 @NgModule({
   imports: [
@@ -26,10 +29,12 @@ import { UserService } from '../shared/index';
     ExperianceModule,
     EducationModule,
     OtherModule,
-    GrowlModule
+    GrowlModule,
+    MdProgressSpinnerModule,
+    BrowserAnimationsModule
   ],
-  declarations: [EditComponent, SidebarComponent],
+  declarations: [EditComponent, SidebarComponent, SetupEditComponent],
   exports: [EditComponent, SidebarComponent],
-  providers: [EditService, UserService]
+  providers: [EditService, UserService, CvService]
 })
 export class EditModule { }

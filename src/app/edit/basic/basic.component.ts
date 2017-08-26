@@ -35,6 +35,7 @@ export class BasicComponent implements OnInit {
   socialService: string;
 
   social: SocialModel[] = [];
+  socialTypes: SocialTypeModel[] = [];
   selectedSocial: SocialModel = new SocialModel();
   selectedSocialRow: number;
 
@@ -50,6 +51,10 @@ export class BasicComponent implements OnInit {
 
     this.editService.getPhoneTypes().subscribe(phoneTypes => {
       this.phoneTypes = [...phoneTypes];
+    });
+
+    this.editService.getSocialTypes().subscribe(types => {
+      this.socialTypes = [...types];
     });
 
     this.editService.getSocialServices().subscribe(socialServices => {

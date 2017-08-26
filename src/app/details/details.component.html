@@ -22,7 +22,9 @@
 
         <div class="col-md-1 col-md-offset-3">
           <ul id="navItems" class="nav navbar-nav">
-            <li class="dropdown nav-item" dropdown>
+            <li class="nav-item" *ngIf="!loggedIn"><a role="button" (click)="login()">Login</a></li>
+
+            <li class="dropdown nav-item" dropdown *ngIf="loggedIn">
               <a role="button" id="dropdownMenu" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
                 dropdown-toggle>Edit<span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
@@ -32,6 +34,8 @@
                 <li><a role=button (click)="editRoute('/edit/experience')">Experience</a></li>
                 <li><a role=button (click)="editRoute('/edit/education')">Education</a></li>
                 <li><a role=button (click)="editRoute('/edit/other')">Other</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a role="button" (click)="logout()">Logout</a></li>
               </ul>
           </ul>
         </div>
@@ -125,14 +129,46 @@
                         </div>
                       </div>
                     </div>
+
+                    <hr>
                   </md-card-content>
                 </md-card>
               </div>
             </div>
           </div>
 
-          <div id="skill" class="row">
+          <div id="skill">
+            <md-card>
+              <md-card-header>
+                <md-card-title>
+                  <h3>Skills</h3>
+                </md-card-title>
+              </md-card-header>
 
+              <md-card-content>
+                <div class="row">
+                  <div class="col-md-4 skills" *ngFor="let category of configureSkills()">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4 class="border-padding">{{category.label}}</h4>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <ul class="skills-list">
+                          <li *ngFor="let skill of category.value">
+                            <p>{{skill}}</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr>
+              </md-card-content>
+            </md-card>
           </div>
 
           <div id="tech">
@@ -144,32 +180,340 @@
               </md-card-header>
 
               <md-card-content>
-            <div class="row">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p-carousel circular="circular" autoplayInterval="10000" [value]="techData">
+                      <ng-template let-tech pTemplate="item">
+                        <div class="row">
+                          <div class="col-md-4 col-md-offset-4">
+                            <img src="http://placehold.it/60x60" alt="Tech Image">
+                          </div>
+                        </div>
 
-            </div>
+                        <div class="row border-padding">
+                          <div class="col-md-3">
+                            <h5>Name:</h5>
+                          </div>
 
-            <hr>
+                          <div class="col-md-9">
+                            <p class="vertical-align">{{tech.name}}</p>
+                          </div>
+                        </div>
 
-            <div class="row">
+                        <div class="row border-padding">
+                          <div class="col-md-12">
+                            <h5>Details:</h5>
+                          </div>
+                        </div>
 
-            </div>
+                        <div class="row border-padding">
+                          <div class="col-md-12">
+                            <p>{{tech.detail}}</p>
+                          </div>
+                        </div>
+
+                        <hr class="hr-padding">
+
+                        <div class="row padding-bottom">
+                          <div class="col-md-6 col-md-offset-3">
+                            <button type="button" class="full-width" pButton icon="fa fa-external-link" iconPos="right" label="Go To Technology"></button>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </p-carousel>
+                  </div>
+                </div>
+
+                <hr *ngIf="cvService.basic.show_repositories">
+
+                <div class="row" *ngIf="cvService.basic.show_repositories">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <h3>Repositories</h3>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div *ngFor="let repo of repoData">
+                            <a role="button" href="http://{{repo.link}}" target="_blank">
+                              <div class="col-md-2">
+                                <div class="col-md-2" [ngSwitch]="repo.type.long">
+                                  <i *ngSwitchCase="'BitBucket'" class="fa fa-bitbucket" aria-hidden="true"></i>
+                                  <i *ngSwitchCase="'GitHub'" class="fa fa-github" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="col-md-9">
+                                  <p>{{repo.type.long}} <i class="fa fa-external-link"></i></p>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr>
               </md-card-content>
             </md-card>
           </div>
 
-          <div id="experience" class="row">
+          <div id="experience">
+            <md-card class="experience-card">
+              <md-card-header>
+                <md-card-title>
+                  <h3>Experience</h3>
+                </md-card-title>
+              </md-card-header>
 
+              <md-card-content>
+                <ul class="timeline">
+                  <li *ngFor="let experience of experienceData; let isOdd = odd; let isEven = even">
+                    <div [class.direction-l]="isOdd" [class.direction-r]="isEven">
+                      <div class="flag-wrapper">
+                        <span class="flag">{{experience.title}}</span>
+                        <span *ngIf="experience.current" class="time-wrapper time">{{experience.start_date | date:'MMM y'}} - Current</span>
+                        <span *ngIf="!experience.current" class="time-wrapper time">{{experience.start_date | date:'MMM y'}} - {{experience.end_date | date:'MMM y'}}</span>
+                      </div>
+
+                      <div class="desc">
+                        <div *ngIf="isEven">
+                          <div class="row">
+                            <div class="col-md-3">
+                              <span>{{experience.image}}</span>
+                            </div>
+
+                            <div class="col-md-9">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <h5>Location:</h5>
+                                </div>
+
+                                <div class="col-md-8">
+                                  <p class="vertical-align-experience">{{experience.location}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h5>Description:</h5>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>{{experience.description}}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="isOdd">
+                          <div class="row">
+                            <div class="col-md-9">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <h5>Location:</h5>
+                                </div>
+
+                                <div class="col-md-8">
+                                  <p class="text-left vertical-align-experience">{{experience.location}}</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-3">
+                              <span>{{experience.image}}</span>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h5>Description:</h5>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>{{experience.description}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+
+                <hr>
+              </md-card-content>
+            </md-card>
           </div>
 
-          <div id="education" class="row">
+          <div id="education">
+            <md-card class="experience-card">
+              <md-card-header>
+                <md-card-title>
+                  <h3>Education</h3>
+                </md-card-title>
+              </md-card-header>
 
+              <md-card-content>
+                <ul class="timeline">
+                  <li *ngFor="let education of educationData; let isOdd = odd; let isEven = even">
+                    <div [class.direction-l]="isOdd" [class.direction-r]="isEven">
+                      <div class="flag-wrapper">
+                        <span class="flag">{{education.course}}</span>
+                        <span *ngIf="education.current" class="time-wrapper time">{{education.year | date:'MMM y'}}</span>
+                      </div>
+
+                      <div class="desc">
+                        <div *ngIf="isEven">
+                          <div class="row">
+                            <div class="col-md-3">
+                              <span>{{education.img}}</span>
+                            </div>
+
+                            <div class="col-md-9">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <h5>School:</h5>
+                                </div>
+
+                                <div class="col-md-8">
+                                  <p class="vertical-align-experience">{{education.school}}</p>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <button pButton type="button" icon="fa fa-external-link" iconPos="right" label="Go To Course"></button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="isOdd">
+                          <div class="row">
+                            <div class="col-md-9">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <h5>School:</h5>
+                                </div>
+
+                                <div class="col-md-8">
+                                  <p class="text-left vertical-align-experience">{{education.school}}</p>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <button pButton type="button" icon="fa fa-external-link" iconPos="right" label="Go To Course"></button>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-3">
+                              <span>{{education.img}}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+
+                <hr>
+              </md-card-content>
+            </md-card>
           </div>
 
-          <div id="other" class="row">
+          <div id="other">
+            <md-card>
+              <md-card-header>
+                <md-card-title>
+                  <h3>Other Details</h3>
+                </md-card-title>
+              </md-card-header>
 
+              <md-card-content>
+                <div class="row">
+                  <div class="col-md-8 border-right">
+                    <div class="row border-padding">
+                      <h4>Achievements</h4>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <md-grid-list cols="2" rowHeight="1.5:1">
+                          <md-grid-tile *ngFor="let achievement of achievementData">
+                            <md-grid-tile-header>
+                              {{achievement.name}}
+                            </md-grid-tile-header>
+
+                            <div class="row border-padding">
+                              <div class="col-md-12">
+                                <h5>What/Why:</h5>
+
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <p>{{achievement.whatWhy}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <md-grid-tile-footer>
+                              <h5>Where:</h5>
+                              <p class="achievement-where">{{achievement.where}}</p>
+                            </md-grid-tile-footer>
+                          </md-grid-tile>
+                        </md-grid-list>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>Interests/Hobbies</h4>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <md-list>
+                          <md-list-item *ngFor="let interest of interestData">
+                            <md-icon md-list-icon>{{interest.img}}</md-icon>
+                            <h5 md-line>{{interest.name}}</h5>
+                          </md-list-item>
+                        </md-list>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr *ngIf="cvService.basic.show_referees">
+
+                <div class="row" *ngIf="cvService.basic.show_referees">
+                  <div class="col-md-12">
+                    <h3 class="center-text">Referees and paper CV are available on request at my e-mail: <br/> thedash52@hotmail.com</h3>
+                  </div>
+                </div>
+              </md-card-content>
+            </md-card>
           </div>
         </div>
       </div>
+
+      <footer class="footer">
+        <p class="center-text footer-text">This site was created by Daniel Nash, 2017</p>
+      </footer>
     </div>
   </div>
 </div>

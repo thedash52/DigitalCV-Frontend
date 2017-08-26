@@ -7,6 +7,7 @@ import { TechnologyModel } from '../../shared/models/technologyModel';
 import { TypeModel } from "../../shared/models/typeModel";
 import { RepositoryModel } from "../../shared/models/repositoryModel";
 import { SelectItem } from 'primeng/primeng';
+import { RepositoryOptionModel } from "../../shared/models/repositoryOptionModel";
 
 @Component({
   selector: 'app-technology',
@@ -22,6 +23,7 @@ export class TechnologyComponent implements OnInit {
   selectedRow: number;
 
   repositories: RepositoryModel[];
+  repositoryTypes: RepositoryOptionModel[] = [];
   selectedRepositoryType: TypeModel = new TypeModel();
   selectedRepository: RepositoryModel = new RepositoryModel();
   selectedRepositoryRow: number;
@@ -59,6 +61,10 @@ export class TechnologyComponent implements OnInit {
       }
 
       this.options = [...newOptions];
+    });
+
+    this.editService.getRepoOptions().subscribe(types => {
+      this.repositoryTypes = [...types];
     });
 
     this.editService.getRepositories().subscribe(repositories => {

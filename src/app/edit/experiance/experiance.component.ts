@@ -40,10 +40,10 @@ export class ExperianceComponent implements OnInit {
   }
 
   addAndCloseAddDialog() {
-    this.selectedExperience.startDate = this.selectedStartDate.toDateString();
+    this.selectedExperience.startDate = this.selectedStartDate;
 
     if (!this.selectedExperience.current) {
-      this.selectedExperience.endDate = this.selectedEndDate.toDateString();
+      this.selectedExperience.endDate = this.selectedEndDate;
     }
 
     this.editService.addExperience(this.selectedExperience);
@@ -73,10 +73,10 @@ export class ExperianceComponent implements OnInit {
   }
 
   saveAndCloseEditDialog() {
-    this.selectedExperience.startDate = this.selectedStartDate.toDateString();
+    this.selectedExperience.startDate = this.selectedStartDate;
 
     if (!this.selectedExperience.current) {
-      this.selectedExperience.endDate = this.selectedEndDate.toDateString();
+      this.selectedExperience.endDate = this.selectedEndDate;
     }
 
     this.editService.editExperience(this.selectedRow, this.selectedExperience);

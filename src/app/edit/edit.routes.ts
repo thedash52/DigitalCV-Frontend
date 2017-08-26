@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { EditComponent } from './edit.component';
+import { SetupEditComponent } from './setup-edit/setup-edit.component';
 
 import { BasicRoutes } from './basic/index';
 import { SkillsRoutes } from './skills/index';
@@ -20,5 +21,9 @@ export const EditRoutes: Route[] = [
             ...EducationRoutes,
             ...OtherRoutes
         ]
+    },
+    {
+        path: 'setup-edit',
+        component: SetupEditComponent
     }
 ];

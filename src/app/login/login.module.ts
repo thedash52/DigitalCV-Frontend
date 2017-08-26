@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { UserService } from "../shared/index";
 
-import { InputTextModule, ButtonModule } from "primeng/primeng";
+import { InputTextModule, ButtonModule, GrowlModule } from "primeng/primeng";
 import { BusyModule } from "angular2-busy";
 
 @NgModule({
@@ -13,7 +13,8 @@ import { BusyModule } from "angular2-busy";
     CommonModule,
     InputTextModule,
     ButtonModule,
-    BusyModule
+    BusyModule,
+    GrowlModule
   ],
   declarations: [LoginComponent],
   providers: [UserService]

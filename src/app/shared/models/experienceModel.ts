@@ -3,7 +3,7 @@ export class ExperienceModel {
     title: string;
     location: string;
     description: string;
-    startDate: string;
-    endDate: string;
+    startDate: Date;
+    endDate: Date;
     current: boolean;
 }

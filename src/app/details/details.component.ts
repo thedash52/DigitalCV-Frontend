@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import { Router } from "@angular/router";
 
-import { Message } from "primeng/primeng";
+import { Message, SelectItem } from "primeng/primeng";
 
 import { CvService } from "../shared/index";
 import { EditService } from "../edit/index";
@@ -27,6 +27,8 @@ import { InterestModel } from "../shared/models/displayModels/interestModel";
 export class DetailsComponent implements OnInit {
 
   constructor(private cvService: CvService, private editService: EditService, private userService: UserService, private router: Router) { }
+
+  loggedIn: boolean = false;
 
   phoneData: PhoneModel[] = [];
   socialData: SocialModel[] = [];
@@ -84,7 +86,7 @@ export class DetailsComponent implements OnInit {
       this.interestData = [...results];
     });
 
-    if (!this.cvService.basic && this.phoneData.length <= 0 && this.socialData.length <= 0 && this.skillData.length <= 0 && this.techData.length <= 0 && this.repoData.length <= 0 && this.experienceData.length <= 0 && this.educationData.length <= 0 && this.paperData.length <= 0 && this.achievementData.length <= 0 && this.interestData.length <= 0) {
+    if (!this.cvService.setUp) {
       this.msgs = [];
       this.msgs.push({ severity: 'error', summary: 'Data Missing', detail: 'Data has not been collected. Navigating to load data page.' });
 
@@ -93,20 +95,66 @@ export class DetailsComponent implements OnInit {
       }, 3000);
     } else {
       this.showPage = true;
+
+      this.userService.checkLogin().subscribe(result => {
+        this.loggedIn = true;
+      }, err => {
+        if (err.status === 401) {
+          this.loggedIn = false;
+        }
+      });
     }
+  }
+
+  login() {
+    this.userService.loginRoute = 'return';
+    this.router.navigate(['/login']);
+  }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+    this.loggedIn = false;
+  }
+
+  configureSkills(): any {
+    var configuredSkills: SelectItem[] = [];
+
+    let categories = [];
+
+    this.skillData.forEach(skill => {
+      let currentCategory = skill.category;
+      let categoryExists: boolean = false;
+
+      categories.forEach(category => {
+        if (category == currentCategory) {
+          categoryExists = true;
+        }
+      });
+
+      if (!categoryExists) {
+        categories.push(currentCategory);
+      }
+    });
+
+    categories.forEach(category => {
+      let relatedSkills = [];
+
+      this.skillData.forEach(skill => {
+        if (skill.category == category) {
+          relatedSkills.push(skill.details);
+        }
+      });
+
+      configuredSkills.push({ label: category, value: relatedSkills });
+    });
+
+    return configuredSkills;
   }
 
   editRoute(route: string) {
     this.busy = this.setupEdit().then(() =>
-      this.userService.checkLogin().subscribe(result => {
-        this.router.navigate([route]);
-      }, err => {
-        if (err.status === 401) {
-          this.userService.loginRoute = route;
-
-          this.router.navigate(['/login']);
-        }
-      }));
+      this.router.navigate([route])
+    );
   }
 
   setupEdit() {
@@ -189,7 +237,7 @@ export class DetailsComponent implements OnInit {
           img: education.img,
           course: education.course,
           school: education.school,
-          src: education.lnk,
+          src: education.link,
           year: education.year,
           papers: null
         };
@@ -237,6 +285,8 @@ export class DetailsComponent implements OnInit {
 
       this.editService.achievements.next(editAchievements);
       this.editService.interestHobbies.next(editInterest);
+
+      this.editService.setUp = true;
 
       return resolve();
     });

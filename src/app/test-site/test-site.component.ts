@@ -86,6 +86,7 @@ export class TestSiteComponent implements OnInit {
           this.verifyOther()
         ])).then(() => {
           this.status = "Data Verified. Preperations Complete. Displaying CV.";
+          this.cvService.setUp = true;
 
           setTimeout(() => {
             clearInterval(textInterval);
@@ -100,20 +101,20 @@ export class TestSiteComponent implements OnInit {
               clearInterval(textInterval);
 
               this.userService.checkLogin().subscribe(result => {
-                  this.setupEdit().then(() => {
-                    this.router.navigate([route]);
-                  });
+                this.setupEdit().then(() => {
+                  this.router.navigate([route]);
+                });
               }, (err) => {
                 if (err.status === 401) {
                   this.setupEdit().then(() => {
                     this.userService.loginRoute = route;
-                    
+
                     this.router.navigate(['/login']);
                   });
                 }
               });
             }, 2000)
-          } else if (typeof(route) == "boolean") {
+          } else if (typeof (route) == "boolean") {
             this.status = "Data Validation Failed.";
           } else {
             this.status = "Error. Reattempting setup."
@@ -125,33 +126,15 @@ export class TestSiteComponent implements OnInit {
             }, 2000);
           }
         });
-
-    // let gaugeInterval = setInterval(() => {
-    //   this.value = this.value + Math.floor(Math.random() * 10) + 1;
-
-    //   this.status = null;
-    //   this.status = this.value.toString();
-
-    //   if (this.value >= 100) {
-    //     this.value = 100;
-
-    //     clearInterval(gaugeInterval);
-    //     clearInterval(textInterval);
-
-    //     setTimeout(() => {
-    //       this.router.navigate(['/details']);
-    //     }, 2000);
-    //   }
-    // }, 1000);
   }
 
   setupEdit() {
     return new Promise((resolve, reject) => {
-      if (this.cvService.basic && this.cvService.phone.getValue().length > 0 && this.cvService.social.getValue().length > 0 && this.cvService.skills.getValue().length > 0 &&
-        this.cvService.technologies.getValue().length > 0 && this.cvService.repositories.getValue().length > 0 && this.cvService.experience.getValue().length > 0 &&
-        this.cvService.education.getValue().length > 0 && this.cvService.papers.getValue().length > 0 && this.cvService.achievements.getValue().length > 0 &&
-        this.cvService.interest.getValue().length > 0) {
-
+      // if (this.cvService.basic && this.cvService.phone.getValue().length > 0 && this.cvService.social.getValue().length > 0 && this.cvService.skills.getValue().length > 0 &&
+      //   this.cvService.technologies.getValue().length > 0 && this.cvService.repositories.getValue().length > 0 && this.cvService.experience.getValue().length > 0 &&
+      //   this.cvService.education.getValue().length > 0 && this.cvService.papers.getValue().length > 0 && this.cvService.achievements.getValue().length > 0 &&
+      //   this.cvService.interest.getValue().length > 0) {
+      if (this.cvService.basic) {
         this.editService.id = this.cvService.basic.id;
         this.editService.profileImg = this.cvService.basic.profile_img;
         this.editService.avatarImg = this.cvService.basic.avatar_img;
@@ -161,124 +144,6 @@ export class TestSiteComponent implements OnInit {
         this.editService.address3 = this.cvService.basic.address_3;
         this.editService.city = this.cvService.basic.city;
         this.editService.summary = this.cvService.basic.summary;
-
-        this.editService.phoneNum.next(this.cvService.phone.getValue());
-        this.editService.social.next(this.cvService.social.getValue());
-
-        let display = this.cvService.skills.getValue();
-        let edit = [];
-
-        display.forEach(skill => {
-          edit.push({
-            detail: skill.details,
-            category: skill.category
-          });
-        });
-
-        this.editService.skills.next(edit);
-
-        this.editService.showRepositories = this.cvService.basic.show_repositories;
-
-        let displayTech = this.cvService.technologies.getValue();
-        let displayRepositories = this.cvService.repositories.getValue();
-        let editTech = [];
-        let editRepositories = [];
-
-        displayTech.forEach(tech => {
-          editTech.push({
-            img: tech.img,
-            name: tech.name,
-            detail: tech.detail,
-            category: tech.category,
-            src: tech.link
-          });
-        });
-
-        displayRepositories.forEach(repo => {
-          editRepositories.push({
-            type: repo.type,
-            link: repo.link
-          });
-        });
-
-        this.editService.technologies.next(editTech);
-        this.editService.repositories.next(editRepositories);
-
-        let displayExperience = this.cvService.experience.getValue();
-        let editExperience = [];
-
-        displayExperience.forEach(experience => {
-          editExperience.push({
-            img: experience.image,
-            title: experience.title,
-            location: experience.location,
-            desciption: experience.description,
-            startDate: experience.start_date,
-            endDate: experience.end_date,
-            current: experience.current
-          });
-        });
-
-        this.editService.experienceList.next(editExperience);
-
-        let displayEducation = this.cvService.education.getValue();
-        let displayPapers = this.cvService.papers.getValue();
-        let editEducation = [];
-
-        displayEducation.forEach(education => {
-          let newItem = {
-            img: education.img,
-            course: education.course,
-            school: education.school,
-            src: education.lnk,
-            year: education.year,
-            papers: null
-          };
-
-          let editPaper = [];
-
-          displayPapers.forEach(paper => {
-            if (education.id == paper.course) {
-              editPaper.push({
-                code: paper.code,
-                name: paper.name,
-                details: paper.detail,
-                grade: paper.grade
-              });
-            }
-          });
-
-          newItem.papers = editPaper;
-          editEducation.push(newItem);
-        });
-
-        this.editService.educationList.next(editEducation);
-
-        this.editService.showReferees = this.cvService.basic.show_referees;
-
-        let displayAchievements = this.cvService.achievements.getValue();
-        let displayInterest = this.cvService.interest.getValue();
-        let editAchievements = [];
-        let editInterest = [];
-
-        displayAchievements.forEach(achievement => {
-          editAchievements.push({
-            name: achievement.name,
-            where: achievement.where,
-            whatWhy: achievement.whatWhy
-          });
-        });
-
-        displayInterest.forEach(interest => {
-          editInterest.push({
-            name: interest.name,
-            img: interest.img
-          });
-        });
-
-        this.editService.achievements.next(editAchievements);
-        this.editService.interestHobbies.next(editInterest);
-
       } else {
         this.editService.name = "";
         this.editService.address1 = "";
@@ -290,6 +155,124 @@ export class TestSiteComponent implements OnInit {
         this.editService.showReferees = true;
         this.editService.showRepositories = true;
       }
+
+      this.editService.phoneNum.next(this.cvService.phone.getValue());
+      this.editService.social.next(this.cvService.social.getValue());
+
+      let display = this.cvService.skills.getValue();
+      let edit = [];
+
+      display.forEach(skill => {
+        edit.push({
+          detail: skill.details,
+          category: skill.category
+        });
+      });
+
+      this.editService.skills.next(edit);
+
+      this.editService.showRepositories = this.cvService.basic.show_repositories;
+
+      let displayTech = this.cvService.technologies.getValue();
+      let displayRepositories = this.cvService.repositories.getValue();
+      let editTech = [];
+      let editRepositories = [];
+
+      displayTech.forEach(tech => {
+        editTech.push({
+          img: tech.img,
+          name: tech.name,
+          detail: tech.detail,
+          category: tech.category,
+          src: tech.link
+        });
+      });
+
+      displayRepositories.forEach(repo => {
+        editRepositories.push({
+          type: repo.type,
+          link: repo.link
+        });
+      });
+
+      this.editService.technologies.next(editTech);
+      this.editService.repositories.next(editRepositories);
+
+      let displayExperience = this.cvService.experience.getValue();
+      let editExperience = [];
+
+      displayExperience.forEach(experience => {
+        editExperience.push({
+          img: experience.image,
+          title: experience.title,
+          location: experience.location,
+          desciption: experience.description,
+          startDate: experience.start_date,
+          endDate: experience.end_date,
+          current: experience.current
+        });
+      });
+
+      this.editService.experienceList.next(editExperience);
+
+      let displayEducation = this.cvService.education.getValue();
+      let displayPapers = this.cvService.papers.getValue();
+      let editEducation = [];
+
+      displayEducation.forEach(education => {
+        let newItem = {
+          img: education.img,
+          course: education.course,
+          school: education.school,
+          src: education.link,
+          year: education.year,
+          papers: null
+        };
+
+        let editPaper = [];
+
+        displayPapers.forEach(paper => {
+          if (education.id == paper.course) {
+            editPaper.push({
+              code: paper.code,
+              name: paper.name,
+              details: paper.detail,
+              grade: paper.grade
+            });
+          }
+        });
+
+        newItem.papers = editPaper;
+        editEducation.push(newItem);
+      });
+
+      this.editService.educationList.next(editEducation);
+
+      this.editService.showReferees = this.cvService.basic.show_referees;
+
+      let displayAchievements = this.cvService.achievements.getValue();
+      let displayInterest = this.cvService.interest.getValue();
+      let editAchievements = [];
+      let editInterest = [];
+
+      displayAchievements.forEach(achievement => {
+        editAchievements.push({
+          name: achievement.name,
+          where: achievement.where,
+          whatWhy: achievement.whatWhy
+        });
+      });
+
+      displayInterest.forEach(interest => {
+        editInterest.push({
+          name: interest.name,
+          img: interest.img
+        });
+      });
+
+      this.editService.achievements.next(editAchievements);
+      this.editService.interestHobbies.next(editInterest);
+
 
       this.userService.getType().subscribe(result => {
         let editPhoneType = [];
@@ -332,8 +315,10 @@ export class TestSiteComponent implements OnInit {
         });
 
         this.editService.phoneTypes.next(editPhoneType);
-        this.editService.socialTypes = editSocialType;
-        this.editService.repositoryOptions = editRepoType;
+        this.editService.socialTypes.next(editSocialType);
+        this.editService.repositoryOptions.next(editRepoType);
+
+        this.editService.setUp = true;
 
         return resolve();
       });
