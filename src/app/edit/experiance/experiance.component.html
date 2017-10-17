@@ -31,11 +31,11 @@
 
                   <p-column field="location" header="Location" styleClass="text-center" [style]="{width: '15%'}"></p-column>
 
-                  <p-column field="description" header="Job Description" styleClass="text-center"></p-column>
+                  <p-column field="desciption" header="Job Description" styleClass="text-center"></p-column>
 
                   <p-column header="Job Period" styleClass="text-center" [style]="{width: '15%'}">
                     <ng-template let-experience="rowData" pTemplate="body">
-                      <span>{{experience.startDate}} - {{experience.endDate?experience.endDate:"Current"}}</span>
+                      <span>{{experience.startDate | date:'MMMM y'}} - {{experience.current?"Current":experience.endDate | date:'MMMM y'}}</span>
                     </ng-template>
                   </p-column>
 
@@ -55,7 +55,7 @@
   </div>
 </div>
 
-<!-- Edit Course -->
+<!-- Edit Experience -->
  <p-dialog [(visible)]="editExperience" modal="true" [draggable]="false" [closable]="false" [width]="800">
   <p-header>
     Edit {{selectedExperience.title}} Details

@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  backendUrl: "http://backend.digitalcv.local:8080/"
+  backendUrl: "http://localhost:3000/"
 };

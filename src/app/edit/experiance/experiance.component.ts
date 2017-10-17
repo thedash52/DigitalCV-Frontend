@@ -29,6 +29,8 @@ export class ExperianceComponent implements OnInit {
     this.editService.getExperienceList().subscribe(experienceList => {
       this.experienceList = [...experienceList];
     });
+
+    console.log(this.experienceList);
   }
 
   newExperience() {
