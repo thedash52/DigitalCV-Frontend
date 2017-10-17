@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { SelectItem } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
 import { ConfirmationService } from 'primeng/primeng';
+import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
 
 import { PhoneNumberModel } from '../../shared/models/phoneNumberModel';
 import { PhoneTypeModel } from '../../shared/models/phoneTypeModel';
@@ -19,7 +20,34 @@ import { SocialModel } from "../../shared/models/socialModel";
 })
 export class BasicComponent implements OnInit {
 
-  constructor(private editService: EditService, private confirmationService: ConfirmationService) { }
+  cropperSettings: CropperSettings = new CropperSettings();
+
+  @ViewChild('avatarCropper', undefined) avatarCropper: ImageCropperComponent;
+  @ViewChild('profileCropper', undefined) profileCropper: ImageCropperComponent;
+
+  constructor(private editService: EditService, private confirmationService: ConfirmationService) {
+    this.cropperSettings.rounded = true;
+    this.cropperSettings.keepAspect = true;
+
+    this.cropperSettings.width = 200;
+    this.cropperSettings.height = 200;
+
+    this.cropperSettings.croppedWidth = 200;
+    this.cropperSettings.croppedHeight = 200;
+
+    this.cropperSettings.noFileInput = true;
+  }
+
+  avatarImg: any = {};
+  avatarWidth: number;
+  avatarHeight: number;
+
+  profileImg: any = {};
+  profileWidth: number;
+  profileHeight: number;
+
+  uploadAvatarImage: boolean = false;
+  uploadProfileImage: boolean = false;
 
   phoneTypes: PhoneTypeModel[] = [];
   phoneNum: PhoneNumberModel[] = [];
@@ -60,6 +88,38 @@ export class BasicComponent implements OnInit {
     this.editService.getSocialServices().subscribe(socialServices => {
       this.social = [...socialServices];
     });
+  }
+
+  avatarCropped(bounds: Bounds) {
+    this.avatarHeight = bounds.bottom - bounds.top;
+    this.avatarWidth = bounds.right - bounds.left;
+  }
+
+  profileCropped(bounds: Bounds) {
+    this.profileHeight = bounds.bottom - bounds.top;
+    this.profileWidth = bounds.right - bounds.left;
+  }
+
+  fileChangeListener($event, type: string) {
+    var image: any = new Image();
+    var file: File = $event.target.files[0];
+    var fileReader: FileReader = new FileReader();
+    var that = this;
+
+    fileReader.onloadend = function (loadEvent: any) {
+      image.src = loadEvent.target.result;
+
+      switch (type) {
+        case 'avatar':
+          that.avatarCropper.setImage(image);
+          break;
+        case 'profile':
+          that.profileCropper.setImage(image);
+          break;
+      }
+    }
+
+    fileReader.readAsDataURL(file);
   }
 
   AddNumber() {
@@ -143,10 +203,52 @@ export class BasicComponent implements OnInit {
   }
 
   UploadAvatar() {
-    console.log("Uploading Avatar");
+    let image: HTMLImageElement = new Image();
+
+    let that = this;
+    image.onload = () => {
+      that.avatarCropper.setImage(image);
+    };
+
+    image.src = this.editService.avatar;
+
+    this.uploadAvatarImage = true;
+  }
+
+  saveAndCloseAvatarDialog() {
+    this.editService.avatar = this.avatarImg.image;
+
+    this.avatarCropper.reset();
+    this.uploadAvatarImage = false;
+  }
+
+  closeAvatarDialog() {
+    this.avatarCropper.reset();
+    this.uploadAvatarImage = false;
   }
 
   UploadProfile() {
-    console.log("Uploading Profile");
+    let image: HTMLImageElement = new Image();
+
+    let that = this;
+    image.onload = () => {
+      that.profileCropper.setImage(image);
+    };
+
+    image.src = this.editService.profile;
+
+    this.uploadProfileImage = true;
+  }
+
+  saveAndCloseProfileDialog() {
+    this.editService.profile = this.profileImg.image;
+
+    this.profileCropper.reset();
+    this.uploadProfileImage = false;
+  }
+
+  closeProfileDialog() {
+    this.profileCropper.reset();
+    this.uploadProfileImage = false;
   }
 }

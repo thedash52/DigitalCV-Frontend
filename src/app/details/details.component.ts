@@ -86,7 +86,7 @@ export class DetailsComponent implements OnInit {
       this.interestData = [...results];
     });
 
-    if (!this.cvService.setUp) {
+    if (!this.cvService.setUp.getValue()) {
       this.msgs = [];
       this.msgs.push({ severity: 'error', summary: 'Data Missing', detail: 'Data has not been collected. Navigating to load data page.' });
 
@@ -114,6 +114,30 @@ export class DetailsComponent implements OnInit {
   logout() {
     localStorage.removeItem('currentUser');
     this.loggedIn = false;
+  }
+
+  getPapers(id: number) {
+    var paperData: PaperModel[] = [];
+
+    this.paperData.forEach(paper => {
+      if (paper.course == id) {
+        paperData.push(paper);
+      }
+    });
+
+    return paperData;
+  }
+
+  openTech(link: string) {
+    window.open("http://" + link, "_blank");
+  }
+
+  openRepo(link: string) {
+    window.open("http://" + link, "_blank");
+  }
+
+  openCourse(link: string) {
+    window.open("http://" + link, "_blank");
   }
 
   configureSkills(): any {
@@ -160,8 +184,11 @@ export class DetailsComponent implements OnInit {
   setupEdit() {
     return new Promise((resolve, reject) => {
       this.editService.id = this.cvService.basic.id;
+      this.editService.folderId = this.cvService.basic.folder_id;
       this.editService.profileImg = this.cvService.basic.profile_img;
       this.editService.avatarImg = this.cvService.basic.avatar_img;
+      this.editService.avatar = this.cvService.basic.avatar;
+      this.editService.profile = this.cvService.basic.profile;
       this.editService.name = this.cvService.basic.name;
       this.editService.address1 = this.cvService.basic.address_1;
       this.editService.address2 = this.cvService.basic.address_2;
@@ -286,9 +313,54 @@ export class DetailsComponent implements OnInit {
       this.editService.achievements.next(editAchievements);
       this.editService.interestHobbies.next(editInterest);
 
-      this.editService.setUp = true;
+      this.userService.getType().subscribe(result => {
+        let editPhoneType = [];
+        let editSocialType = [];
+        let editRepoType = [];
 
-      return resolve();
+        result.forEach(type => {
+          switch (type.category) {
+            case "repository":
+              editRepoType.push({
+                label: type.long,
+                value: {
+                  id: type.id,
+                  short: type.short,
+                  long: type.long
+                }
+              });
+              break;
+            case "phone":
+              editPhoneType.push({
+                label: type.long,
+                value: {
+                  id: type.id,
+                  short: type.short,
+                  long: type.long
+                }
+              });
+              break;
+            case "social":
+              editSocialType.push({
+                label: type.long,
+                value: {
+                  id: type.id,
+                  short: type.short,
+                  long: type.long
+                }
+              });
+              break;
+          }
+        });
+
+        this.editService.phoneTypes.next(editPhoneType);
+        this.editService.socialTypes.next(editSocialType);
+        this.editService.repositoryOptions.next(editRepoType);
+
+        this.editService.setUp = true;
+
+        return resolve();
+      });
     });
   }
 

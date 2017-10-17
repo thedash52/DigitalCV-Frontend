@@ -60,8 +60,11 @@ export class EditService {
   phoneTypes: BehaviorSubject<PhoneTypeModel[]> = new BehaviorSubject([]);
 
   id: number;
+  folderId: string;
   avatarImg: string;
   profileImg: string;
+  avatar: string;
+  profile: string;
   name: string;
   address1: string;
   address2: string;

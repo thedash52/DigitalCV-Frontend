@@ -122,9 +122,9 @@ hr {
     background-color: transparent;
 }
 
-.experience-card {
-    background: rgb(230, 230, 230);
-}
+// .experience-card {
+//     background: rgb(230, 230, 230);
+// }
 
 .text-left {
     text-align: left;
@@ -137,6 +137,17 @@ hr {
 
 #education {
     background-color: transparent;
+}
+
+.paper-table {
+    text-align: center;
+    font-style: normal;
+    padding-bottom: 1em;
+}
+
+.course-link {
+    text-align: center;
+    font-style: normal;
 }
 
 #other {
@@ -218,15 +229,20 @@ hr {
 
 .direction-l {
     position: relative;
-    width: 296px;
+    width: 306px;
     float: left;
     text-align: right;
 }
 
 .direction-r {
     position: relative;
-    width: 296px;
+    width: 305px;
     float: right;
+}
+
+.time-card {
+    padding: 0.7em;
+    background: rgb(230, 230, 230);
 }
 
 .flag-wrapper {
@@ -314,7 +330,7 @@ hr {
 
 .direction-l .time-wrapper {
     float: left;
-    margin-left: 7.5em;
+    margin-left: 6.35em;
 }
 
 // .direction-r .time-wrapper {

@@ -6,6 +6,7 @@ import { FormsModule } from "@angular/forms";
 import { MdCardModule, MdButtonModule } from '@angular/material';
 
 import { ButtonModule, InputTextModule, InputTextareaModule, DropdownModule, DataTableModule, SharedModule, ConfirmDialogModule, ConfirmationService, DialogModule } from 'primeng/primeng';
+import { ImageCropperModule } from "ng2-img-cropper";
 
 import { EditService } from '../edit.service';
 
@@ -23,7 +24,8 @@ import { EditService } from '../edit.service';
     DataTableModule,
     SharedModule,
     ConfirmDialogModule,
-    DialogModule
+    DialogModule,
+    ImageCropperModule
   ],
   providers: [EditService, ConfirmationService],
   declarations: [BasicComponent],

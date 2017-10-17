@@ -9,7 +9,7 @@
       <form role="form">
         <div class="form-content">
           <div class="form-group">
-              <input name="usernameInput" class="form-control input-underline input-lg" #username type="text" pInputText placeholder="Username" />
+              <input name="usernameInput" class="form-control input-underline input-lg" #username type="text" pInputText placeholder="Username" (keyup.enter)="login(username.value, password.value)" />
           </div>
 
           <div class="form-group">

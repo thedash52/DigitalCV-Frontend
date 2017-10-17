@@ -16,7 +16,7 @@ export class EditComponent implements OnInit {
       if (!this.editService.setUp) {
         this.router.navigate(['/setup-edit']);
       } else {
-        this.cvService.setUp = false;
+        this.cvService.setUp.next(false);
       }
     }, err => {
       if (err.status === 401) {

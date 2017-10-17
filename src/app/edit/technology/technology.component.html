@@ -26,11 +26,13 @@
               <div class="col-md-8 border-right">
                 <div class="row no-border">
                   <div class="col-md-3">
-                    <p-dropdown name="repositoryAddDropdown" [options]="repositoryTypes" [(ngModel)]="selectedRepositoryType" [style]="{width: '100%'}" placeholder="Repository Type"></p-dropdown>
+                    <p-dropdown name="repositoryAddDropdown" [options]="repositoryTypes" [(ngModel)]="selectedRepositoryType" [style]="{width: '100%'}"
+                      placeholder="Repository Type"></p-dropdown>
                   </div>
 
                   <div class="col-md-6">
-                    <input name="repositoryInput" type="text" pInputText [(ngModel)]="newRepository" placeholder="Link example: http://github.com/test-user" style="width:100%">
+                    <input name="repositoryInput" type="text" pInputText [(ngModel)]="newRepository" placeholder="Link example: http://github.com/test-user"
+                      style="width:100%">
                   </div>
 
                   <div class="col-md-3">
@@ -117,7 +119,8 @@
         </div>
 
         <div class="col-md-4">
-          <p-dropdown appendTo="body" name="editTypeDropdown" [style]="{width: '100%'}" [options]="repositoryTypes" [(ngModel)]="selectedRepository.type" placeholder="No Type Selected"></p-dropdown>
+          <p-dropdown appendTo="body" name="editTypeDropdown" [style]="{width: '100%'}" [options]="repositoryTypes" [(ngModel)]="selectedRepository.type"
+            placeholder="No Type Selected"></p-dropdown>
         </div>
       </div>
     </form>
@@ -137,12 +140,20 @@
 
   <div class="container-fluid">
     <div class="row no-border">
-      <div class="col-md-2 col-md-offset-5 overlay" (click)="uploadImage()">
-        <img src="{{selectedTechnology.img}}" alt="No Image" class="image">
-
-        <div class="image-overlay">
-          <p class="overlay-text">Upload<br/>Technology Image</p>
+      <div class="col-md-6 border-right">
+        <div class="row no-border">
+          <div class="file-upload">
+            <input type="file" (change)="fileChangeListener($event)">
+          </div>
         </div>
+
+        <div class="row">
+          <img-cropper #cropper [image]="data" [settings]="cropperSettings" (onCrop)="cropped($event)"></img-cropper>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <span *ngIf="data.image"><img [src]="data.image" class="img-container" [width]="dataWidth" [height]="dataHeight"></span>
       </div>
     </div>
 
@@ -180,7 +191,7 @@
 
         <div class="col-md-4">
           <p-dropdown appendTo="body" name="addCategoryDropdown" [style]="{width: '100%'}" [options]="options" [(ngModel)]="selectedTechnology.category"
-            placeholder="No Category Selected"></p-dropdown>
+            editable="editable" placeholder="No Category Selected"></p-dropdown>
         </div>
       </div>
 
@@ -210,12 +221,20 @@
 
   <div class="container-fluid">
     <div class="row no-border">
-      <div class="col-md-2 col-md-offset-5 overlay" (click)="uploadImage()">
-        <img src="{{selectedTechnology.img}}" alt="No Image" class="image">
-
-        <div class="image-overlay">
-          <p class="overlay-text">Upload<br/>Technology Image</p>
+      <div class="col-md-6 border-right">
+        <div class="row no-border">
+          <div class="file-upload">
+            <input type="file" (change)="fileChangeListener($event)">
+          </div>
         </div>
+
+        <div class="row">
+          <img-cropper #cropper [image]="data" [settings]="cropperSettings" (onCrop)="cropped($event)"></img-cropper>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <span *ngIf="data.image"><img [src]="data.image" class="img-container" [width]="dataWidth" [height]="dataHeight"></span>
       </div>
     </div>
 
@@ -253,7 +272,7 @@
 
         <div class="col-md-4">
           <p-dropdown appendTo="body" name="addCategoryDropdown" [style]="{width: '100%'}" [options]="options" [(ngModel)]="selectedTechnology.category"
-            placeholder="No Category Selected"></p-dropdown>
+            editable="editable" placeholder="No Category Selected"></p-dropdown>
         </div>
       </div>
 

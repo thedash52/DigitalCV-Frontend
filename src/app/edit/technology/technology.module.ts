@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MdCardModule, MdCheckboxModule } from '@angular/material';
 
 import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule, InputTextareaModule, DropdownModule } from 'primeng/primeng';
+import { ImageCropperModule } from "ng2-img-cropper";
 
 import { EditService } from '../edit.service';
 
@@ -23,7 +24,8 @@ import { EditService } from '../edit.service';
     InputTextModule,
     MdCheckboxModule,
     InputTextareaModule,
-    DropdownModule
+    DropdownModule,
+    ImageCropperModule
   ],
   providers: [EditService, ConfirmationService],
   declarations: [TechnologyComponent],

@@ -17,8 +17,8 @@
                 <p class="left-align">Avatar Image:</p>
               </div>
 
-              <div class="col-md-3 overlay" (click)="UploadAvatar()">
-                <img src="http://placehold.it/350x350" alt="image" class="img-circle image">
+              <div class="col-md-3 overlay" role="button" (click)="UploadAvatar()">
+                <img [src]="editService.avatar" alt="http://placehold.it/350x350" class="img-circle image">
 
                 <div class="image-overlay">
                   <p class="overlay-text">Upload<br/>Avatar Image</p>
@@ -31,8 +31,8 @@
                 <p class="left-align">Profile Image:</p>
               </div>
 
-              <div class="col-md-3 overlay" (click)="UploadProfile()">
-                <img src="http://placehold.it/350x350" alt="image" class="img-circle image">
+              <div class="col-md-3 overlay" role="button" (click)="UploadProfile()">
+                <img [src]="editService.profile" alt="image" class="img-circle image">
 
                 <div class="image-overlay">
                   <p class="overlay-text">Upload<br/>Profile Image</p>
@@ -151,9 +151,9 @@
 
                   <p-column header="Actions" styleClass="text-center" [style]="{width: '10%'}">
                     <ng-template let-row="rowData" pTemplate="body">
-                        <button type="button" pButton (click)="editSocialService(row)" icon="fa-pencil"></button>
-                        <button type="button" pButton (click)="deleteSocialService(row)" icon="fa-trash-o"></button>
-                      </ng-template>
+                      <button type="button" pButton (click)="editSocialService(row)" icon="fa-pencil"></button>
+                      <button type="button" pButton (click)="deleteSocialService(row)" icon="fa-trash-o"></button>
+                    </ng-template>
                   </p-column>
                 </p-dataTable>
               </div>
@@ -206,7 +206,7 @@
 
   <div class="container-fluid">
     <form>
-      <div class="row">
+      <div class="row no-border">
         <div class="col-md-2">
           <h5>Social Serivce Link:</h5>
         </div>
@@ -222,7 +222,8 @@
         </div>
 
         <div class="col-md-4">
-          <p-dropdown appendTo="body" name="editTypeDropdown" [style]="{width: '100%'}" [options]="socialTypes" [(ngModel)]="selectedSocial.type" placeholder="No Type Selected"></p-dropdown>
+          <p-dropdown appendTo="body" name="editTypeDropdown" [style]="{width: '100%'}" [options]="socialTypes" [(ngModel)]="selectedSocial.type"
+            placeholder="No Type Selected"></p-dropdown>
         </div>
       </div>
     </form>
@@ -233,3 +234,67 @@
     <button type="button" pButton label="Cancel" (click)="closeSocialDialog()"></button>
   </p-footer>
 </p-dialog>
+
+<!-- Upload Avatar Image -->
+<p-dialog [(visible)]="uploadAvatarImage" modal="true" [draggable]="false" [closable]="false" [width]="800">
+  <p-header>
+    Upload Avatar Image
+  </p-header>
+
+  <div class="container-fluid">
+    <div class="row no-border">
+      <div class="col-md-6 border-right">
+        <div class="row no-border">
+          <div class="file-upload">
+            <input type="file" (change)="fileChangeListener($event, 'avatar')">
+          </div>
+        </div>
+
+        <div class="row">
+          <img-cropper #avatarCropper [image]="avatarImg" [settings]="cropperSettings" (onCrop)="avatarCropped($event)"></img-cropper>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <span *ngIf="avatarImg.image"><img [src]="avatarImg.image" class="img-container" [width]="avatarWidth" [height]="avatarHeight"></span>
+      </div>
+    </div>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton label="Done" (click)="saveAndCloseAvatarDialog()"></button>
+    <button type="button" pButton label="Cancel" (click)="closeAvatarDialog()"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Upload Profile Image -->
+<p-dialog [(visible)]="uploadProfileImage" modal="true" [draggable]="false" [closable]="false" [width]="800">
+    <p-header>
+      Upload Profile Image
+    </p-header>
+  
+    <div class="container-fluid">
+      <div class="row no-border">
+        <div class="col-md-6 border-right">
+          <div class="row no-border">
+            <div class="file-upload">
+              <input type="file" (change)="fileChangeListener($event, 'profile')">
+            </div>
+          </div>
+  
+          <div class="row">
+            <img-cropper #profileCropper [image]="profileImg" [settings]="cropperSettings" (onCrop)="profileCropped($event)"></img-cropper>
+          </div>
+        </div>
+  
+        <div class="col-md-6">
+          <span *ngIf="profileImg.image"><img [src]="profileImg.image" class="img-container" [width]="profileWidth" [height]="profileHeight"></span>
+        </div>
+      </div>
+    </div>
+  
+    <p-footer>
+      <button type="button" pButton label="Done" (click)="saveAndCloseProfileDialog()"></button>
+      <button type="button" pButton label="Cancel" (click)="closeProfileDialog()"></button>
+    </p-footer>
+  </p-dialog>

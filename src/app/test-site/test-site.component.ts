@@ -46,6 +46,7 @@ export class TestSiteComponent implements OnInit {
   constructor(private router: Router, private userService: UserService, private cvService: CvService, private editService: EditService) { }
 
   number: number = 7 + 6;
+  id: number;
 
   ngOnInit() {
     let textInterval = setInterval(() => {
@@ -62,8 +63,7 @@ export class TestSiteComponent implements OnInit {
           resolve();
         }, 1500);
       })
-    ).then(() => Promise.all([
-      this.getBasicDetails(),
+    ).then(() => this.getBasicDetails()).then(() => Promise.all([
       this.getSkillDetails(),
       this.getTechnologyDetails(),
       this.getExperienceDetails(),
@@ -86,7 +86,7 @@ export class TestSiteComponent implements OnInit {
           this.verifyOther()
         ])).then(() => {
           this.status = "Data Verified. Preperations Complete. Displaying CV.";
-          this.cvService.setUp = true;
+          this.cvService.setUp.next(true);
 
           setTimeout(() => {
             clearInterval(textInterval);
@@ -94,6 +94,7 @@ export class TestSiteComponent implements OnInit {
             this.router.navigate(['/details']);
           }, 2000);
         }).catch((route: string | any) => {
+          console.log(route);
           if (typeof (route) == "string") {
             this.status = "Data Missing. Redirecting to edit page.";
 
@@ -130,21 +131,25 @@ export class TestSiteComponent implements OnInit {
 
   setupEdit() {
     return new Promise((resolve, reject) => {
-      // if (this.cvService.basic && this.cvService.phone.getValue().length > 0 && this.cvService.social.getValue().length > 0 && this.cvService.skills.getValue().length > 0 &&
-      //   this.cvService.technologies.getValue().length > 0 && this.cvService.repositories.getValue().length > 0 && this.cvService.experience.getValue().length > 0 &&
-      //   this.cvService.education.getValue().length > 0 && this.cvService.papers.getValue().length > 0 && this.cvService.achievements.getValue().length > 0 &&
-      //   this.cvService.interest.getValue().length > 0) {
       if (this.cvService.basic) {
         this.editService.id = this.cvService.basic.id;
+        this.editService.folderId = this.cvService.basic.folder_id;
         this.editService.profileImg = this.cvService.basic.profile_img;
         this.editService.avatarImg = this.cvService.basic.avatar_img;
+        this.editService.avatar = this.cvService.basic.avatar;
+        this.editService.profile = this.cvService.basic.profile;
         this.editService.name = this.cvService.basic.name;
         this.editService.address1 = this.cvService.basic.address_1;
         this.editService.address2 = this.cvService.basic.address_2;
         this.editService.address3 = this.cvService.basic.address_3;
         this.editService.city = this.cvService.basic.city;
         this.editService.summary = this.cvService.basic.summary;
+
+        this.editService.showRepositories = this.cvService.basic.show_repositories;
+        this.editService.showReferees = this.cvService.basic.show_referees;
       } else {
+        this.editService.avatar = "http://placehold.it/350x350";
+        this.editService.profile = "http://placehold.it/350x350";
         this.editService.name = "";
         this.editService.address1 = "";
         this.editService.address2 = "";
@@ -170,8 +175,6 @@ export class TestSiteComponent implements OnInit {
       });
 
       this.editService.skills.next(edit);
-
-      this.editService.showRepositories = this.cvService.basic.show_repositories;
 
       let displayTech = this.cvService.technologies.getValue();
       let displayRepositories = this.cvService.repositories.getValue();
@@ -247,8 +250,6 @@ export class TestSiteComponent implements OnInit {
       });
 
       this.editService.educationList.next(editEducation);
-
-      this.editService.showReferees = this.cvService.basic.show_referees;
 
       let displayAchievements = this.cvService.achievements.getValue();
       let displayInterest = this.cvService.interest.getValue();
@@ -342,11 +343,12 @@ export class TestSiteComponent implements OnInit {
   getBasicDetails() {
     return new Promise((resolve, reject) => {
       this.userService.getBasic().subscribe(results => {
-        if (results.basic != null || results.phone.length > 0) {
+        if (typeof(results.basic) != 'undefined' || results.basic != null || results.phone != null) {
           this.cvService.basic = results.basic;
           this.cvService.phone.next(results.phone);
           this.cvService.social.next(results.social);
 
+          this.id = results.basic.id;
           this.value += (100 / this.number);
           this.status = "Basic Details Collected";
 
@@ -360,7 +362,7 @@ export class TestSiteComponent implements OnInit {
 
   getSkillDetails() {
     return new Promise((resolve, reject) => {
-      this.userService.getSkills().subscribe(results => {
+      this.userService.getSkills(this.id).subscribe(results => {
         if (results.length > 0) {
           this.cvService.skills.next(results);
 
@@ -377,7 +379,7 @@ export class TestSiteComponent implements OnInit {
 
   getTechnologyDetails() {
     return new Promise((resolve, reject) => {
-      this.userService.getTech().subscribe(results => {
+      this.userService.getTech(this.id).subscribe(results => {
         if (results.technologies.length > 0) {
           this.cvService.technologies.next(results.technologies);
           this.cvService.repositories.next(results.repositories);
@@ -395,7 +397,7 @@ export class TestSiteComponent implements OnInit {
 
   getExperienceDetails() {
     return new Promise((resolve, reject) => {
-      this.userService.getExperience().subscribe(results => {
+      this.userService.getExperience(this.id).subscribe(results => {
         if (results.length > 0) {
           this.cvService.experience.next(results);
 
@@ -412,7 +414,8 @@ export class TestSiteComponent implements OnInit {
 
   getEducationDetails() {
     return new Promise((resolve, reject) => {
-      this.userService.getEducation().subscribe(results => {
+      this.userService.getEducation(this.id).subscribe(results => {
+        console.log(results);
         if (results.education.length > 0) {
           this.cvService.education.next(results.education);
           this.cvService.papers.next(results.papers);
@@ -430,7 +433,7 @@ export class TestSiteComponent implements OnInit {
 
   getOtherDetails() {
     return new Promise((resolve, reject) => {
-      this.userService.getOther().subscribe(results => {
+      this.userService.getOther(this.id).subscribe(results => {
         if (results.achievement.length > 0 || results.interest.length > 0) {
           this.cvService.achievements.next(results.achievement);
           this.cvService.interest.next(results.interest);

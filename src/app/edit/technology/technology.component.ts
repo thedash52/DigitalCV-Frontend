@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ConfirmationService } from 'primeng/primeng';
 import { EditService } from '../edit.service';
+import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
 
 import { TechnologyModel } from '../../shared/models/technologyModel';
 import { TypeModel } from "../../shared/models/typeModel";
@@ -16,7 +17,26 @@ import { RepositoryOptionModel } from "../../shared/models/repositoryOptionModel
 })
 export class TechnologyComponent implements OnInit {
 
-  constructor(private editService: EditService, private confirmationService: ConfirmationService) { }
+  cropperSettings: CropperSettings = new CropperSettings();
+
+  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
+
+  constructor(private editService: EditService, private confirmationService: ConfirmationService) {
+    this.cropperSettings.rounded = true;
+    this.cropperSettings.keepAspect = true;
+
+    this.cropperSettings.width = 200;
+    this.cropperSettings.height = 200;
+
+    this.cropperSettings.croppedWidth = 200;
+    this.cropperSettings.croppedHeight = 200;
+
+    this.cropperSettings.noFileInput = true;
+  }
+
+  data: any = {};
+  dataWidth: number;
+  dataHeight: number;
 
   technologies: TechnologyModel[];
   selectedTechnology: TechnologyModel = new TechnologyModel();
@@ -72,6 +92,26 @@ export class TechnologyComponent implements OnInit {
     });
   }
 
+  cropped(bounds: Bounds) {
+    this.dataWidth = bounds.right - bounds.left;
+    this.dataHeight = bounds.bottom - bounds.top;
+  }
+
+  fileChangeListener($event) {
+    var image: any = new Image();
+    var file: File = $event.target.files[0];
+    var fileReader: FileReader = new FileReader();
+    var that = this;
+
+    fileReader.onloadend = function (loadEvent: any) {
+      image.src = loadEvent.target.result;
+
+      that.cropper.setImage(image);
+    }
+
+    fileReader.readAsDataURL(file);
+  }
+
   addRepository() {
     let repository: RepositoryModel = {type: this.selectedRepositoryType, link: this.newRepository};
 
@@ -117,25 +157,45 @@ export class TechnologyComponent implements OnInit {
 
   newTechnology() {
     this.selectedTechnology = new TechnologyModel();
-    this.selectedTechnology.img = "http://placehold.it/60x60";
+    
+    let image: any = new Image();
+    let that = this;
+
+    image.onloadend = () => {
+      that.cropper.setImage(image);
+    }
+
+    image.src = "http://placehold.it/60x60";
 
     this.addTechnology = true;
   }
 
   addAndCloseAddDialog() {
+    this.selectedTechnology.img = this.data.image;
     this.editService.addTechnology(this.selectedTechnology);
 
     this.selectedTechnology = new TechnologyModel();
+    this.cropper.reset();
     this.addTechnology = false;
   }
 
   closeAddDialog() {
     this.selectedTechnology = new TechnologyModel();
+    this.cropper.reset();
     this.addTechnology = false;
   }
 
   editTechnology(technology: TechnologyModel) {
     this.selectedTechnology = technology;
+
+    let image: HTMLImageElement = new Image();
+    let that = this;
+
+    image.onload = () => {
+      that.cropper.setImage(image);
+    }
+
+    image.src = this.selectedTechnology.img;
 
     let row = this.technologies.indexOf(technology);
 
@@ -144,16 +204,21 @@ export class TechnologyComponent implements OnInit {
   }
 
   saveAndCloseEditDialog() {
+    this.selectedTechnology.img = this.data.image;
     this.editService.editSkill(this.selectedRow, this.selectedTechnology);
 
     this.selectedRow = null;
     this.selectedTechnology = new TechnologyModel();
+    this.cropper.reset();
+    this.data = {};
     this.editDetails = false;
   }
 
   closeEditDialog() {
     this.selectedRow = null;
     this.selectedTechnology = new TechnologyModel();
+    this.cropper.reset();
+    this.data = {};
     this.editDetails = false;
   }
 
@@ -164,9 +229,5 @@ export class TechnologyComponent implements OnInit {
         this.editService.deleteSkill(technology);
       }
     });
-  }
-
-  uploadImage() {
-
   }
 }

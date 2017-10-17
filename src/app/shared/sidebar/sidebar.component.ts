@@ -6,6 +6,7 @@ import { EditService } from "../../edit/edit.service";
 import { UserService } from "../user.service";
 
 import { PostSaveModel } from "../models/httpModels/postSaveModel";
+import { BasicModel } from "../models/displayModels/basicModel";
 
 @Component({
   selector: 'app-sidebar',
@@ -24,7 +25,7 @@ export class SidebarComponent implements OnInit {
 
   Save() {
     this.busy = this.collectData().then((saveData: PostSaveModel) => this.userService.SaveEdit(saveData).then((result) => {
-      if (!result.err && !result.result) {
+      if (!result.err && result.result) {
         this.msg = [];
         this.msg.push({severity: 'success', summary: 'Save Result', detail: 'Save Successful'});
 
@@ -41,11 +42,16 @@ export class SidebarComponent implements OnInit {
 
   collectData() {
     return new Promise((resolve, reject) => {
-      let saveData: PostSaveModel;
+      let saveData: PostSaveModel = new PostSaveModel();
+
+      saveData.basic = new BasicModel();
       saveData.basic.id = this.editService.id;
+      saveData.basic.folder_id = this.editService.folderId;
       saveData.basic.name = this.editService.name;
       saveData.basic.avatar_img = this.editService.avatarImg;
       saveData.basic.profile_img = this.editService.profileImg;
+      saveData.basic.avatar = this.editService.avatar;
+      saveData.basic.profile = this.editService.profile;
       saveData.basic.address_1 = this.editService.address1;
       saveData.basic.address_2 = this.editService.address2;
       saveData.basic.address_3 = this.editService.address3;
@@ -53,7 +59,7 @@ export class SidebarComponent implements OnInit {
       saveData.basic.summary = this.editService.summary;
       saveData.basic.show_referees = this.editService.showReferees;
       saveData.basic.show_repositories = this.editService.showRepositories;
-  
+
       saveData.phone = this.editService.phoneNum.getValue();
       saveData.social = this.editService.social.getValue();
       saveData.skill = this.editService.skills.getValue();

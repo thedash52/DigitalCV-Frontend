@@ -54,6 +54,8 @@ export class SetupEditComponent implements OnInit {
 
   number: number = 8;
 
+  id: number;
+
   ngOnInit() {
     let textInterval = setInterval(() => {
       this.isVisible = !this.isVisible;
@@ -69,8 +71,7 @@ export class SetupEditComponent implements OnInit {
           resolve();
         }, 1500)
       })
-    ).then(() => Promise.all([
-      this.getBasicDetails(),
+    ).then(() => this.getBasicDetails).then(() => Promise.all([
       this.getSkillDetails(),
       this.getTechnologyDetails(),
       this.getExperienceDetails(),
@@ -112,8 +113,11 @@ export class SetupEditComponent implements OnInit {
         let social = results.social;
 
         this.editService.id = basic.id;
+        this.editService.folderId = basic.folder_id;
         this.editService.avatarImg = basic.avatar_img;
         this.editService.profileImg = basic.profile_img;
+        this.editService.avatar = basic.avatar;
+        this.editService.profile = basic.profile;
         this.editService.name = basic.name;
         this.editService.address1 = basic.address_1;
         this.editService.address2 = basic.address_2;
@@ -150,6 +154,7 @@ export class SetupEditComponent implements OnInit {
 
         this.editService.social.next(socialData);
 
+        this.id = basic.id;
         this.value += (100 / this.number);
         this.status = "Basic Details Collected";
 
@@ -160,7 +165,7 @@ export class SetupEditComponent implements OnInit {
 
   getSkillDetails() {
     return new Promise((resolve, reject) => {
-      this.userService.getSkills().subscribe(results => {
+      this.userService.getSkills(this.id).subscribe(results => {
         let skillData: SkillModel[] = [];
 
         results.forEach(skill => {
@@ -184,7 +189,7 @@ export class SetupEditComponent implements OnInit {
 
   getTechnologyDetails() {
     return new Promise((resolve, reject) => {
-      this.userService.getTech().subscribe(results => {
+      this.userService.getTech(this.id).subscribe(results => {
         let technology = results.technologies;
         let repository = results.repositories;
 
@@ -193,6 +198,7 @@ export class SetupEditComponent implements OnInit {
         technology.forEach(tech => {
           let t: TechnologyModel = {
             img: tech.img,
+            imgSrc: tech.img,
             name: tech.name,
             detail: tech.detail,
             category: tech.category,
@@ -227,7 +233,7 @@ export class SetupEditComponent implements OnInit {
 
   getExperienceDetails() {
     return new Promise((resolve, reject) => {
-      this.userService.getExperience().subscribe(results => {
+      this.userService.getExperience(this.id).subscribe(results => {
         let experienceData: ExperienceModel[] = [];
 
         results.forEach(experience => {
@@ -256,7 +262,7 @@ export class SetupEditComponent implements OnInit {
 
   getEducationDetails() {
     return new Promise((resolve, reject) => {
-      this.userService.getEducation().subscribe(results => {
+      this.userService.getEducation(this.id).subscribe(results => {
         let education = results.education;
         let papers = results.papers;
 
@@ -302,7 +308,7 @@ export class SetupEditComponent implements OnInit {
 
   getOtherDetails() {
     return new Promise((resolve, reject) => {
-      this.userService.getOther().subscribe(results => {
+      this.userService.getOther(this.id).subscribe(results => {
         let achievements = results.achievement;
         let interests = results.interest;
 

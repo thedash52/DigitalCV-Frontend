@@ -19,7 +19,7 @@ export class CvService {
 
   constructor() { }
 
-  setUp: boolean = false;
+  setUp: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   basic: BasicModel;
   phone: BehaviorSubject<PhoneModel[]> = new BehaviorSubject([]);

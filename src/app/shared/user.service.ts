@@ -4,6 +4,7 @@ import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { environment } from '../../environments/environment';
 
 import { ReceiveBasicModel } from "./models/httpModels/receiveBasicModel";
 import { ConnectionCheck } from "./models/httpModels/connectionCheckModel";
@@ -21,7 +22,7 @@ export class UserService {
 
   constructor(private router: Router, private http: Http) { }
 
-  private url: string = "http://localhost:3000/";
+  private url: string = environment.backendUrl;
 
   loginRoute: string;
 
@@ -39,10 +40,6 @@ export class UserService {
     }
   }
 
-  private addAuthentication(headers: Headers) {
-
-  }
-
   login(username: string, password: string) {
     let headers = new Headers();
     this.createHeader(headers, false);
@@ -52,7 +49,6 @@ export class UserService {
   checkLogin() {
     let headers = new Headers();
     this.createHeader(headers, true);
-    this.addAuthentication(headers);
     return this.http.get(this.url + "check-login", { headers: headers }).map((res: Response) => res.json());
   }
 
@@ -68,24 +64,34 @@ export class UserService {
     return this.http.get(this.url + "get-basic").map((res: Response) => res.json());
   }
 
-  getSkills(): Observable<SkillModel[]> {
-    return this.http.get(this.url + "get-skills").map((res: Response) => res.json());
+  getSkills(id: number): Observable<SkillModel[]> {
+    let headers = new Headers();
+    headers.append('basicId', id.toString());
+    return this.http.get(this.url + "get-skills", { headers: headers }).map((res: Response) => res.json());
   }
 
-  getTech(): Observable<ReceiveTechModel> {
-    return this.http.get(this.url + "get-technology").map((res: Response) => res.json());
+  getTech(id: number): Observable<ReceiveTechModel> {
+    let headers = new Headers();
+    headers.append('basicId', id.toString());
+    return this.http.get(this.url + "get-technology", { headers: headers }).map((res: Response) => res.json());
   }
 
-  getExperience(): Observable<ExperienceModel[]> {
-    return this.http.get(this.url + "get-experience").map((res: Response) => res.json());
+  getExperience(id: number): Observable<ExperienceModel[]> {
+    let headers = new Headers();
+    headers.append('basicId', id.toString());
+    return this.http.get(this.url + "get-experience", { headers: headers }).map((res: Response) => res.json());
   }
 
-  getEducation(): Observable<ReceiveEducationModel> {
-    return this.http.get(this.url + "get-education").map((res: Response) => res.json());
+  getEducation(id: number): Observable<ReceiveEducationModel> {
+    let headers = new Headers();
+    headers.append('basicId', id.toString());
+    return this.http.get(this.url + "get-education", { headers: headers }).map((res: Response) => res.json());
   }
 
-  getOther(): Observable<ReceiveOtherModel> {
-    return this.http.get(this.url + "get-other").map((res: Response) => res.json());
+  getOther(id: number): Observable<ReceiveOtherModel> {
+    let headers = new Headers();
+    headers.append('basicId', id.toString());
+    return this.http.get(this.url + "get-other", { headers: headers }).map((res: Response) => res.json());
   }
 
   verifyBasic(basic: ReceiveBasicModel): Promise<{ basic: boolean, phone: boolean, social: boolean }> {
@@ -126,7 +132,7 @@ export class UserService {
 
   SaveEdit(edit: PostSaveModel): Promise<RevieveSaveModel> {
     let headers = new Headers();
-    this.createHeader(headers, false);
+    this.createHeader(headers, true);
     return this.http.post(this.url + "save-edit", { edit }, { headers: headers }).toPromise().then((res: Response) => res.json()).catch(this.handleError);
   }
 
