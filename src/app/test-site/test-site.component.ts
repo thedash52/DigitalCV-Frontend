@@ -94,7 +94,6 @@ export class TestSiteComponent implements OnInit {
             this.router.navigate(['/details']);
           }, 2000);
         }).catch((route: string | any) => {
-          console.log(route);
           if (typeof (route) == "string") {
             this.status = "Data Missing. Redirecting to edit page.";
 
@@ -415,7 +414,6 @@ export class TestSiteComponent implements OnInit {
   getEducationDetails() {
     return new Promise((resolve, reject) => {
       this.userService.getEducation(this.id).subscribe(results => {
-        console.log(results);
         if (results.education.length > 0) {
           this.cvService.education.next(results.education);
           this.cvService.papers.next(results.papers);

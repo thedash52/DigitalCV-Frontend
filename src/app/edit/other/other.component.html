@@ -6,7 +6,9 @@
       <md-card>
         <md-card-header>
           <md-card-title>
-            <h4><b>Other Details</b></h4>
+            <h4>
+              <b>Other Details</b>
+            </h4>
           </md-card-title>
         </md-card-header>
 
@@ -23,7 +25,7 @@
                     </div>
 
                     <div class="col-md-8">
-                      <input name="nameInput" type="text" pInputText [(ngModel)]="achievementName" />
+                      <input name="nameInput" type="text" pInputText [(ngModel)]="achievementName" placeholder="Example Name" />
                     </div>
                   </div>
 
@@ -33,7 +35,7 @@
                     </div>
 
                     <div class="col-md-8">
-                      <input name="whereInput" type="text" pInputText [(ngModel)]="achievementWhere" />
+                      <input name="whereInput" type="text" pInputText [(ngModel)]="achievementWhere" placeholder="Example Where" />
                     </div>
                   </div>
 
@@ -43,7 +45,7 @@
                     </div>
 
                     <div class="col-md-8">
-                      <textarea name="whatWhyInput" pInputTextarea rows="5" cols="30" [(ngModel)]="achievementWhatWhy"></textarea>
+                      <textarea name="whatWhyInput" pInputTextarea rows="5" cols="30" [(ngModel)]="achievementWhatWhy" placeholder="Example What/Why: Lorem ipsum dolor sit amet, consectetur adipiscing elit."></textarea>
                     </div>
                   </div>
 
@@ -164,7 +166,7 @@
             </div>
 
             <div class="col-md-4 col-md-offset-1">
-              <input name="achievementNameInput" type="text" pInputText [(ngModel)]="selectedAchievement.name">
+              <input name="achievementNameInput" type="text" pInputText [(ngModel)]="selectedAchievement.name" placeholder="Example Name">
             </div>
           </div>
         </div>
@@ -176,7 +178,7 @@
             </div>
 
             <div class="col-md-4 col-md-offset-1">
-              <input name="achievementWhereInput" type="text" pInputText [(ngModel)]="selectedAchievement.where">
+              <input name="achievementWhereInput" type="text" pInputText [(ngModel)]="selectedAchievement.where" placeholder="Example Where">
             </div>
           </div>
         </div>
@@ -188,7 +190,8 @@
         </div>
 
         <div class="col-md-10">
-          <textarea name="achievementWhatWhyInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedAchievement.whatWhy"></textarea>
+          <textarea name="achievementWhatWhyInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedAchievement.whatWhy"
+            placeholder="Example What/Why: Lorem ipsum dolor sit amet, consectetur adipiscing elit."></textarea>
         </div>
       </div>
     </form>
@@ -212,7 +215,8 @@
         <img src="{{selectedInterestHobby.img}}" class="image">
 
         <div class="image-overlay">
-          <p class="overlay-text">Upload<br/>Interest/Hobby Image</p>
+          <p class="overlay-text">Upload
+            <br/>Interest/Hobby Image</p>
         </div>
       </div>
     </div>
@@ -224,7 +228,7 @@
         </div>
 
         <div class="col-md-4 col-md-offset-1">
-          <input name="interestHobbyNameInput" type="text" pInputText [(ngModel)]="selectedInterestHobby.name">
+          <input name="interestHobbyNameInput" type="text" pInputText [(ngModel)]="selectedInterestHobby.name" placeholder="Example Name">
         </div>
       </div>
     </form>

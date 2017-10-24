@@ -48,7 +48,7 @@
                   </div>
 
                   <div class="col-md-8">
-                    <input name="nameInput" type="text" pInputText [(ngModel)]="editService.name" />
+                    <input name="nameInput" type="text" pInputText [(ngModel)]="editService.name" placeholder="Jone Doe" />
                   </div>
                 </div>
 
@@ -58,7 +58,7 @@
                   </div>
 
                   <div class="col-md-8">
-                    <input name="addressInput_1" type="text" pInputText [(ngModel)]="editService.address1" />
+                    <input name="addressInput_1" type="text" pInputText [(ngModel)]="editService.address1" placeholder="123 Example Drive" />
                     <input name="addressInput_2" type="text" pInputText class="address-input" [(ngModel)]="editService.address2" />
                     <input name="addressInput_3" type="text" pInputText [(ngModel)]="editService.address3" />
                   </div>
@@ -70,7 +70,7 @@
                   </div>
 
                   <div class="col-md-8">
-                    <input name="cityInput" type="text" pInputText [(ngModel)]="editService.city" />
+                    <input name="cityInput" type="text" pInputText [(ngModel)]="editService.city" placeholder="Example City" />
                   </div>
                 </div>
               </div>
@@ -86,7 +86,7 @@
                   </div>
 
                   <div class="col-md-5">
-                    <input name="phoneInput" type="tel" pInputText [(ngModel)]="newNumber" />
+                    <input name="phoneInput" type="tel" pInputText [(ngModel)]="newNumber" placeholder="Phone Number" />
                   </div>
 
                   <div class="col-md-2">
@@ -116,7 +116,7 @@
                   </div>
 
                   <div class="col-md-9">
-                    <textarea name="summaryInput" pInputTextarea rows="11" class="summary-input" [(ngModel)]="editService.summary"></textarea>
+                    <textarea name="summaryInput" pInputTextarea rows="11" class="summary-input" [(ngModel)]="editService.summary" placeholder="Example Summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis, turpis sed sollicitudin pharetra, augue."></textarea>
                   </div>
                 </div>
               </div>
@@ -132,7 +132,7 @@
 
                 <div class="row">
                   <div class="col-md-12">
-                    <input name="socialLink" type="text" pInputText [(ngModel)]="socialService" style="width:100%">
+                    <input name="socialLink" type="text" pInputText [(ngModel)]="socialService" style="width:100%" placeholder="Link Example: 'www.facebook.com/exampleUser'">
                   </div>
                 </div>
 
@@ -187,7 +187,7 @@
       </div>
 
       <div class="col-md-4">
-        <input name="phoneInput" type="tel" pInputText [(ngModel)]="selectedPhoneNum.number" />
+        <input name="phoneInput" type="tel" pInputText [(ngModel)]="selectedPhoneNum.number" placeholder="Phone Number" />
       </div>
     </div>
   </div>
@@ -212,7 +212,7 @@
         </div>
 
         <div class="col-md-10">
-          <input name="addDetailInput" pInputText style="width:100%" [(ngModel)]="selectedSocial.link">
+          <input name="addDetailInput" pInputText style="width:100%" [(ngModel)]="selectedSocial.link" placeholder="Link Example: 'www.facebook.com/exampleUser'">
         </div>
       </div>
 

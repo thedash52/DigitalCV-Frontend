@@ -7,7 +7,9 @@
         <md-card-header>
           <div class="col-md-3">
             <md-card-title>
-              <h4><b>Technology</b></h4>
+              <h4>
+                <b>Technology</b>
+              </h4>
             </md-card-title>
           </div>
 
@@ -31,7 +33,7 @@
                   </div>
 
                   <div class="col-md-6">
-                    <input name="repositoryInput" type="text" pInputText [(ngModel)]="newRepository" placeholder="Link example: http://github.com/test-user"
+                    <input name="repositoryInput" type="text" pInputText [(ngModel)]="newRepository" placeholder="Link example: github.com/test-user"
                       style="width:100%">
                   </div>
 
@@ -109,7 +111,7 @@
         </div>
 
         <div class="col-md-10">
-          <input name="addDetailInput" pInputText style="width:100%" [(ngModel)]="selectedRepository.link">
+          <input name="addDetailInput" pInputText style="width:100%" [(ngModel)]="selectedRepository.link" placeholder="www.example.link">
         </div>
       </div>
 
@@ -153,7 +155,9 @@
       </div>
 
       <div class="col-md-6">
-        <span *ngIf="data.image"><img [src]="data.image" class="img-container" [width]="dataWidth" [height]="dataHeight"></span>
+        <span *ngIf="data.image">
+          <img [src]="data.image" class="img-container" [width]="dataWidth" [height]="dataHeight">
+        </span>
       </div>
     </div>
 
@@ -166,7 +170,7 @@
             </div>
 
             <div class="col-md-7">
-              <input name="technologyNameInput" type="text" pInputText [(ngModel)]="selectedTechnology.name">
+              <input name="technologyNameInput" type="text" pInputText [(ngModel)]="selectedTechnology.name" placeholder="Example Name">
             </div>
           </div>
         </div>
@@ -178,7 +182,7 @@
             </div>
 
             <div class="col-md-8">
-              <input name="srcInput" type="text" pInputText [(ngModel)]="selectedTechnology.src">
+              <input name="srcInput" type="text" pInputText [(ngModel)]="selectedTechnology.src" placeholder="www.example.link">
             </div>
           </div>
         </div>
@@ -201,7 +205,8 @@
         </div>
 
         <div class="col-md-10">
-          <textarea name="addDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedTechnology.detail"></textarea>
+          <textarea name="addDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedTechnology.detail"
+            placeholder="Example Detail: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis, turpis sed sollicitudin pharetra, augue."></textarea>
         </div>
       </div>
     </form>
@@ -234,7 +239,9 @@
       </div>
 
       <div class="col-md-6">
-        <span *ngIf="data.image"><img [src]="data.image" class="img-container" [width]="dataWidth" [height]="dataHeight"></span>
+        <span *ngIf="data.image">
+          <img [src]="data.image" class="img-container" [width]="dataWidth" [height]="dataHeight">
+        </span>
       </div>
     </div>
 
@@ -247,7 +254,7 @@
             </div>
 
             <div class="col-md-7">
-              <input name="technologyNameInput" type="text" pInputText [(ngModel)]="selectedTechnology.name">
+              <input name="technologyNameInput" type="text" pInputText [(ngModel)]="selectedTechnology.name" placeholder="Example Name">
             </div>
           </div>
         </div>
@@ -259,7 +266,7 @@
             </div>
 
             <div class="col-md-8">
-              <input name="srcInput" type="text" pInputText [(ngModel)]="selectedTechnology.src">
+              <input name="srcInput" type="text" pInputText [(ngModel)]="selectedTechnology.src" placeholder="www.example.link">
             </div>
           </div>
         </div>
@@ -282,7 +289,8 @@
         </div>
 
         <div class="col-md-10">
-          <textarea name="addDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedTechnology.detail"></textarea>
+          <textarea name="addDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedTechnology.detail"
+            placeholder="Example Detail: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis, turpis sed sollicitudin pharetra, augue."></textarea>
         </div>
       </div>
     </form>

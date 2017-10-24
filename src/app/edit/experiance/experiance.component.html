@@ -6,9 +6,11 @@
       <md-card>
         <md-card-header>
           <div class="col-md-3">
-          <md-card-title>
-            <h4><b>Experience</b></h4>
-          </md-card-title>
+            <md-card-title>
+              <h4>
+                <b>Experience</b>
+              </h4>
+            </md-card-title>
           </div>
 
           <div class="col-md-2 col-md-offset-7">
@@ -56,7 +58,7 @@
 </div>
 
 <!-- Edit Experience -->
- <p-dialog [(visible)]="editExperience" modal="true" [draggable]="false" [closable]="false" [width]="800">
+<p-dialog [(visible)]="editExperience" modal="true" [draggable]="false" [closable]="false" [width]="800">
   <p-header>
     Edit {{selectedExperience.title}} Details
   </p-header>
@@ -67,7 +69,8 @@
         <img src="{{selectedExperience.img}}" alt="No Image" class="image">
 
         <div class="image-overlay">
-          <p class="overlay-text">Upload<br/>Job Image</p>
+          <p class="overlay-text">Upload
+            <br/>Job Image</p>
         </div>
       </div>
     </div>
@@ -81,7 +84,7 @@
             </div>
 
             <div class="col-md-4 col-md-offset-1">
-              <input name="experienceTitleInput" type="text" pInputText [(ngModel)]="selectedExperience.title">
+              <input name="experienceTitleInput" type="text" pInputText [(ngModel)]="selectedExperience.title" placeholder="Example Title">
             </div>
           </div>
 
@@ -91,7 +94,7 @@
             </div>
 
             <div class="col-md-4 col-md-offset-1">
-              <input name="locationInput" type="text" pInputText [(ngModel)]="selectedExperience.location">
+              <input name="locationInput" type="text" pInputText [(ngModel)]="selectedExperience.location" placeholder="Example Location">
             </div>
           </div>
         </div>
@@ -103,7 +106,7 @@
             </div>
 
             <div class="col-md-7">
-              <p-calendar appendTo="body" [(ngModel)]="selectedStartDate" name="startDatePicker" dateFormat="MM yy" [showIcon]="true"></p-calendar>
+              <p-calendar appendTo="body" [(ngModel)]="selectedStartDate" name="startDatePicker" dateFormat="MM yy" [showIcon]="true" placeholder="December 2015"></p-calendar>
             </div>
           </div>
 
@@ -113,11 +116,11 @@
             </div>
 
             <div class="col-md-7" *ngIf="!selectedExperience.current">
-              <p-calendar appendTo="body" [(ngModel)]="selectedEndDate" name="endDatePicker" dateFormat="MM yy" [showIcon]="true"></p-calendar>
+              <p-calendar appendTo="body" [(ngModel)]="selectedEndDate" name="endDatePicker" dateFormat="MM yy" [showIcon]="true" placeholder="June 2017"></p-calendar>
             </div>
 
             <div class="col-md-7" *ngIf="selectedExperience.current">
-              <input name="current" type="text" pInputText [disabled]="true" placeholder="Current"/>
+              <input name="current" type="text" pInputText [disabled]="true" placeholder="Current" />
             </div>
 
             <div class="row no-border">
@@ -135,7 +138,7 @@
         </div>
 
         <div class="col-md-10">
-          <textarea name="descriptionInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedExperience.description"></textarea>
+          <textarea name="descriptionInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedExperience.desciption" placeholder="Example Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis, turpis sed sollicitudin pharetra, augue."></textarea>
         </div>
       </div>
     </form>
@@ -145,7 +148,7 @@
     <button type="button" pButton label="Done" (click)="saveAndCloseEditDialog()"></button>
     <button type="button" pButton label="Cancel" (click)="closeEditDialog()"></button>
   </p-footer>
-</p-dialog> 
+</p-dialog>
 
 <!-- Add Experience -->
 <p-dialog [(visible)]="addExperience" modal="true" [draggable]="false" [closable]="false" [width]="800">
@@ -159,7 +162,8 @@
         <img src="{{selectedExperience.img}}" alt="No Image" class="image">
 
         <div class="image-overlay">
-          <p class="overlay-text">Upload<br/>Job Image</p>
+          <p class="overlay-text">Upload
+            <br/>Job Image</p>
         </div>
       </div>
     </div>
@@ -173,7 +177,7 @@
             </div>
 
             <div class="col-md-4 col-md-offset-1">
-              <input name="experienceTitleInput" type="text" pInputText [(ngModel)]="selectedExperience.title">
+              <input name="experienceTitleInput" type="text" pInputText [(ngModel)]="selectedExperience.title" placeholder="Example Title">
             </div>
           </div>
 
@@ -183,7 +187,7 @@
             </div>
 
             <div class="col-md-4 col-md-offset-1">
-              <input name="locationInput" type="text" pInputText [(ngModel)]="selectedExperience.location">
+              <input name="locationInput" type="text" pInputText [(ngModel)]="selectedExperience.location" placeholder="Example Location">
             </div>
           </div>
         </div>
@@ -195,7 +199,8 @@
             </div>
 
             <div class="col-md-7">
-              <p-calendar appendTo="body" class="datePicker-color" [(ngModel)]="selectedStartDate" name="startDatePicker" dateFormat="MM yy" [showIcon]="true"></p-calendar>
+              <p-calendar appendTo="body" class="datePicker-color" [(ngModel)]="selectedStartDate" name="startDatePicker" dateFormat="MM yy"
+                [showIcon]="true" placeholder="December 2015"></p-calendar>
             </div>
           </div>
 
@@ -205,11 +210,11 @@
             </div>
 
             <div class="col-md-7" *ngIf="!currentJob">
-              <p-calendar appendTo="body" [(ngModel)]="selectedEndDate" name="endDatePicker" dateFormat="MM yy" [showIcon]="true"></p-calendar>
+              <p-calendar appendTo="body" [(ngModel)]="selectedEndDate" name="endDatePicker" dateFormat="MM yy" [showIcon]="true" placeholder="June 2017"></p-calendar>
             </div>
 
             <div class="col-md-7" *ngIf="currentJob">
-              <input name="current" type="text" pInputText [disabled]="true" placeholder="Current"/>
+              <input name="current" type="text" pInputText [disabled]="true" placeholder="Current" />
             </div>
 
             <div class="row no-border">
@@ -227,7 +232,8 @@
         </div>
 
         <div class="col-md-10">
-          <textarea name="descriptionInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedExperience.description"></textarea>
+          <textarea name="descriptionInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedExperience.description"
+            placeholder="Example Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis, turpis sed sollicitudin pharetra, augue."></textarea>
         </div>
       </div>
     </form>

@@ -7,7 +7,9 @@
         <md-card-header>
           <div class="col-md-3">
             <md-card-title>
-              <h4><b>Skills</b></h4>
+              <h4>
+                <b>Skills</b>
+              </h4>
             </md-card-title>
           </div>
 
@@ -55,7 +57,8 @@
         </div>
 
         <div class="col-md-10">
-          <textarea name="editDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedSkill.detail"></textarea>
+          <textarea name="editDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedSkill.detail"
+            placeholder="Example Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis, turpis sed sollicitudin pharetra, augue."></textarea>
         </div>
       </div>
 
@@ -65,7 +68,8 @@
         </div>
 
         <div class="col-md-4">
-          <p-dropdown appendTo="body" name="editCategoryDropdown" [style]="{width: '100%'}" [options]="options" [(ngModel)]="selectedSkill.category" editable="editable" placeholder="No Category Selected"></p-dropdown>
+          <p-dropdown appendTo="body" name="editCategoryDropdown" [style]="{width: '100%'}" [options]="options" [(ngModel)]="selectedSkill.category"
+            editable="editable" placeholder="No Category Selected"></p-dropdown>
         </div>
       </div>
     </form>
@@ -91,7 +95,8 @@
         </div>
 
         <div class="col-md-10">
-          <textarea name="addDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedSkill.detail"></textarea>
+          <textarea name="addDetailInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedSkill.detail"
+            placeholder="Example Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis, turpis sed sollicitudin pharetra, augue."></textarea>
         </div>
       </div>
 
@@ -101,7 +106,8 @@
         </div>
 
         <div class="col-md-4">
-          <p-dropdown appendTo="body" name="editCategoryDropdown" [style]="{width: '100%'}" [options]="options" [(ngModel)]="selectedSkill.category" editable="editable" placeholder="No Category Selected"></p-dropdown>
+          <p-dropdown appendTo="body" name="editCategoryDropdown" [style]="{width: '100%'}" [options]="options" [(ngModel)]="selectedSkill.category"
+            editable="editable" placeholder="No Category Selected"></p-dropdown>
         </div>
       </div>
     </form>

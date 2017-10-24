@@ -29,8 +29,6 @@ export class ExperianceComponent implements OnInit {
     this.editService.getExperienceList().subscribe(experienceList => {
       this.experienceList = [...experienceList];
     });
-
-    console.log(this.experienceList);
   }
 
   newExperience() {
@@ -66,12 +64,12 @@ export class ExperianceComponent implements OnInit {
   editExperienceDetails(experience: ExperienceModel) {
     this.selectedExperience = experience;
     this.selectedStartDate = new Date(experience.startDate);
+    this.selectedEndDate = new Date(experience.endDate);
 
     let row = this.experienceList.indexOf(experience);
 
     this.selectedRow = row;
     this.editExperience = true;
-    console.log(this.selectedExperience);
   }
 
   saveAndCloseEditDialog() {

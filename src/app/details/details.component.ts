@@ -393,12 +393,6 @@ export class DetailsComponent implements OnInit {
 
     i = startY;
     this.scrollTimerUp(i, stopY, leapY, timer, speed, step);
-
-    // let element = document.getElementById(target);
-    // console.log(target);
-    // // target.scrollIntoView({ behavior: "smooth" });
-    // // let content = document.getElementById('content');
-    // window.scrollTo({ behavior: "smooth", left: 0, top: element.offsetTop});
   }
 
   scrollTimerDown(i, stopY, leapY, timer, speed, step) {
