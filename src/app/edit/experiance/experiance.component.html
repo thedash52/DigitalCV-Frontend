@@ -3,22 +3,22 @@
 <div class="animate">
   <div class="container-fluid navBar-padding">
     <div class="col-lg-12">
-      <md-card>
-        <md-card-header>
+      <mat-card>
+        <mat-card-header>
           <div class="col-md-3">
-            <md-card-title>
+            <mat-card-title>
               <h4>
                 <b>Experience</b>
               </h4>
-            </md-card-title>
+            </mat-card-title>
           </div>
 
           <div class="col-md-2 col-md-offset-7">
             <button type="button" pButton class="raised-button" (click)="newExperience()" label="Add Experience"></button>
           </div>
-        </md-card-header>
+        </mat-card-header>
 
-        <md-card-content>
+        <mat-card-content>
           <form>
             <div class="row">
               <div class="col-md-12">
@@ -51,8 +51,8 @@
               </div>
             </div>
           </form>
-        </md-card-content>
-      </md-card>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>
@@ -125,7 +125,7 @@
 
             <div class="row no-border">
               <div class="col-md-4 col-md-offset-5">
-                <md-checkbox name="currentSwitch" [(ngModel)]="selectedExperience.current">Current</md-checkbox>
+                <mat-checkbox name="currentSwitch" [(ngModel)]="selectedExperience.current">Current</mat-checkbox>
               </div>
             </div>
           </div>
@@ -219,7 +219,7 @@
 
             <div class="row no-border">
               <div class="col-md-4 col-md-offset-5">
-                <md-checkbox name="currentSwitch" [(ngModel)]="currentJob">Current</md-checkbox>
+                <mat-checkbox name="currentSwitch" [(ngModel)]="currentJob">Current</mat-checkbox>
               </div>
             </div>
           </div>

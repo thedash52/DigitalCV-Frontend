@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SkillsComponent } from './skills.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MdCardModule } from '@angular/material';
+import { MatCardModule } from '@angular/material';
 import { DataTableModule, SharedModule, ButtonModule, DialogModule, ConfirmationService, ConfirmDialogModule, InputTextareaModule, DropdownModule } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
@@ -13,7 +13,7 @@ import { EditService } from '../edit.service';
     CommonModule,
     RouterModule,
     FormsModule,
-    MdCardModule,
+    MatCardModule,
     DataTableModule,
     SharedModule,
     ButtonModule,

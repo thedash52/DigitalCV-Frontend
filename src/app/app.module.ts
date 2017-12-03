@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MdProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from "@angular/http";
 
@@ -29,7 +29,7 @@ import { Page404Component } from './page404/page404.component';
     BrowserModule,
     HttpModule,
     BrowserAnimationsModule,
-    MdProgressSpinnerModule,
+    MatProgressSpinnerModule,
     DetailsModule,
     RouterModule.forRoot(routes),
     CommonModule,

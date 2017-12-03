@@ -11,6 +11,7 @@ hr {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 100vh;
 }
 
 #navbar {
@@ -59,6 +60,10 @@ hr {
 .card {
     position: relative;
     margin-top: -10em;
+}
+
+.no-data {
+    margin-top: 10vh;
 }
 
 #basic-card>.mat-card-content>:first-child {

@@ -3,22 +3,22 @@
 <div class="animate">
   <div class="container-fluid navBar-padding">
     <div class="col-lg-12">
-      <md-card>
-        <md-card-header>
+      <mat-card>
+        <mat-card-header>
           <div class="col-md-3">
-            <md-card-title>
+            <mat-card-title>
               <h4>
                 <b>Technology</b>
               </h4>
-            </md-card-title>
+            </mat-card-title>
           </div>
 
           <div class="col-md-2 col-md-offset-7">
             <button type="button" pButton class="raised-button" (click)="newTechnology()" label="Add Technology"></button>
           </div>
-        </md-card-header>
+        </mat-card-header>
 
-        <md-card-content>
+        <mat-card-content>
           <form>
             <div class="row">
               <div class="col-md-2">
@@ -60,7 +60,7 @@
               </div>
 
               <div class="col-md-2 vertical-align">
-                <md-checkbox name="showRepositoryCheckBox" [(ngModel)]="editService.showRepositories">Show Repositories</md-checkbox>
+                <mat-checkbox name="showRepositoryCheckBox" [(ngModel)]="editService.showRepositories">Show Repositories</mat-checkbox>
               </div>
             </div>
 
@@ -91,8 +91,8 @@
               </div>
             </div>
           </form>
-        </md-card-content>
-      </md-card>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>

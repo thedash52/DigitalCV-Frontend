@@ -94,37 +94,49 @@ export class TestSiteComponent implements OnInit {
             this.router.navigate(['/details']);
           }, 2000);
         }).catch((route: string | any) => {
-          if (typeof (route) == "string") {
-            this.status = "Data Missing. Redirecting to edit page.";
+          // if (typeof (route) == "string") {
+          // this.status = "Data Missing. Redirecting to edit page.";
 
-            setTimeout(() => {
-              clearInterval(textInterval);
+          // setTimeout(() => {
+          //   clearInterval(textInterval);
 
-              this.userService.checkLogin().subscribe(result => {
-                this.setupEdit().then(() => {
-                  this.router.navigate([route]);
-                });
-              }, (err) => {
-                if (err.status === 401) {
-                  this.setupEdit().then(() => {
-                    this.userService.loginRoute = route;
+          //   this.userService.checkLogin().subscribe(result => {
+          //     this.setupEdit().then(() => {
+          //       this.router.navigate([route]);
+          //     });
+          //   }, (err) => {
+          //     if (err.status === 401) {
+          //       this.setupEdit().then(() => {
+          //         this.userService.loginRoute = route;
 
-                    this.router.navigate(['/login']);
-                  });
-                }
-              });
-            }, 2000)
-          } else if (typeof (route) == "boolean") {
+          //         this.router.navigate(['/login']);
+          //       });
+          //     }
+          //   });
+          // }, 2000)
+          // } else if (typeof (route) == "boolean") {
+          if (typeof (route) == "boolean") {
+            if (route) {
+              this.status = "Data Verified. Preperations Complete. Displaying CV.";
+              this.cvService.setUp.next(true);
+          
+              setTimeout(() => {
+                clearInterval(textInterval);
+    
+                this.router.navigate(['/details']);
+              }, 2000);
+            } else {
             this.status = "Data Validation Failed.";
-          } else {
-            this.status = "Error. Reattempting setup."
+            }
+          } //else {
+          //   this.status = "Error. Reattempting setup."
 
-            setTimeout(() => {
-              clearInterval(textInterval);
+          //   setTimeout(() => {
+          //     clearInterval(textInterval);
 
-              window.location.reload();
-            }, 2000);
-          }
+          //     window.location.reload();
+          //   }, 2000);
+          // }
         });
   }
 
@@ -342,7 +354,7 @@ export class TestSiteComponent implements OnInit {
   getBasicDetails() {
     return new Promise((resolve, reject) => {
       this.userService.getBasic().subscribe(results => {
-        if (typeof(results.basic) != 'undefined' || results.basic != null || results.phone != null) {
+        if (typeof (results.basic) != 'undefined' || results.basic != null || results.phone != null) {
           this.cvService.basic = results.basic;
           this.cvService.phone.next(results.phone);
           this.cvService.social.next(results.social);
@@ -353,7 +365,10 @@ export class TestSiteComponent implements OnInit {
 
           return resolve();
         } else {
-          return reject('/edit/basic');
+          //   return reject('/edit/basic');
+          // }
+          this.value = 100;
+          return reject(true);
         }
       });
     });
@@ -370,7 +385,11 @@ export class TestSiteComponent implements OnInit {
 
           return resolve();
         } else {
-          return reject('/edit/skills');
+        //   return reject('/edit/skills');
+        // }
+        this.value += (100 / this.number);
+        this.status = "Skill Details Collected";
+        return resolve();
         }
       });
     });
@@ -388,7 +407,11 @@ export class TestSiteComponent implements OnInit {
 
           return resolve();
         } else {
-          return reject('/edit/technology');
+        //   return reject('/edit/technology');
+        // }
+        this.value += (100 / this.number);
+        this.status = "Technology Details Collected";
+        return resolve();
         }
       });
     });
@@ -405,7 +428,11 @@ export class TestSiteComponent implements OnInit {
 
           return resolve();
         } else {
-          return reject('/edit/experience')
+        //   return reject('/edit/experience')
+        // }
+        this.value += (100 / this.number);
+        this.status = "Experience Details Collected";
+        return resolve();
         }
       });
     });
@@ -423,7 +450,11 @@ export class TestSiteComponent implements OnInit {
 
           return resolve();
         } else {
-          return reject('/edit/education');
+        //   return reject('/edit/education');
+        // }
+        this.value += (100 / this.number);
+        this.status = "Education Details Collected";
+        return resolve();
         }
       });
     });
@@ -441,7 +472,11 @@ export class TestSiteComponent implements OnInit {
 
           return resolve();
         } else {
-          return reject('/edit/other');
+        //   return reject('/edit/other');
+        // }
+        this.value += (100 / this.number);
+        this.status = "Other Details Collected";
+        return resolve();
         }
       });
     });

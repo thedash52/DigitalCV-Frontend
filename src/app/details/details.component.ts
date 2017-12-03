@@ -3,6 +3,7 @@ import { trigger, state, style, animate, transition } from "@angular/animations"
 import { Router } from "@angular/router";
 
 import { Message, SelectItem } from "primeng/primeng";
+import { MatIconRegistry } from '@angular/material';
 
 import { CvService } from "../shared/index";
 import { EditService } from "../edit/index";
@@ -26,7 +27,7 @@ import { InterestModel } from "../shared/models/displayModels/interestModel";
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private cvService: CvService, private editService: EditService, private userService: UserService, private router: Router) { }
+  constructor(private cvService: CvService, private editService: EditService, private userService: UserService, private router: Router, private icons:MatIconRegistry) { }
 
   loggedIn: boolean = false;
 
@@ -46,6 +47,8 @@ export class DetailsComponent implements OnInit {
   msgs: Message[] = [];
 
   ngOnInit() {
+    this.icons.registerFontClassAlias("default", "fa fa-chevron-right");
+
     this.cvService.getPhone().subscribe(results => {
       this.phoneData = [...results];
     });
@@ -141,7 +144,14 @@ export class DetailsComponent implements OnInit {
   }
 
   configureSkills(): any {
-    var configuredSkills: SelectItem[] = [];
+    var configuredSkills: {
+      rowNum: number;
+      column: {
+        columnNum: number;
+        value: SelectItem;
+      }[];
+    }[] = [];
+    // var configuredSkills: SelectItem[] = [];
 
     let categories = [];
 
@@ -160,8 +170,15 @@ export class DetailsComponent implements OnInit {
       }
     });
 
+    var columnNum: number = 1;
+    var rowNum: number = 1;
+
     categories.forEach(category => {
       let relatedSkills = [];
+      let columnData: {
+        columnNum: number;
+        value: SelectItem;
+      }[] = [];
 
       this.skillData.forEach(skill => {
         if (skill.category == category) {
@@ -169,7 +186,27 @@ export class DetailsComponent implements OnInit {
         }
       });
 
-      configuredSkills.push({ label: category, value: relatedSkills });
+      columnData.push({
+        columnNum: columnNum,
+        value: ({
+          label: category,
+          value: relatedSkills
+        })
+      });
+
+      if (columnNum == 3) {
+        configuredSkills.push({
+          rowNum: rowNum,
+          column: columnData
+        });
+
+        columnNum = 1;
+        rowNum++;
+      } else {
+        columnNum++;
+      }
+
+      // configuredSkills.push({ label: category, value: relatedSkills });
     });
 
     return configuredSkills;

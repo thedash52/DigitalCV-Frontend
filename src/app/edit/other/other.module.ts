@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { OtherComponent } from './other.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
-import { MdCardModule, MdCheckboxModule } from '@angular/material';
+import { MatCardModule, MatCheckboxModule } from '@angular/material';
 
 import { InputTextModule, InputTextareaModule, ButtonModule, DataTableModule, DataGridModule, PanelModule, ConfirmDialogModule, ConfirmationService, DialogModule } from 'primeng/primeng';
 
@@ -14,12 +14,12 @@ import { EditService } from '../edit.service';
     CommonModule,
     RouterModule,
     FormsModule,
-    MdCardModule,
+    MatCardModule,
     InputTextModule,
     InputTextareaModule,
     ButtonModule,
     DataTableModule,
-    MdCheckboxModule,
+    MatCheckboxModule,
     DataGridModule,
     PanelModule,
     ConfirmDialogModule,

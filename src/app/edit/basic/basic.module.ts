@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BasicComponent } from './basic.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
-import { MdCardModule, MdButtonModule } from '@angular/material';
+import { MatCardModule, MatButtonModule } from '@angular/material';
 
 import { ButtonModule, InputTextModule, InputTextareaModule, DropdownModule, DataTableModule, SharedModule, ConfirmDialogModule, ConfirmationService, DialogModule } from 'primeng/primeng';
 import { ImageCropperModule } from "ng2-img-cropper";
@@ -15,12 +15,12 @@ import { EditService } from '../edit.service';
     CommonModule,
     RouterModule,
     FormsModule,
-    MdCardModule,
+    MatCardModule,
     ButtonModule,
     InputTextModule,
     InputTextareaModule,
     DropdownModule,
-    MdButtonModule,
+    MatButtonModule,
     DataTableModule,
     SharedModule,
     ConfirmDialogModule,

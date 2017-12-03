@@ -6,7 +6,7 @@ import { DetailsComponent } from './details.component';
 import { RouterModule } from '@angular/router';
 
 import { BusyModule } from "angular2-busy";
-import { MdCardModule, MdGridListModule, MdListModule, MdTooltipModule } from "@angular/material";
+import { MatCardModule, MatGridListModule, MatListModule, MatTooltipModule, MatIconModule } from "@angular/material";
 import { MessagesModule, CarouselModule, ButtonModule, DataTableModule, SharedModule } from "primeng/primeng";
 
 import { CvService } from "../shared/index";
@@ -20,15 +20,16 @@ import { UserService } from "../shared/index";
         BrowserModule,
         BrowserAnimationsModule,
         BusyModule,
-        MdCardModule,
+        MatCardModule,
         MessagesModule,
         CarouselModule,
         ButtonModule,
-        MdGridListModule,
-        MdListModule,
+        MatGridListModule,
+        MatListModule,
         DataTableModule,
         SharedModule,
-        MdTooltipModule
+        MatTooltipModule,
+        MatIconModule
     ],
     declarations: [DetailsComponent],
     exports: [DetailsComponent],

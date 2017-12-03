@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EducationComponent } from './education.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MdCardModule } from '@angular/material';
+import { MatCardModule } from '@angular/material';
 
 import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule } from 'primeng/primeng';
 
@@ -14,7 +14,7 @@ import { EditService } from '../edit.service';
     CommonModule,
     RouterModule,
     FormsModule,
-    MdCardModule,
+    MatCardModule,
     DataTableModule,
     SharedModule,
     DialogModule,
