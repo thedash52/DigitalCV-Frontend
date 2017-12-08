@@ -11,7 +11,7 @@ import { EditService } from './edit.service';
 })
 export class EditComponent implements OnInit {
 
-  constructor(private router: Router, private userService: UserService, private cvService: CvService, private editService: EditService) {
+  constructor(public router: Router, public userService: UserService, public cvService: CvService, public editService: EditService) {
     this.userService.checkLogin().subscribe(result => {
       if (!this.editService.setUp) {
         this.router.navigate(['/setup-edit']);

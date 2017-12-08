@@ -12,7 +12,7 @@ import { ExperienceModel } from '../../shared/models/experienceModel';
 })
 export class ExperianceComponent implements OnInit {
 
-  constructor(private editService: EditService, private confirmationService: ConfirmationService) { }
+  constructor(public editService: EditService, public confirmationService: ConfirmationService) { }
 
   experienceList: ExperienceModel[] = [];
 
@@ -24,6 +24,8 @@ export class ExperianceComponent implements OnInit {
 
   editExperience: boolean = false;
   addExperience: boolean = false;
+
+  currentJob: boolean = false;
 
   ngOnInit() {
     this.editService.getExperienceList().subscribe(experienceList => {

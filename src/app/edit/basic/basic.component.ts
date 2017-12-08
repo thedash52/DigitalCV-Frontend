@@ -25,7 +25,7 @@ export class BasicComponent implements OnInit {
   @ViewChild('avatarCropper', undefined) avatarCropper: ImageCropperComponent;
   @ViewChild('profileCropper', undefined) profileCropper: ImageCropperComponent;
 
-  constructor(private editService: EditService, private confirmationService: ConfirmationService) {
+  constructor(public editService: EditService, public confirmationService: ConfirmationService) {
     this.cropperSettings.rounded = true;
     this.cropperSettings.keepAspect = true;
 

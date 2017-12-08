@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import { Router } from "@angular/router";
+import { system } from "../../environments/system"
 
 import { Message, SelectItem } from "primeng/primeng";
 import { MatIconRegistry } from '@angular/material';
@@ -27,9 +28,10 @@ import { InterestModel } from "../shared/models/displayModels/interestModel";
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private cvService: CvService, private editService: EditService, private userService: UserService, private router: Router, private icons:MatIconRegistry) { }
+  constructor(public cvService: CvService, public editService: EditService, public userService: UserService, public router: Router, public icons:MatIconRegistry) { }
 
   loggedIn: boolean = false;
+  version: string;
 
   phoneData: PhoneModel[] = [];
   socialData: SocialModel[] = [];
@@ -47,7 +49,7 @@ export class DetailsComponent implements OnInit {
   msgs: Message[] = [];
 
   ngOnInit() {
-    this.icons.registerFontClassAlias("default", "fa fa-chevron-right");
+    this.icons.registerFontClassAlias("font-awesome", "fa");
 
     this.cvService.getPhone().subscribe(results => {
       this.phoneData = [...results];
@@ -107,6 +109,8 @@ export class DetailsComponent implements OnInit {
         }
       });
     }
+
+    this.version = system.version;
   }
 
   login() {
@@ -170,28 +174,34 @@ export class DetailsComponent implements OnInit {
       }
     });
 
-    var columnNum: number = 1;
-    var rowNum: number = 1;
+    var skills: SelectItem[] = [];
 
     categories.forEach(category => {
       let relatedSkills = [];
-      let columnData: {
-        columnNum: number;
-        value: SelectItem;
-      }[] = [];
-
+      
       this.skillData.forEach(skill => {
         if (skill.category == category) {
           relatedSkills.push(skill.details);
         }
       });
 
+      skills.push({
+        label: category,
+        value: relatedSkills
+      });
+    });
+
+    var columnNum: number = 1;
+    var rowNum: number = 1;
+    var columnData: {
+      columnNum: number;
+      value: SelectItem;
+    }[] = [];
+
+    skills.forEach(skill => {
       columnData.push({
         columnNum: columnNum,
-        value: ({
-          label: category,
-          value: relatedSkills
-        })
+        value: skill
       });
 
       if (columnNum == 3) {
@@ -200,12 +210,18 @@ export class DetailsComponent implements OnInit {
           column: columnData
         });
 
+        columnData = [];
+
         columnNum = 1;
         rowNum++;
+      } else if (categories.length == (columnNum + (3 * (rowNum - 1)))) {
+        configuredSkills.push({
+          rowNum: rowNum,
+          column: columnData
+        });
       } else {
         columnNum++;
       }
-
       // configuredSkills.push({ label: category, value: relatedSkills });
     });
 

@@ -33,7 +33,7 @@
 
                   <p-column field="location" header="Location" styleClass="text-center" [style]="{width: '15%'}"></p-column>
 
-                  <p-column field="desciption" header="Job Description" styleClass="text-center"></p-column>
+                  <p-column field="description" header="Job Description" styleClass="text-center"></p-column>
 
                   <p-column header="Job Period" styleClass="text-center" [style]="{width: '15%'}">
                     <ng-template let-experience="rowData" pTemplate="body">
@@ -138,7 +138,7 @@
         </div>
 
         <div class="col-md-10">
-          <textarea name="descriptionInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedExperience.desciption" placeholder="Example Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis, turpis sed sollicitudin pharetra, augue."></textarea>
+          <textarea name="descriptionInput" rows="10" class="textarea-full-width" pInputTextarea [(ngModel)]="selectedExperience.description" placeholder="Example Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lobortis, turpis sed sollicitudin pharetra, augue."></textarea>
         </div>
       </div>
     </form>

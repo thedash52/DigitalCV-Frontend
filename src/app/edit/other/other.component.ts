@@ -14,7 +14,7 @@ import { ConfirmationService } from 'primeng/primeng';
 })
 export class OtherComponent implements OnInit {
 
-  constructor(private editService: EditService, private confirmationService: ConfirmationService) { }
+  constructor(public editService: EditService, public confirmationService: ConfirmationService) { }
 
   achievementName: string;
   achievementWhere: string;

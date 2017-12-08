@@ -21,7 +21,7 @@ export class TechnologyComponent implements OnInit {
 
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
-  constructor(private editService: EditService, private confirmationService: ConfirmationService) {
+  constructor(public editService: EditService, public confirmationService: ConfirmationService) {
     this.cropperSettings.rounded = true;
     this.cropperSettings.keepAspect = true;
 

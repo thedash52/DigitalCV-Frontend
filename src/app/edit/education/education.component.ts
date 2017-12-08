@@ -13,7 +13,7 @@ import { CoursePaperModel } from '../../shared/models/coursePaperModel';
 })
 export class EducationComponent implements OnInit {
 
-  constructor(private editService: EditService, private confirmationService: ConfirmationService) { }
+  constructor(public editService: EditService, public confirmationService: ConfirmationService) { }
 
   educationList: EducationModel[] = [];
   selectedCourse: EducationModel = new EducationModel();

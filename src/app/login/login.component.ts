@@ -12,7 +12,7 @@ import { UserService } from "../shared/index";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private userService: UserService, private location: Location) { }
+  constructor(public router: Router, public userService: UserService, public location: Location) { }
 
   busy: Promise<any>;
   msg: Message[] = [];

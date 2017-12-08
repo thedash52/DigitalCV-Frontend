@@ -22,7 +22,7 @@ hr {
 .header {
     padding-top: 0.45em;
     margin-top: 0;
-    text-align: center;
+    text-align: right;
     color: #ffffff;
 }
 
@@ -86,12 +86,8 @@ hr {
     border: none;
 }
 
-.skills {
-    border-right: 1px solid darkgray;
-}
-
-.skills:nth-child(3n+3) {
-    border: none;
+.border-bottom {
+    border-bottom: 1px solid darkgray;
 }
 
 #tech {

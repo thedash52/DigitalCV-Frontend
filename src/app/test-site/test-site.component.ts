@@ -43,7 +43,7 @@ export class TestSiteComponent implements OnInit {
   value: number = 0;
   @Input() status: string = "";
 
-  constructor(private router: Router, private userService: UserService, private cvService: CvService, private editService: EditService) { }
+  constructor(public router: Router, public userService: UserService, public cvService: CvService, public editService: EditService) { }
 
   number: number = 7 + 6;
   id: number;
@@ -93,30 +93,9 @@ export class TestSiteComponent implements OnInit {
 
             this.router.navigate(['/details']);
           }, 2000);
-        }).catch((route: string | any) => {
-          // if (typeof (route) == "string") {
-          // this.status = "Data Missing. Redirecting to edit page.";
-
-          // setTimeout(() => {
-          //   clearInterval(textInterval);
-
-          //   this.userService.checkLogin().subscribe(result => {
-          //     this.setupEdit().then(() => {
-          //       this.router.navigate([route]);
-          //     });
-          //   }, (err) => {
-          //     if (err.status === 401) {
-          //       this.setupEdit().then(() => {
-          //         this.userService.loginRoute = route;
-
-          //         this.router.navigate(['/login']);
-          //       });
-          //     }
-          //   });
-          // }, 2000)
-          // } else if (typeof (route) == "boolean") {
-          if (typeof (route) == "boolean") {
-            if (route) {
+        }).catch((err: string | any) => {
+          if (typeof (err) == "boolean") {
+            if (err) {
               this.status = "Data Verified. Preperations Complete. Displaying CV.";
               this.cvService.setUp.next(true);
           
@@ -128,15 +107,9 @@ export class TestSiteComponent implements OnInit {
             } else {
             this.status = "Data Validation Failed.";
             }
-          } //else {
-          //   this.status = "Error. Reattempting setup."
-
-          //   setTimeout(() => {
-          //     clearInterval(textInterval);
-
-          //     window.location.reload();
-          //   }, 2000);
-          // }
+          } else if (err.name == "TimeoutError") {
+            this.status = "Unable to connect to Server! Please try again later."
+          }
         });
   }
 
@@ -347,6 +320,8 @@ export class TestSiteComponent implements OnInit {
         this.value += (100 / this.number);
 
         return resolve();
+      }, err => {
+        return reject(err);
       });
     });
   }

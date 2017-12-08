@@ -13,7 +13,7 @@ import { SelectItem } from 'primeng/primeng';
 })
 export class SkillsComponent implements OnInit {
 
-  constructor(private editService: EditService, private confirmationService: ConfirmationService) { }
+  constructor(public editService: EditService, public confirmationService: ConfirmationService) { }
 
   skills: SkillModel[];
   selectedSkill: SkillModel = new SkillModel();

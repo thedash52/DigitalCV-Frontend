@@ -5,7 +5,7 @@
   <div class="container">
     <div class="animate">
       <nav id="navbar" class="navbar navbar-fixed-top navbar-default navbar-inverse">
-        <div class="col-md-1 col-md-offset-1">
+        <div class="col-md-2 col-md-offset-1">
           <h3 class="header">Digital CV</h3>
         </div>
 
@@ -182,9 +182,9 @@
               </mat-card-header>
 
               <mat-card-content>
-                <div *ngFor="let rowData of configureSkills()">
-                  <div class="row" *ngIf="rowData.column.length == 3; else twoColumns">
-                    <div class="col-md-4 skills" *ngFor="let columnData of rowData.column">
+                <div *ngFor="let rowData of configureSkills(); let first = first; let last = last">
+                  <div class="row" [class.border-bottom]="first && !last" *ngIf="rowData.column.length == 3; else twoColumns">
+                    <div class="col-md-4 skills" [class.border-right]="columnFirst" [class.border-left]="columnLast" *ngFor="let columnData of rowData.column; let columnFirst = first; let columnLast = last">
                       <div class="row" *ngIf="columnData.value.label">
                         <div class="col-md-12">
                           <h4 class="border-padding">{{columnData.value.label}}</h4>
@@ -203,41 +203,45 @@
                     </div>
                   </div>
 
-                  <ng-template #twoColumns *ngIf="rowData.column.length == 2; else oneColumn">
-                    <div class="col-md-offset-2 col-md-4 skills" *ngFor="let columnData of rowData.column">
-                      <div class="row" *ngIf="columnData.value.label">
-                        <div class="col-md-12">
-                          <h4 class="border-padding">{{columnData.value.label}}</h4>
+                  <ng-template #twoColumns >
+                    <div class="row" *ngIf="rowData.column.length == 2; else oneColumn">
+                      <div class="col-md-offset-2 col-md-4 skills" [class.border-right]="columnFirst" *ngFor="let columnData of rowData.column; let columnFirst = first">
+                        <div class="row" *ngIf="columnData.value.label">
+                          <div class="col-md-12">
+                            <h4 class="border-padding">{{columnData.value.label}}</h4>
+                          </div>
                         </div>
-                      </div>
 
-                      <div class="row" *ngIf="columnData.value.value">
-                        <div class="col-md-12">
-                          <ul class="skills-list">
-                            <li *ngFor="let skill of columnData.value.value">
-                              {{skill}}
-                            </li>
-                          </ul> 
+                        <div class="row" *ngIf="columnData.value.value">
+                          <div class="col-md-12">
+                            <ul class="skills-list">
+                              <li *ngFor="let skill of columnData.value.value">
+                                {{skill}}
+                              </li>
+                            </ul> 
+                          </div>
                         </div>
                       </div>
                     </div>
                   </ng-template>
 
                   <ng-template #oneColumn>
-                    <div class="col-md-offset-4 col-md-4 skills" *ngFor="let columnData of rowData.column">
-                      <div class="row" *ngIf="columnData.value.label">
-                        <div class="col-md-12">
-                          <h4 class="border-padding">{{columnData.value.label}}</h4>
+                    <div class="row">
+                      <div class="col-md-offset-4 col-md-4 skills" *ngFor="let columnData of rowData.column">
+                        <div class="row" *ngIf="columnData.value.label">
+                          <div class="col-md-12">
+                            <h4 class="border-padding">{{columnData.value.label}}</h4>
+                          </div>
                         </div>
-                      </div>
 
-                      <div class="row" *ngIf="columnData.value.value">
-                        <div class="col-md-12">
-                          <ul class="skills-list">
-                            <li *ngFor="let skill of columnData.value.value">
-                              {{skill}}
-                            </li>
-                          </ul> 
+                        <div class="row" *ngIf="columnData.value.value">
+                          <div class="col-md-12">
+                            <ul class="skills-list">
+                              <li *ngFor="let skill of columnData.value.value">
+                                {{skill}}
+                              </li>
+                            </ul> 
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -625,7 +629,7 @@
                           <mat-list-item *ngFor="let interest of interestData">
                             <img matListAvatar src="{{interest.img}}" *ngIf="interest.img; else defaultIcon">
                             <ng-template #defaultIcon>
-                              <mat-icon mat-list-icon>default</mat-icon>
+                              <mat-icon matListIcon fontSet="font-awesome" fontIcon="fa-chevron-right"></mat-icon>
                             </ng-template>
 
                             <h5 mat-line>{{interest.name}}</h5>
@@ -746,7 +750,7 @@
 
       <footer class="footer">
         <p class="center-text footer-text">This site was created by Daniel Nash, 2017.
-          <br/>Version: 1.0.0_Beta</p>
+          <br/>Version: {{version}}</p>
       </footer>
     </div>
   </div>

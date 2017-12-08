@@ -4,6 +4,9 @@ import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/timeout';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import { environment } from '../../environments/environment';
 
 import { ReceiveBasicModel } from "./models/httpModels/receiveBasicModel";
@@ -53,7 +56,7 @@ export class UserService {
   }
 
   checkConnection(): Observable<ConnectionCheck> {
-    return this.http.get(this.url + "check-connection").map((res: Response) => res.json());
+    return this.http.get(this.url + "check-connection").timeout(30000).map((res: Response) => res.json()).catch(this.handleTimeout);
   }
 
   getType(): Observable<ReceiveTypeModel[]> {
@@ -145,10 +148,18 @@ export class UserService {
       const body = err.json() || '';
       const error = body.error || JSON.stringify(body);
       errMsg = `${err.status} - ${err.statusText || ''} ${error}`;
+    } else if (err.name == "TimeoutError") {
+      errMsg = err.name;
     } else {
       errMsg = err.message ? err.message : err.toString();
     }
 
     return Promise.reject(errMsg);
+  }
+
+  private handleTimeout(err) {
+    console.log(err);
+
+    return Observable.throw(err);
   }
 }

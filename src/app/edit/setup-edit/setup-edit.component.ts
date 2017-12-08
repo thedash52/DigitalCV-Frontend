@@ -50,7 +50,7 @@ export class SetupEditComponent implements OnInit {
   value: number = 0;
   @Input() status: string = "";
 
-  constructor(private router: Router, private userService: UserService, private editService: EditService) { }
+  constructor(public router: Router, public userService: UserService, public editService: EditService) { }
 
   number: number = 8;
 

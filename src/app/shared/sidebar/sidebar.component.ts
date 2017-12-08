@@ -15,7 +15,7 @@ import { BasicModel } from "../models/displayModels/basicModel";
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private router: Router, private userService: UserService, private editService: EditService) { }
+  constructor(public router: Router, public userService: UserService, public editService: EditService) { }
 
   msg: Message[] = [];
   busy: Promise<any>;

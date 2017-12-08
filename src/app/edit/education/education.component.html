@@ -21,7 +21,7 @@
             <div class="row">
               <div class="col-md-12">
                 <p-dataTable [value]="educationList" selectionMode="single" [(selection)]="selectedCourse" (onRowSelect)="courseSelected($event)"
-                  (onRowUnselect)="courseUnselected($event)" sortField="year" sortOrder="-1" rowGroupMode="subheader" groupField="year"
+                  sortField="year" sortOrder="-1" rowGroupMode="subheader" groupField="year"
                   [metaKeySelection]="false">
                   <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['year']}}</ng-template>
 
