@@ -4,7 +4,7 @@ import { SelectItem } from 'primeng/primeng';
 
 import { EditService } from '../edit.service';
 import { ConfirmationService } from 'primeng/primeng';
-import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
+import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper";
 
 import { PhoneNumberModel } from '../../shared/models/phoneNumberModel';
 import { PhoneTypeModel } from '../../shared/models/phoneTypeModel';
