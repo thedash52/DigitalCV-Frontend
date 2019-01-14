@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { EditService } from '../edit.service';
 import { ConfirmationService } from 'primeng/primeng';
 
-import { ExperienceModel } from '../../shared/models/experienceModel';
+import { ExperienceModel } from '../../shared/models/displayModels/experienceModel';
 
 @Component({
   selector: 'app-experiance',
@@ -35,17 +35,17 @@ export class ExperianceComponent implements OnInit {
 
   newExperience() {
     this.selectedExperience = new ExperienceModel();
-    this.selectedExperience.img = "http://placehold.it/60x60";
+    this.selectedExperience.image = "http://placehold.it/60x60";
     this.selectedExperience.current = false;
 
     this.addExperience = true;
   }
 
   addAndCloseAddDialog() {
-    this.selectedExperience.startDate = this.selectedStartDate;
+    this.selectedExperience.start_date = this.selectedStartDate;
 
     if (!this.selectedExperience.current) {
-      this.selectedExperience.endDate = this.selectedEndDate;
+      this.selectedExperience.end_date = this.selectedEndDate;
     }
 
     this.editService.addExperience(this.selectedExperience);
@@ -65,8 +65,8 @@ export class ExperianceComponent implements OnInit {
 
   editExperienceDetails(experience: ExperienceModel) {
     this.selectedExperience = experience;
-    this.selectedStartDate = new Date(experience.startDate);
-    this.selectedEndDate = new Date(experience.endDate);
+    this.selectedStartDate = new Date(experience.start_date);
+    this.selectedEndDate = new Date(experience.end_date);
 
     let row = this.experienceList.indexOf(experience);
 
@@ -75,10 +75,10 @@ export class ExperianceComponent implements OnInit {
   }
 
   saveAndCloseEditDialog() {
-    this.selectedExperience.startDate = this.selectedStartDate;
+    this.selectedExperience.start_date = this.selectedStartDate;
 
     if (!this.selectedExperience.current) {
-      this.selectedExperience.endDate = this.selectedEndDate;
+      this.selectedExperience.end_date = this.selectedEndDate;
     }
 
     this.editService.editExperience(this.selectedRow, this.selectedExperience);

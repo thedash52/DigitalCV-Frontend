@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { DetailsComponent } from './details.component';
 import { RouterModule } from '@angular/router';
 
-import { BusyModule } from "angular2-busy";
 import { MatCardModule, MatGridListModule, MatListModule, MatTooltipModule, MatIconModule } from "@angular/material";
 import { MessagesModule, CarouselModule, ButtonModule, DataTableModule, SharedModule } from "primeng/primeng";
 
@@ -19,7 +18,6 @@ import { UserService } from "../shared/index";
         RouterModule,
         BrowserModule,
         BrowserAnimationsModule,
-        BusyModule,
         MatCardModule,
         MessagesModule,
         CarouselModule,

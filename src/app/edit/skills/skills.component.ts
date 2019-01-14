@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/primeng';
 import { EditService } from '../edit.service';
 
-import { SkillModel } from '../../shared/models/skillModel';
+import { SkillModel } from '../../shared/models/displayModels/skillModel';
 import { SelectItem } from 'primeng/primeng';
 
 @Component({

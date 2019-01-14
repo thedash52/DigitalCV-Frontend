@@ -6,14 +6,12 @@ import { RouterModule } from '@angular/router';
 import { UserService } from "../shared/index";
 
 import { InputTextModule, ButtonModule, GrowlModule } from "primeng/primeng";
-import { BusyModule } from "angular2-busy";
 
 @NgModule({
   imports: [
     CommonModule,
     InputTextModule,
     ButtonModule,
-    BusyModule,
     GrowlModule
   ],
   declarations: [LoginComponent],

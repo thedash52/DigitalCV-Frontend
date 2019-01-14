@@ -1,4 +1,3 @@
-<div [ngBusy]="busy"></div>
 <p-messages [(value)]="msgs"></p-messages>
 
 <div class="background" *ngIf="showPage">
@@ -498,7 +497,7 @@
                           <div class="row" *ngIf="getPapers(education.id)?.length">
                             <div class="col-md-12 paper-table">
                               <p-dataTable [value]="getPapers(education.id)">
-                                <p-column field="code" header="Code" [styleClass]="paper-column"></p-column>
+                                <p-column field="code" header="Code" styleClass="paper-column"></p-column>
                                 <p-column field="name" header="Name"></p-column>
                                 <p-column field="grade" header="Grade" [style]="{width: '15%'}"></p-column>
                                 <p-column header="Details" [style]="{width: '15%'}">

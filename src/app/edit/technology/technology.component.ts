@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ConfirmationService } from 'primeng/primeng';
 import { EditService } from '../edit.service';
-import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
+import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper";
 
 import { TechnologyModel } from '../../shared/models/technologyModel';
 import { TypeModel } from "../../shared/models/typeModel";
@@ -205,7 +205,7 @@ export class TechnologyComponent implements OnInit {
 
   saveAndCloseEditDialog() {
     this.selectedTechnology.img = this.data.image;
-    this.editService.editSkill(this.selectedRow, this.selectedTechnology);
+    this.editService.editTechnology(this.selectedRow, this.selectedTechnology);
 
     this.selectedRow = null;
     this.selectedTechnology = new TechnologyModel();
@@ -226,7 +226,7 @@ export class TechnologyComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure you would like to delete this record?',
       accept: () => {
-        this.editService.deleteSkill(technology);
+        this.editService.deleteTechnology(technology);
       }
     });
   }

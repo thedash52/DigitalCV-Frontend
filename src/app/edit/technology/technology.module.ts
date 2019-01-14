@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatCardModule, MatCheckboxModule } from '@angular/material';
 
 import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule, InputTextareaModule, DropdownModule } from 'primeng/primeng';
-import { ImageCropperModule } from "ng2-img-cropper";
+import { ImageCropperModule } from "ngx-img-cropper";
 
 import { EditService } from '../edit.service';
 

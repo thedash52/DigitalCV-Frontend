@@ -1,14 +1,18 @@
 {
   "name": "digitalcv",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --aot --prod",
+    "build:sourcemaps": "ng build --aot --prod --source-map",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postbuild:sourcemaps": "md dist\\secureFiles dist\\secureFiles\\sourceMaps && move dist\\*.map dist\\secureFiles\\sourceMaps",
+    "publish": "npm run build && gcloud app deploy -v",
+    "publish:sourcemaps": "npm run build:sourcemaps && gcloud app deploy app-debug.yaml"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +36,7 @@
     "popper.js": "^1.14.5",
     "primeng": "^5.2.7",
     "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

@@ -1,12 +1,9 @@
-
-import {throwError as observableThrowError,  Observable } from 'rxjs';
+import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { timeout, catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, Response, Headers, RequestOptions } from '@angular/http';
-
-
-
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Response } from '@angular/http';
 
 import { environment } from '../../environments/environment';
 
@@ -20,6 +17,7 @@ import { ReceiveOtherModel } from './models/httpModels/receiveOtherModel';
 import { ReceiveTypeModel } from './models/httpModels/typeModel';
 import { RevieveSaveModel } from './models/httpModels/recieveSaveModel';
 import { PostSaveModel } from './models/httpModels/postSaveModel';
+import { ResponseModel } from './models/httpModels/responseModel';
 
 @Injectable()
 export class UserService {
@@ -30,7 +28,7 @@ export class UserService {
 
   loginRoute: string;
 
-  private createHeader(headers: Headers, authentication: boolean) {
+  private createHeader(headers: HttpHeaders, authentication: boolean) {
     headers.append('Content-Type', 'application/json');
 
     if (authentication) {
@@ -45,114 +43,125 @@ export class UserService {
   }
 
   login(username: string, password: string) {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     this.createHeader(headers, false);
-    return this.http.post(this.url + 'login', { username: username, password: password }, { headers }).toPromise()
+    return this.http.post(this.url + 'auth/login', { username: username, password: password }, { headers }).toPromise()
     .then((res: Response) => res.json())
     .catch(this.handleError);
   }
 
   checkLogin() {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     this.createHeader(headers, true);
-    return this.http.get(this.url + 'check-login', { headers: headers });
+    return this.http.get(this.url + 'auth/check-login', { headers: headers });
   }
 
-  checkConnection(): Observable<ConnectionCheck> {
-    return this.http.get(this.url + 'check-connection').timeout(30000).catch(this.handleTimeout);
+  checkConnection(): Promise<ConnectionCheck> {
+    return this.http.get<ConnectionCheck>(this.url + 'test/check-connection').pipe(timeout(30000), catchError(this.handleTimeout)).toPromise()
+    .catch(this.handleError);
+  }
+
+  checkStorageAuth(): Promise<string> {
+    return this.http.get<string>(this.url + 'test/test-storage', { responseType: 'text' as 'json'}).toPromise()
+    .catch(this.handleError);
   }
 
   getType(): Observable<ReceiveTypeModel[]> {
-    return this.http.get(this.url + 'get-type');
+    return this.http.get<ReceiveTypeModel[]>(this.url + 'get/type');
   }
 
-  getBasic(): Observable<ReceiveBasicModel> {
-    return this.http.get(this.url + 'get-basic');
+  getBasic(): Observable<ResponseModel> {
+    return this.http.get<ResponseModel>(this.url + 'get/basic');
   }
 
-  getSkills(id: number): Observable<SkillModel[]> {
-    const headers = new Headers();
-    headers.append('basicId', id.toString());
-    return this.http.get(this.url + 'get-skills', { headers: headers });
+  getSkills(id: number): Observable<ResponseModel> {
+    const headers = new HttpHeaders({
+        'basicid': id.toString()
+    });
+    return this.http.get<ResponseModel>(this.url + 'get/skills', { headers: headers });
   }
 
-  getTech(id: number): Observable<ReceiveTechModel> {
-    const headers = new Headers();
-    headers.append('basicId', id.toString());
-    return this.http.get(this.url + 'get-technology', { headers: headers });
+  getTech(id: number): Observable<ResponseModel> {
+    const headers = new HttpHeaders({
+        'basicid': id.toString()
+    });
+    return this.http.get<ResponseModel>(this.url + 'get/technology', { headers: headers });
   }
 
-  getExperience(id: number): Observable<ExperienceModel[]> {
-    const headers = new Headers();
-    headers.append('basicId', id.toString());
-    return this.http.get(this.url + 'get-experience', { headers: headers });
+  getExperience(id: number): Observable<ResponseModel> {
+    const headers = new HttpHeaders({
+        'basicid': id.toString()
+    });
+    return this.http.get<ResponseModel>(this.url + 'get/experience', { headers: headers });
   }
 
-  getEducation(id: number): Observable<ReceiveEducationModel> {
-    const headers = new Headers();
-    headers.append('basicId', id.toString());
-    return this.http.get(this.url + 'get-education', { headers: headers });
+  getEducation(id: number): Observable<ResponseModel> {
+    const headers = new HttpHeaders({
+        'basicid': id.toString()
+    });
+    return this.http.get<ResponseModel>(this.url + 'get/education', { headers: headers });
   }
 
-  getOther(id: number): Observable<ReceiveOtherModel> {
-    const headers = new Headers();
-    headers.append('basicId', id.toString());
-    return this.http.get(this.url + 'get-other', { headers: headers });
+  getOther(id: number): Observable<ResponseModel> {
+    const headers = new HttpHeaders({
+        'basicid': id.toString()
+    });
+    return this.http.get<ResponseModel>(this.url + 'get/other', { headers: headers });
   }
 
   verifyBasic(basic: ReceiveBasicModel): Promise<{ basic: boolean, phone: boolean, social: boolean }> {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     this.createHeader(headers, false);
-    return this.http.post(this.url + 'verify-basic', { basic }, { headers: headers }).toPromise()
-    .then((res: Response) => res.json())
+    return this.http.post(this.url + 'verify/basic', { basic }, { headers: headers }).toPromise()
+    .then((res: ResponseModel) => res.results)
     .catch(this.handleError);
   }
 
   verifySkill(skill: SkillModel[]): Promise<boolean> {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     this.createHeader(headers, false);
-    return this.http.post(this.url + 'verify-skill', { skill }, { headers: headers }).toPromise()
-    .then((res: Response) => res.json())
+    return this.http.post(this.url + 'verify/skill', { skill }, { headers: headers }).toPromise()
+    .then((res: ResponseModel) => res.results)
     .catch(this.handleError);
   }
 
   verifyTech(tech: ReceiveTechModel): Promise<{ technology: boolean, repository: boolean }> {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     this.createHeader(headers, false);
-    return this.http.post(this.url + 'verify-tech', { tech }, { headers: headers }).toPromise()
-    .then((res: Response) => res.json())
+    return this.http.post(this.url + 'verify/tech', { tech }, { headers: headers }).toPromise()
+    .then((res: ResponseModel) => res.results)
     .catch(this.handleError);
   }
 
   verifyExperience(experience: ExperienceModel[]): Promise<boolean> {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     this.createHeader(headers, false);
-    return this.http.post(this.url + 'verify-experience', { experience }, { headers: headers }).toPromise()
-    .then((res: Response) => res.json())
+    return this.http.post(this.url + 'verify/experience', { experience }, { headers: headers }).toPromise()
+    .then((res: ResponseModel) => res.results)
     .catch(this.handleError);
   }
 
   verifyEducation(education: ReceiveEducationModel): Promise<{ education: boolean, paper: boolean }> {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     this.createHeader(headers, false);
-    return this.http.post(this.url + 'verify-education', { education }, { headers: headers }).toPromise()
-    .then((res: Response) => res.json())
+    return this.http.post(this.url + 'verify/education', { education }, { headers: headers }).toPromise()
+    .then((res: ResponseModel) => res.results)
     .catch(this.handleError);
   }
 
   verifyOther(other: ReceiveOtherModel): Promise<{ achievement: boolean, interest: boolean }> {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     this.createHeader(headers, false);
-    return this.http.post(this.url + 'verify-other', { other }, { headers: headers }).toPromise()
-    .then((res: Response) => res.json())
+    return this.http.post(this.url + 'verify/other', { other }, { headers: headers }).toPromise()
+    .then((res: ResponseModel) => res.results)
     .catch(this.handleError);
   }
 
   SaveEdit(edit: PostSaveModel): Promise<RevieveSaveModel> {
-    const headers = new Headers();
+    const headers = new HttpHeaders();
     this.createHeader(headers, true);
-    return this.http.post(this.url + 'save-edit', { edit }, { headers: headers }).toPromise()
-    .then((res: Response) => res.json())
+    return this.http.post(this.url + 'save/edit', { edit }, { headers: headers }).toPromise()
+    .then((res: ResponseModel) => res.results)
     .catch(this.handleError);
   }
 

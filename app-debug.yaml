@@ -1,0 +1,36 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+default_expiration: "30s"
+
+instance_class: F2
+
+skip_files:
+- ^(?!dist).*$  # Skip any files not in the dist folder
+
+handlers:
+  - url: "/((?:inline|main|polyfills|styles|vendor|runtime|scripts)\\.[a-z0-9]+\\.js)"
+    static_files: "dist/\\1"
+    require_matching_file: false
+    application_readable: false
+    upload: 'dist/.*'
+  - url: "/(styles\\.[a-z0-9]+\\.css)"
+    static_files: "dist/\\1"
+    require_matching_file: false
+    application_readable: false
+    upload: 'dist/.*'
+  - url: "/((?:assets|docs)/.*|favicon\\.ico)"
+    static_files: "dist/\\1"
+    require_matching_file: false
+    application_readable: false
+    upload: 'dist/.*'
+  - url: "/((?:secureFiles)/.*)"
+    static_files: "dist/\\1"
+    require_matching_file: false
+    application_readable: false
+    upload: 'dist/.*'
+  - url: '/.*'
+    static_files: dist/index.html
+    require_matching_file: false
+    upload: "dist/index.html"

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject ,  Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { AchievementModel } from '../shared/models/achievementModel';
 import { InterestHobbiesModel } from '../shared/models/interestHobbiesModel';
@@ -7,9 +7,8 @@ import { UploadFileModel } from '../shared/models/uploadFileModel';
 import { PhoneNumberModel } from '../shared/models/phoneNumberModel';
 import { PhoneTypeModel } from '../shared/models/phoneTypeModel';
 import { EducationModel } from '../shared/models/educationModel';
-import { CoursePaperModel } from '../shared/models/coursePaperModel';
-import { ExperienceModel } from '../shared/models/experienceModel';
-import { SkillModel } from "../shared/models/skillModel";
+import { ExperienceModel } from '../shared/models/displayModels/experienceModel';
+import { SkillModel } from "../shared/models/displayModels/skillModel";
 import { TechnologyModel } from "../shared/models/technologyModel";
 import { RepositoryOptionModel } from "../shared/models/repositoryOptionModel";
 import { RepositoryModel } from "../shared/models/repositoryModel";

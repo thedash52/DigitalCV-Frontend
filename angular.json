@@ -25,7 +25,6 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeng/resources/themes/voclain/theme.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/angular2-busy/build/style/busy.css",
               "src/styles.css",
               "src/assets/css/app.scss"
             ],
@@ -87,7 +86,6 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeng/resources/themes/voclain/theme.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/angular2-busy/build/style/busy.css",
               "src/styles.css",
               "src/assets/css/app.scss"
             ],
