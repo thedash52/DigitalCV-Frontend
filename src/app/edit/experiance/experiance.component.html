@@ -22,7 +22,7 @@
           <form>
             <div class="row">
               <div class="col-md-12">
-                <p-dataTable [value]="experienceList" [responsive]="false">
+                <p-table [value]="experienceList" [responsive]="false">
                   <p-column field="img" header="Image" styleClass="text-center" [style]="{width: '7%'}">
                     <ng-template let-img let-experience="rowData" pTemplate="body">
                       <img src="{{experience[img.field]}}" height="60" width="60">
@@ -47,7 +47,7 @@
                       <button type="button" pButton (click)="deleteExperience(experience)" icon="fa-trash-o"></button>
                     </ng-template>
                   </p-column>
-                </p-dataTable>
+                </p-table>
               </div>
             </div>
           </form>

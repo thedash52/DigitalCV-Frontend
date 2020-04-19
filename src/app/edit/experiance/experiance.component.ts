@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { EditService } from '../edit.service';
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 
 import { ExperienceModel } from '../../shared/models/displayModels/experienceModel';
 

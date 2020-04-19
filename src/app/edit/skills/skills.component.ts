@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 import { EditService } from '../edit.service';
 
 import { SkillModel } from '../../shared/models/displayModels/skillModel';

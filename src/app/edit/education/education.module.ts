@@ -5,7 +5,12 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 
-import { DataTableModule, SharedModule, DialogModule, ButtonModule, ConfirmDialogModule, ConfirmationService, InputTextModule } from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { EditService } from '../edit.service';
 
@@ -15,8 +20,7 @@ import { EditService } from '../edit.service';
     RouterModule,
     FormsModule,
     MatCardModule,
-    DataTableModule,
-    SharedModule,
+    TableModule,
     DialogModule,
     ButtonModule,
     ConfirmDialogModule,

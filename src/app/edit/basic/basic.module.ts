@@ -6,7 +6,14 @@ import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
-import { ButtonModule, InputTextModule, InputTextareaModule, DropdownModule, DataTableModule, SharedModule, ConfirmDialogModule, ConfirmationService, DialogModule } from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
 import { ImageCropperModule } from "ngx-img-cropper";
 
 import { EditService } from '../edit.service';
@@ -22,8 +29,7 @@ import { EditService } from '../edit.service';
     InputTextareaModule,
     DropdownModule,
     MatButtonModule,
-    DataTableModule,
-    SharedModule,
+    TableModule,
     ConfirmDialogModule,
     DialogModule,
     ImageCropperModule
