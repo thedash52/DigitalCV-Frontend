@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 import { EditService } from '../edit.service';
 import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper";
 

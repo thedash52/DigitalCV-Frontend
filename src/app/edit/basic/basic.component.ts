@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { SelectItem } from 'primeng/primeng';
-
 import { EditService } from '../edit.service';
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 import { ImageCropperComponent, CropperSettings, Bounds } from "ngx-img-cropper";
 
 import { PhoneNumberModel } from '../../shared/models/phoneNumberModel';

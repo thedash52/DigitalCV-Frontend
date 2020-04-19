@@ -22,7 +22,7 @@
           <form>
             <div class="row">
               <div class="col-md-12">
-                <p-dataTable [value]="skills" sortField="category" sortOrder="1" rowGroupMode="subheader" groupField="category">
+                <p-table [value]="skills" sortField="category" sortOrder="1" rowGroupMode="subheader" groupField="category">
                   <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData.category}}</ng-template>
 
                   <p-column field="detail" header="Details" styleClass="text-center"></p-column>
@@ -33,7 +33,7 @@
                       <button type="button" pButton (click)="deleteSkill(skill)" icon="fa-trash-o"></button>
                     </ng-template>
                   </p-column>
-                </p-dataTable>
+                </p-table>
               </div>
             </div>
           </form>

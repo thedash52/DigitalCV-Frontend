@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="col-md-7 border-top achievement-list">
-                  <p-dataTable [value]="achievements" scrollable="true" scrollHeight="18em">
+                  <p-table [value]="achievements" scrollable="true" scrollHeight="18em">
                     <p-column field="name" header="Name" styleClass="text-center"></p-column>
                     <p-column field="where" header="Where" styleClass="text-center"></p-column>
                     <p-column field="whatWhy" header="What/Why" styleClass="text-center"></p-column>
@@ -67,7 +67,7 @@
                         <button type="button" pButton (click)="deleteAchievement(achievement)" icon="fa-trash-o"></button>
                       </ng-template>
                     </p-column>
-                  </p-dataTable>
+                  </p-table>
                 </div>
               </div>
 
@@ -97,7 +97,7 @@
                   </div>
 
                   <div class="row padding-left">
-                    <p-dataTable [value]="interestsHobbies" scrollable="true" scrollHeight="5.25em">
+                    <p-table [value]="interestsHobbies" scrollable="true" scrollHeight="5.25em">
                       <p-column field="img" header="Image" styleClass="text-center">
                         <ng-template let-img let-interestHobby="rowData" pTemplate="body">
                           <img src="{{interestHobby[img.field]}}" height="30" width="30" *ngIf="interestHobby[img.field]">
@@ -112,7 +112,7 @@
                           <button type="button" pButton (click)="deleteInterestHobby(interestHobby)" icon="fa-trash-o"></button>
                         </ng-template>
                       </p-column>
-                    </p-dataTable>
+                    </p-table>
                   </div>
                 </div>
 

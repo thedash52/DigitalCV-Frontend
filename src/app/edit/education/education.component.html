@@ -20,7 +20,7 @@
           <form>
             <div class="row">
               <div class="col-md-12">
-                <p-dataTable [value]="educationList" selectionMode="single" [(selection)]="selectedCourse" (onRowSelect)="courseSelected($event)"
+                <p-table [value]="educationList" selectionMode="single" [(selection)]="selectedCourse" (onRowSelect)="courseSelected($event)"
                   sortField="year" sortOrder="-1" rowGroupMode="subheader" groupField="year"
                   [metaKeySelection]="false">
                   <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['year']}}</ng-template>
@@ -43,7 +43,7 @@
                       <button type="button" pButton (click)="deleteCourse(education)" icon="fa-trash-o"></button>
                     </ng-template>
                   </p-column>
-                </p-dataTable>
+                </p-table>
               </div>
             </div>
           </form>
@@ -58,12 +58,12 @@
     Course Papers for {{selectedCourse.course}}
   </p-header>
 
-  <p-dataTable [value]="selectedCourse.papers">
+  <p-table [value]="selectedCourse.papers">
     <p-column field="code" header="Paper Code" styleClass="text-center"></p-column>
     <p-column field="name" header="Paper Name" styleClass="text-center"></p-column>
     <p-column field="details" header="Paper Details" styleClass="text-center"></p-column>
     <p-column field="grade" header="Overall Paper Grade" styleClass="text-center"></p-column>
-  </p-dataTable>
+  </p-table>
 
   <p-footer>
     <button type="button" pButton label="Close" (click)="closePapersDialog()"></button>
@@ -137,7 +137,61 @@
 
     <div class="row">
       <div class="col-md-12">
-        <p-dataTable [value]="selectedCourse.papers" [editable]="true" scrollable="true" scrollHeight="10.1em">
+          <p-table [value]="selectedCourse.papers">
+            <ng-template pTemplate="header">
+
+            </ng-template>
+            
+            <ng-template ptemplate="body" let-rowData>
+                <tr>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="rowData.code")]>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.code}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="rowData.name")]>
+                            </ng-template>
+
+                            <ng-template pTemplate="output">
+                                {{rowData.name}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="rowData.details")]>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.details}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="rowData.grade")]>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.grade}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                </tr>
+            </ng-template>
+          </p-table>
+        <!-- <p-table [value]="selectedCourse.papers" [editable]="true" scrollable="true" scrollHeight="10.1em">
           <p-column field="code" header="Paper Code" styleClass="text-center" [editable]="true"></p-column>
           <p-column field="name" header="Paper Name" styleClass="text-center" [editable]="true"></p-column>
           <p-column field="details" header="Paper Details" styleClass="text-center" [editable]="true"></p-column>
@@ -152,7 +206,7 @@
           <p-footer>
             <button type="button" pButton label="Add Paper" (click)="addPaper()"></button>
           </p-footer>
-        </p-dataTable>
+        </p-table> -->
       </div>
     </div>
   </div>
@@ -230,7 +284,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <p-dataTable [value]="selectedCourse.papers" [editable]="true" scrollable="true" scrollHeight="10.1em">
+        <!-- <p-table [value]="selectedCourse.papers" [editable]="true" scrollable="true" scrollHeight="10.1em">
           <p-column field="code" header="Paper Code" styleClass="text-center" [editable]="true"></p-column>
           <p-column field="name" header="Paper Name" styleClass="text-center" [editable]="true"></p-column>
           <p-column field="details" header="Paper Details" styleClass="text-center" [editable]="true"></p-column>
@@ -245,7 +299,7 @@
           <p-footer>
             <button type="button" pButton label="Add Paper" (click)="addPaper()"></button>
           </p-footer>
-        </p-dataTable>
+        </p-table> -->
       </div>
     </div>
   </div>

@@ -3,8 +3,14 @@ import { CommonModule } from '@angular/common';
 import { SkillsComponent } from './skills.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material';
-import { DataTableModule, SharedModule, ButtonModule, DialogModule, ConfirmationService, ConfirmDialogModule, InputTextareaModule, DropdownModule } from 'primeng/primeng';
+import { MatCardModule } from '@angular/material/card';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { EditService } from '../edit.service';
 
@@ -14,8 +20,7 @@ import { EditService } from '../edit.service';
     RouterModule,
     FormsModule,
     MatCardModule,
-    DataTableModule,
-    SharedModule,
+    TableModule,
     ButtonModule,
     ConfirmDialogModule,
     InputTextareaModule,

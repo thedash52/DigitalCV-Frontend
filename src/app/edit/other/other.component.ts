@@ -5,7 +5,7 @@ import { InterestHobbiesModel } from '../../shared/models/interestHobbiesModel';
 import { UploadFileModel } from '../../shared/models/uploadFileModel';
 
 import { EditService } from '../edit.service';
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-other',

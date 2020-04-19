@@ -3,9 +3,17 @@ import { CommonModule } from '@angular/common';
 import { ExperianceComponent } from './experiance.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from "@angular/forms";
-import { MatCardModule, MatCheckboxModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { DataTableModule, SharedModule, ButtonModule, ConfirmDialogModule, ConfirmationService, DialogModule, InputTextModule, CalendarModule, InputTextareaModule } from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { CalendarModule } from 'primeng/calendar';
 
 import { EditService } from '../edit.service';
 
@@ -15,8 +23,7 @@ import { EditService } from '../edit.service';
     RouterModule,
     FormsModule,
     MatCardModule,
-    DataTableModule,
-    SharedModule,
+    TableModule,
     ButtonModule,
     ConfirmDialogModule,
     DialogModule,
