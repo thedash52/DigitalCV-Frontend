@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { system } from "../../environments/system"
 
 import { Message, SelectItem } from "primeng/api";
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 
 import { CvService } from "../shared/index";
 import { EditService } from "../edit/index";
