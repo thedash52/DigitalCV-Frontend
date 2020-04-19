@@ -22,10 +22,11 @@
             ],
             "styles": [
               "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/voclain/theme.css",
+              "node_modules/primeng/resources/themes/nova-dark/theme.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css",
+              "src/styles.scss",
               "src/assets/css/app.scss"
             ],
             "scripts": [
@@ -86,7 +87,7 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeng/resources/themes/voclain/theme.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css",
+              "src/styles.scss",
               "src/assets/css/app.scss"
             ],
             "assets": [

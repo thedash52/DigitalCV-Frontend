@@ -6,7 +6,12 @@ import { DetailsComponent } from './details.component';
 import { RouterModule } from '@angular/router';
 
 import { MatCardModule, MatGridListModule, MatListModule, MatTooltipModule, MatIconModule } from "@angular/material";
-import { MessagesModule, CarouselModule, ButtonModule, DataTableModule, SharedModule } from "primeng/primeng";
+import { SharedModule } from "primeng/shared";
+import { ButtonModule } from "primeng/button";
+import { CarouselModule } from "primeng/carousel";
+import { MessagesModule } from "primeng/messages";
+import { MessageModule } from "primeng/message";
+import { TableModule } from "primeng/table";
 
 import { CvService } from "../shared/index";
 import { EditService } from "../edit/index";
@@ -20,11 +25,12 @@ import { UserService } from "../shared/index";
         BrowserAnimationsModule,
         MatCardModule,
         MessagesModule,
+        MessageModule,
         CarouselModule,
         ButtonModule,
         MatGridListModule,
         MatListModule,
-        DataTableModule,
+        TableModule,
         SharedModule,
         MatTooltipModule,
         MatIconModule

@@ -85,7 +85,7 @@ export class TestSiteComponent implements OnInit {
                     this.verifyEducation(),
                     this.verifyOther()
                 ])).then(() => {
-                    this.status = "Data Verified. Preperations Complete. Displaying CV.";
+                    this.status = "Data Verified. Preparations Complete. Displaying CV.";
                     this.cvService.setUp.next(true);
 
                     setTimeout(() => {
@@ -96,7 +96,7 @@ export class TestSiteComponent implements OnInit {
                 }).catch((err: string | any) => {
                     if (typeof (err) == "boolean") {
                         if (err) {
-                            this.status = "Data Verified. Preperations Complete. Displaying CV.";
+                            this.status = "Data Verified. Preparations Complete. Displaying CV.";
                             this.cvService.setUp.next(true);
 
                             setTimeout(() => {

@@ -3,67 +3,69 @@
 <div class="background" *ngIf="showPage">
   <div class="container">
     <div class="animate">
-      <nav id="navbar" class="navbar navbar-fixed-top navbar-default navbar-inverse">
-        <div class="col-md-2 col-md-offset-1">
-          <h3 class="header">Digital CV</h3>
-        </div>
+      <nav id="navbar" class="navbar navbar-expand fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Digital CV</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <div class="col-md-5">
-          <ul id="navItems" class="nav navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul id="navItems" class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a role=button (click)="scrollTo('basic')">Basic</a>
+              <a class="nav-link" role=button (click)="scrollTo('basic')">Basic</a>
             </li>
             <li class="nav-item">
-              <a role=button (click)="scrollTo('skill')">Skills</a>
+              <a class="nav-link" role=button (click)="scrollTo('skill')">Skills</a>
             </li>
             <li class="nav-item">
-              <a role=button (click)="scrollTo('tech')">Technologies</a>
+              <a class="nav-link" role=button (click)="scrollTo('tech')">Technologies</a>
             </li>
             <li class="nav-item">
-              <a role=button (click)="scrollTo('experience')">Experience</a>
+              <a class="nav-link" role=button (click)="scrollTo('experience')">Experience</a>
             </li>
             <li class="nav-item">
-              <a role=button (click)="scrollTo('education')">Education</a>
+              <a class="nav-link" role=button (click)="scrollTo('education')">Education</a>
             </li>
             <li class="nav-item">
-              <a role=button (click)="scrollTo('other')">Other</a>
+              <a class="nav-link" role=button (click)="scrollTo('other')">Other</a>
             </li>
           </ul>
         </div>
 
-        <div class="col-md-1 col-md-offset-3">
+        <div class="col-md-1 offset-md-5">
           <ul id="navItems" class="nav navbar-nav">
             <li class="nav-item" *ngIf="!loggedIn">
-              <a role="button" (click)="login()">Login</a>
+              <a class="nav-link" role="button" (click)="login()">Login</a>
             </li>
 
             <li class="dropdown nav-item" dropdown *ngIf="loggedIn">
-              <a role="button" id="dropdownMenu" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                dropdown-toggle>Edit
+              <a role="button" id="dropdownMenu" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="true" dropdown-toggle>Edit
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <li>
-                  <a role=button (click)="editRoute('/edit/basic')">Basic</a>
+                  <a class="dropdown-item" role=button (click)="editRoute('/edit/basic')">Basic</a>
                 </li>
                 <li>
-                  <a role=button (click)="editRoute('/edit/skills')">Skills</a>
+                  <a class="dropdown-item" role=button (click)="editRoute('/edit/skills')">Skills</a>
                 </li>
                 <li>
-                  <a role=button (click)="editRoute('/edit/technology')">Technologies</a>
+                  <a class="dropdown-item" role=button (click)="editRoute('/edit/technology')">Technologies</a>
                 </li>
                 <li>
-                  <a role=button (click)="editRoute('/edit/experience')">Experience</a>
+                  <a class="dropdown-item" role=button (click)="editRoute('/edit/experience')">Experience</a>
                 </li>
                 <li>
-                  <a role=button (click)="editRoute('/edit/education')">Education</a>
+                  <a class="dropdown-item" role=button (click)="editRoute('/edit/education')">Education</a>
                 </li>
                 <li>
-                  <a role=button (click)="editRoute('/edit/other')">Other</a>
+                  <a class="dropdown-item" role=button (click)="editRoute('/edit/other')">Other</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a role="button" (click)="logout()">Logout</a>
+                  <a class="dropdown-item" role="button" (click)="logout()">Logout</a>
                 </li>
               </ul>
           </ul>
@@ -73,15 +75,16 @@
       <div id="content" class="row navBar-padding">
         <div class="col-md-12">
           <div id="basic" *ngIf="cvService.basic; else noBasicData">
-            <div class="row">
-              <div class="col-md-2 col-md-offset-3" *ngIf="cvService.basic.avatar">
-                <img [src]="cvService.basic.avatar" class="img-circle avatar-position" width="100%" height="100%" alt="avatar-img" />
+            <!-- <div class="row" *ngIf="cvService.basic.avatar">
+              <div class="col-md-2 offset-md-3">
+                <img [src]="cvService.basic.avatar" class="rounded-circle avatar-position" width="100%" height="100%"
+                  alt="avatar-img" />
               </div>
-            </div>
+            </div> -->
 
-            <div class="row">
-              <div class="col-md-4 col-md-offset-4" *ngIf="cvService.basic.profile">
-                <img [src]="cvService.basic.profile" class="img-circle profile-img" width="100%" height="100%" alt="profile-img" />
+            <div class="row" *ngIf="cvService.basic.profile">
+              <div class="col-md-4 offset-md-4">
+                <img [src]="cvService.basic.profile" class="rounded-circle profile-img" width="100%" height="100%" alt="profile-img" />
               </div>
             </div>
 
@@ -90,7 +93,7 @@
                 <mat-card id="basic-card" class="card">
                   <mat-card-content>
                     <div class="row" *ngIf="cvService.basic.name">
-                      <div class="col-md-4 col-md-offset-4">
+                      <div class="col-md-4 offset-md-4">
                         <h1>{{cvService.basic.name}}</h1>
                       </div>
                     </div>
@@ -101,7 +104,7 @@
                       <div class="col-md-4">
                         <div class="row" *ngIf="cvService.basic.address_1 || cvService.basic.address_2 || cvService.basic.address_3">
                           <div class="col-md-5">
-                            <h3 class="no-top-padding">Address:</h3>
+                            <h4 class="no-top-padding">Address:</h4>
                           </div>
 
                           <div class="col-md-7">
@@ -111,9 +114,11 @@
                           </div>
                         </div>
 
+                        <hr>
+
                         <div class="row" *ngIf="cvService.basic.city">
                           <div class="col-md-5">
-                            <h3 class="no-top-padding">City:</h3>
+                            <h4 class="no-top-padding">City:</h4>
                           </div>
 
                           <div class="col-md-7">
@@ -122,10 +127,10 @@
                         </div>
                       </div>
 
-                      <div class="col-md-4 border-left" *ngIf="phoneData">
+                      <div class="col-md-3 border-left" *ngIf="phoneData">
                         <div class="row" *ngFor="let phone of phoneData">
                           <div class="col-md-4">
-                            <h3 class="no-top-padding">{{phone.type.long}}</h3>
+                            <h4 class="no-top-padding">{{phone.type.long}}</h4>
                           </div>
 
                           <div class="col-md-8">
@@ -134,10 +139,10 @@
                         </div>
                       </div>
 
-                      <div class="col-md-4 border-left" *ngIf="socialData">
+                      <div class="col-md-5 border-left" *ngIf="socialData">
                         <div class="row" *ngFor="let social of socialData">
                           <div class="col-md-4">
-                            <h3 class="no-top-padding">{{social.type.long}}</h3>
+                            <h4 class="no-top-padding">{{social.type.long}}</h4>
                           </div>
 
                           <div class="col-md-8">
@@ -153,12 +158,12 @@
                       <div class="col-md-12">
                         <div class="row">
                           <div class="col-md-3">
-                            <h3 class="no-top-padding">Summary:</h3>
+                            <h4 class="no-top-padding">Summary:</h4>
                           </div>
                         </div>
 
                         <div class="row">
-                          <div class="col-md-10 col-md-offset-1">
+                          <div class="col-md-10 offset-md-1">
                             <p>{{cvService.basic.summary}}</p>
                           </div>
                         </div>
@@ -183,7 +188,8 @@
               <mat-card-content>
                 <div *ngFor="let rowData of configureSkills(); let first = first; let last = last">
                   <div class="row" [class.border-bottom]="first && !last" *ngIf="rowData.column.length == 3; else twoColumns">
-                    <div class="col-md-4 skills" [class.border-right]="columnFirst" [class.border-left]="columnLast" *ngFor="let columnData of rowData.column; let columnFirst = first; let columnLast = last">
+                    <div class="col-md-4 skills" [class.border-right]="columnFirst" [class.border-left]="columnLast"
+                      *ngFor="let columnData of rowData.column; let columnFirst = first; let columnLast = last">
                       <div class="row" *ngIf="columnData.value.label">
                         <div class="col-md-12">
                           <h4 class="border-padding">{{columnData.value.label}}</h4>
@@ -196,15 +202,15 @@
                             <li *ngFor="let skill of columnData.value.value">
                               {{skill}}
                             </li>
-                          </ul> 
+                          </ul>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <ng-template #twoColumns >
+                  <ng-template #twoColumns>
                     <div class="row" *ngIf="rowData.column.length == 2; else oneColumn">
-                      <div class="col-md-offset-2 col-md-4 skills" [class.border-right]="columnFirst" *ngFor="let columnData of rowData.column; let columnFirst = first">
+                      <div class="offset-md-2 col-md-4 skills" [class.border-right]="columnFirst" *ngFor="let columnData of rowData.column; let columnFirst = first">
                         <div class="row" *ngIf="columnData.value.label">
                           <div class="col-md-12">
                             <h4 class="border-padding">{{columnData.value.label}}</h4>
@@ -217,7 +223,7 @@
                               <li *ngFor="let skill of columnData.value.value">
                                 {{skill}}
                               </li>
-                            </ul> 
+                            </ul>
                           </div>
                         </div>
                       </div>
@@ -226,7 +232,7 @@
 
                   <ng-template #oneColumn>
                     <div class="row">
-                      <div class="col-md-offset-4 col-md-4 skills" *ngFor="let columnData of rowData.column">
+                      <div class="offset-md-4 col-md-4 skills" *ngFor="let columnData of rowData.column">
                         <div class="row" *ngIf="columnData.value.label">
                           <div class="col-md-12">
                             <h4 class="border-padding">{{columnData.value.label}}</h4>
@@ -239,7 +245,7 @@
                               <li *ngFor="let skill of columnData.value.value">
                                 {{skill}}
                               </li>
-                            </ul> 
+                            </ul>
                           </div>
                         </div>
                       </div>
@@ -286,7 +292,7 @@
                     <p-carousel circular="circular" autoplayInterval="10000" [value]="techData">
                       <ng-template let-tech pTemplate="item">
                         <div class="row" *ngIf="tech.img">
-                          <div class="col-md-4 col-md-offset-4">
+                          <div class="col-md-4 offset-md-4">
                             <img src="{{tech.img}}" alt="Tech Image">
                           </div>
                         </div>
@@ -316,8 +322,9 @@
                         <hr class="hr-padding" *ngIf="tech.link">
 
                         <div class="row padding-bottom" *ngIf="tech.link">
-                          <div class="col-md-6 col-md-offset-3">
-                            <button type="button" class="full-width" pButton icon="fa fa-external-link" iconPos="right" label="Go To Technology" (click)="openTech(tech.link)"></button>
+                          <div class="col-md-6 offset-md-3">
+                            <button type="button" class="full-width" pButton icon="fa fa-external-link" iconPos="right"
+                              label="Go To Technology" (click)="openTech(tech.link)"></button>
                           </div>
                         </div>
                       </ng-template>
@@ -340,16 +347,18 @@
                         <div class="row">
                           <div *ngFor="let repo of repoData">
                             <a role="button" href="http://{{repo.link}}" target="_blank">
-                              <div class="col-md-2">
-                                <div class="col-md-2" [ngSwitch]="repo.type.long">
-                                  <i *ngSwitchCase="'BitBucket'" class="fa fa-bitbucket" aria-hidden="true"></i>
-                                  <i *ngSwitchCase="'GitHub'" class="fa fa-github" aria-hidden="true"></i>
-                                </div>
+                              <div class="col-md-3">
+                                <div class="row">
+                                  <div class="col-md-12" [ngSwitch]="repo.type.long">
+                                    <i *ngSwitchCase="'BitBucket'" class="fa fa-bitbucket" aria-hidden="true"></i>
+                                    <i *ngSwitchCase="'GitHub'" class="fa fa-github" aria-hidden="true"></i>
+                                  </div>
 
-                                <div class="col-md-9">
-                                  <a role="button" (click)="openRepo(repo.link)">{{repo.type.long}}
-                                    <i class="fa fa-external-link"></i>
-                                  </a>
+                                  <div class="col-md-9">
+                                    <a role="button" (click)="openRepo(repo.link)">{{repo.type.long}}
+                                      <i class="fa fa-external-link"></i>
+                                    </a>
+                                  </div>
                                 </div>
                               </div>
                             </a>
@@ -379,18 +388,20 @@
                     <div class="time-card" [class.direction-l]="isOdd" [class.direction-r]="isEven">
                       <div class="flag-wrapper">
                         <span class="flag" *ngIf="experience.title">{{experience.title}}</span>
-                        <span *ngIf="experience.current && experience.start_date" class="time-wrapper time">{{experience.start_date | date:'MMM y'}} - Current</span>
-                        <span *ngIf="!experience.current && experience.start_date && experience.end_date" class="time-wrapper time">{{experience.start_date | date:'MMM y'}} - {{experience.end_date | date:'MMM y'}}</span>
+                        <span *ngIf="experience.current && experience.start_date" class="time-wrapper time">{{experience.start_date
+                          | date:'MMM y'}} - Current</span>
+                        <span *ngIf="!experience.current && experience.start_date && experience.end_date" class="time-wrapper time">{{experience.start_date
+                          | date:'MMM y'}} - {{experience.end_date | date:'MMM y'}}</span>
                       </div>
 
                       <div class="desc">
                         <div *ngIf="isEven">
                           <div class="row">
-                            <div class="col-md-3" *ngIf="experience.image">
+                            <!-- <div class="col-md-3" *ngIf="experience.image">
                               <img src="{{experience.image}}">
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-9" *ngIf="experience.location">
+                            <div class="col-md-12" *ngIf="experience.location">
                               <div class="row">
                                 <div class="col-md-4">
                                   <h5>Location:</h5>
@@ -418,7 +429,7 @@
 
                         <div *ngIf="isOdd">
                           <div class="row">
-                            <div class="col-md-9" *ngIf="experience.location">
+                            <div class="col-md-12" *ngIf="experience.location">
                               <div class="row">
                                 <div class="col-md-4">
                                   <h5>Location:</h5>
@@ -430,9 +441,9 @@
                               </div>
                             </div>
 
-                            <div class="col-md-3" *ngIf="experience.image">
+                            <!-- <div class="col-md-3" *ngIf="experience.image">
                               <img src="{{experience.image}}">
-                            </div>
+                            </div> -->
                           </div>
 
                           <div class="row" *ngIf="experience.description">
@@ -477,11 +488,11 @@
                       <div class="desc">
                         <div *ngIf="isEven">
                           <div class="row">
-                            <div class="col-md-3" *ngIf="education.img">
+                            <!-- <div class="col-md-3" *ngIf="education.img">
                               <img src="{{education.img}}">
-                            </div>
+                            </div> -->
 
-                            <div class="col-md-9" *ngIf="education.school">
+                            <div class="col-md-12" *ngIf="education.school">
                               <div class="row">
                                 <div class="col-md-4">
                                   <h5>School:</h5>
@@ -496,8 +507,30 @@
 
                           <div class="row" *ngIf="getPapers(education.id)?.length">
                             <div class="col-md-12 paper-table">
-                              <p-dataTable [value]="getPapers(education.id)">
-                                <p-column field="code" header="Code" styleClass="paper-column"></p-column>
+                              <p-table [value]="getPapers(education.id)">
+                                <ng-template pTemplate="header">
+                                  <tr>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Grade</th>
+                                    <!-- <th>Details</th> -->
+                                  </tr>
+                                </ng-template>
+
+                                <ng-template pTemplate="body" let-paper>
+                                  <tr>
+                                    <td>{{ paper.code }}</td>
+                                    <td>{{ paper.name }}</td>
+                                    <td>{{ paper.grade }}</td>
+                                    <!-- <td>
+                                      <span matTooltip="{{paper.detail}}">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                      </span>
+                                    </td> -->
+                                  </tr>
+                                </ng-template>
+
+                                <!-- <p-column field="code" header="Code" styleClass="paper-column"></p-column>
                                 <p-column field="name" header="Name"></p-column>
                                 <p-column field="grade" header="Grade" [style]="{width: '15%'}"></p-column>
                                 <p-column header="Details" [style]="{width: '15%'}">
@@ -506,21 +539,22 @@
                                       <i class="fa fa-info-circle" aria-hidden="true"></i>
                                     </span>
                                   </ng-template>
-                                </p-column>
-                              </p-dataTable>
+                                </p-column> -->
+                              </p-table>
                             </div>
                           </div>
 
                           <div class="row" *ngIf="education.link">
                             <div class="col-md-12 course-link">
-                              <button pButton type="button" icon="fa fa-external-link" iconPos="right" label="Go To Course" (click)="openCourse(education.link)"></button>
+                              <button pButton type="button" icon="fa fa-external-link" iconPos="right" label="Go To Course"
+                                (click)="openCourse(education.link)"></button>
                             </div>
                           </div>
                         </div>
 
                         <div *ngIf="isOdd">
                           <div class="row">
-                            <div class="col-md-9" *ngIf="education.school">
+                            <div class="col-md-12" *ngIf="education.school">
                               <div class="row">
                                 <div class="col-md-4">
                                   <h5>School:</h5>
@@ -532,15 +566,37 @@
                               </div>
                             </div>
 
-                            <div class="col-md-3" *ngIf="education.img">
+                            <!-- <div class="col-md-3" *ngIf="education.img">
                               <img src="{{education.img}}">
-                            </div>
+                            </div> -->
                           </div>
 
                           <div class="row" *ngIf="getPapers(education.id)?.length">
                             <div class="col-md-12 paper-table">
-                              <p-dataTable [value]="getPapers(education.id)">
-                                <p-column field="code" header="Code" [style]="{width: '15%'}"></p-column>
+                              <p-table [value]="getPapers(education.id)">
+                                <ng-template pTemplate="header">
+                                  <tr>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Grade</th>
+                                    <!-- <th>Details</th> -->
+                                  </tr>
+                                </ng-template>
+
+                                <ng-template pTemplate="body" let-paper>
+                                  <tr>
+                                    <td>{{ paper.code }}</td>
+                                    <td>{{ paper.name }}</td>
+                                    <td>{{ paper.grade }}</td>
+                                    <!-- <td>
+                                      <span matTooltip="{{paper.detail}}">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                      </span>
+                                    </td> -->
+                                  </tr>
+                                </ng-template>
+
+                                <!-- <p-column field="code" header="Code" [style]="{width: '15%'}"></p-column>
                                 <p-column field="name" header="Name"></p-column>
                                 <p-column field="grade" header="Grade" [style]="{width: '15%'}"></p-column>
                                 <p-column header="Details" [style]="{width: '15%'}">
@@ -549,14 +605,15 @@
                                       <i class="fa fa-info-circle" aria-hidden="true"></i>
                                     </span>
                                   </ng-template>
-                                </p-column>
-                              </p-dataTable>
+                                </p-column> -->
+                              </p-table>
                             </div>
                           </div>
 
                           <div class="row" *ngIf="education.link">
                             <div class="col-md-12 course-link">
-                              <button pButton type="button" icon="fa fa-external-link" iconPos="right" label="Go To Course" (click)="openCourse(education.link)"></button>
+                              <button pButton type="button" icon="fa fa-external-link" iconPos="right" label="Go To Course"
+                                (click)="openCourse(education.link)"></button>
                             </div>
                           </div>
                         </div>
@@ -624,14 +681,14 @@
 
                     <div class="row">
                       <div class="col-md-12">
-                        <mat-list>
+                        <mat-list dense>
                           <mat-list-item *ngFor="let interest of interestData">
                             <img matListAvatar src="{{interest.img}}" *ngIf="interest.img; else defaultIcon">
                             <ng-template #defaultIcon>
                               <mat-icon matListIcon fontSet="font-awesome" fontIcon="fa-chevron-right"></mat-icon>
                             </ng-template>
 
-                            <h5 mat-line>{{interest.name}}</h5>
+                            <h5 matLine>{{interest.name}}</h5>
                           </mat-list-item>
                         </mat-list>
                       </div>
@@ -645,7 +702,7 @@
                   <div class="row" *ngIf="cvService.basic.show_referees">
                     <div class="col-md-12">
                       <h3 class="center-text">Referees and paper CV are available on request at my e-mail:
-                        <br/> thedash52@hotmail.com</h3>
+                        <br /> thedash52@hotmail.com</h3>
                     </div>
                   </div>
                 </div>
@@ -748,8 +805,8 @@
       </div>
 
       <footer class="footer">
-        <p class="center-text footer-text">This site was created by Daniel Nash, 2017.
-          <br/>Version: {{version}}</p>
+        <p class="center-text footer-text">This site was created by Daniel Nash.
+          <br />Version: {{version}}</p>
       </footer>
     </div>
   </div>

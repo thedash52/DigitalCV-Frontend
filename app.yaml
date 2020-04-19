@@ -25,7 +25,12 @@ handlers:
     require_matching_file: false
     application_readable: false
     upload: 'dist/.*'
-  - url: "/((?:fontawesome-webfont|color|background|hue|line|loading|password-meter)\\.[a-z0-9]+\\.(?:jpg|png|eot|svg|woff2|ttf|woff|gif))"
+  - url: "/((?:color|background|hue|line|loading|password-meter)\\.[a-z0-9]+\\.(?:jpg|png|svg|gif))"
+    static_files: "dist/\\1"
+    require_matching_file: false
+    application_readable: false
+    upload: 'dist/.*'
+  - url: "/((?:fontawesome-webfont|open-sans-v15-latin-regular|open-sans-v15-latin-700|open-sans-v15-latin-300|primeicons)\\.[a-z0-9]+\\.(?:svg|eot|woff2|ttf|woff))"
     static_files: "dist/\\1"
     require_matching_file: false
     application_readable: false

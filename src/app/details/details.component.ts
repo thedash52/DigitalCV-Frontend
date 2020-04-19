@@ -3,7 +3,7 @@ import { trigger, state, style, animate, transition } from "@angular/animations"
 import { Router } from "@angular/router";
 import { system } from "../../environments/system"
 
-import { Message, SelectItem } from "primeng/primeng";
+import { Message, SelectItem } from "primeng/api";
 import { MatIconRegistry } from '@angular/material';
 
 import { CvService } from "../shared/index";
